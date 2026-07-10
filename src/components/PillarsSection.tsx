@@ -316,15 +316,16 @@ export default function PillarsSection() {
             className="mt-6 text-headline font-semibold tracking-tight transition-colors duration-500"
             style={{ color: ACTIVE_THEME.textHeading }}
           >
-            Intelligence Everywhere You Go
+            Go about your Life. Anywhere. With Ease.
           </h2>
 
           <p
             className="mt-5 max-w-2xl transition-colors duration-500 sm:text-lg sm:leading-8"
             style={{ color: ACTIVE_THEME.textBody }}
           >
-            Reduces cognitive load. Lets you focus on what matters. Proactive
-            support across work, home, health, and the world around you.
+            From busy mornings to important meetings to travel, your devices
+            stay ready to listen. They understand your world, so you can focus
+            on living in it.
           </p>
         </div>
 

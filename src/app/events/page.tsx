@@ -14,7 +14,6 @@ const ACTIVE_THEME = {
   accent: theme.accent,
   accentBgMuted: withAlpha(theme.accent, 0.1),
   pageBg: theme.pageBg,
-  cardBg: theme.cardWarm,
 };
 
 /* Event details are placeholders — edit dates, booths, and blurbs here as
@@ -36,7 +35,7 @@ const PAST = [
     date: "January 2026",
     location: "Las Vegas, NV",
     image: "/samples/events-banner.jpg",
-    body: "We showcased adaptive audio intelligence live on the show floor — real-time single- and dual-mic noise suppression demos, far-field voice capture, and branded wake words running fully on-device with partner hardware.",
+    body: "IPHIPI showcased adaptive audio intelligence live on the show floor — real-time single-mic noise suppression demos on glasses, running fully on-device with partner hardware.",
   },
 ];
 
@@ -56,14 +55,6 @@ export default function EventsPage() {
         }
         .theme-btn-dark:hover {
           background-color: ${ACTIVE_THEME.primary};
-        }
-        
-        .theme-btn-light {
-          color: ${ACTIVE_THEME.secondary};
-        }
-        .theme-btn-light:hover {
-          color: ${ACTIVE_THEME.primary};
-          background-color: ${ACTIVE_THEME.cardBg};
         }
       `}</style>
 
@@ -159,26 +150,6 @@ export default function EventsPage() {
               </div>
             ))}
           </div>
-        </section>
-
-        {/* Private demo CTA */}
-        <section
-          className="mt-28 rounded-xl p-8 text-white transition-colors duration-500 sm:p-12"
-          style={{ backgroundColor: ACTIVE_THEME.secondary }}
-        >
-          <h2 className="max-w-xl text-subhead font-semibold tracking-tight">
-            Can&apos;t make it to a show?
-          </h2>
-          <p className="mt-3 max-w-xl text-zinc-400">
-            We run private demos year-round — hear the difference adaptive
-            audio intelligence makes on your own hardware.
-          </p>
-          <a
-            href="mailto:hello@iphipi.com?subject=Private demo request"
-            className="theme-btn-light mt-8 inline-block rounded-full bg-white px-5 py-2.5 text-sm font-medium transition-colors duration-300"
-          >
-            Request a private demo
-          </a>
         </section>
       </div>
     </main>

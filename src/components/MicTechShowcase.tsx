@@ -31,6 +31,14 @@ const TECHS = [
     image: "/tech/dual-mic.png",
   },
   {
+    title: "Keyword Spotting",
+    spec: "Runs entirely on-device",
+    body: "Ultra-low-power wake-word and custom command detection — always listening, never draining the battery, with nothing sent to the cloud.",
+    meter: { label: "Power draw", value: "5 mW", percent: 12 },
+    chips: ["Wake Word", "On-Device", "Always-On"],
+    image: "/tech/kws.png",
+  },
+  {
     title: "Far-Field Enhancement",
     spec: "Long-range voice capture",
     body: "Clear speech from a distance for drive-through and outdoor scenarios — the HME use case — suppressing ambient noise and reverberation.",

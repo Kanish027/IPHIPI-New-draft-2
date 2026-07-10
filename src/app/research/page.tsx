@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import ResearchHero from "@/components/ResearchHero";
+import TechDeepDive from "@/components/TechDeepDive";
+import TeamSection from "@/components/TeamSection";
 import React from "react";
 import { theme, withAlpha } from "@/lib/theme";
 
@@ -620,6 +622,9 @@ export default function ResearchPage() {
             </div>
           </div>
         </section>
+
+        <TechDeepDive />
+        <TeamSection />
       </div>
     </main>
   );
