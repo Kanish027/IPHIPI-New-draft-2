@@ -1,37 +1,21 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import EventsHero from "@/components/EventsHero";
+import { theme, withAlpha } from "@/lib/theme";
 
 export const metadata: Metadata = {
   title: "Events — IPHIPI",
   description: "Where to meet the IPHIPI team — upcoming and past events.",
 };
 
-// --- BRAND COLOR PALETTE OPTIONS ---
-const THEMES = {
-  option1: {
-    id: "cognitive-partner",
-    primary: "#1E3A8A", // Deep Cognitive Blue
-    secondary: "#27272A", // Sleek Matte Charcoal
-    accent: "#0FF0FC", // Electric Cyan / Intelligent Teal
-    accentBgMuted: "rgba(15, 240, 252, 0.1)",
-    pageBg: "#FFFFFF", // Crisp Tech White
-    cardBg: "#FAF6EE", // Warm off-white
-  },
-  option2: {
-    id: "seamless-intelligence",
-    primary: "#2E1065", // Deep Midnight Violet
-    secondary: "#3F3F46", // Ash Gray
-    accent: "#6EE7B7", // Luminescent Mint / Neo-Green
-    accentBgMuted: "rgba(110, 231, 183, 0.15)",
-    pageBg: "#FAFAFA", // Pure Alabaster
-    cardBg: "#F3F4F6", // Ash Gray light tint
-  },
+const ACTIVE_THEME = {
+  primary: theme.primary,
+  secondary: theme.secondary,
+  accent: theme.accent,
+  accentBgMuted: withAlpha(theme.accent, 0.1),
+  pageBg: theme.pageBg,
+  cardBg: theme.cardWarm,
 };
-
-// Toggle this variable to switch between brand palettes globally across this component
-const ACTIVE_THEME = THEMES.option2;
-// -----------------------------------
 
 /* Event details are placeholders — edit dates, booths, and blurbs here as
    they get confirmed. */

@@ -1,36 +1,20 @@
 import type { Metadata } from "next";
 import { ContactForm } from "./contact-form";
+import { theme, withAlpha } from "@/lib/theme";
 
 export const metadata: Metadata = {
   title: "Contact — IPHIPI",
   description: "Get in touch with the IPHIPI team.",
 };
 
-// --- BRAND COLOR PALETTE OPTIONS ---
-const THEMES = {
-  option1: {
-    id: "cognitive-partner",
-    primary: "#1E3A8A", // Deep Cognitive Blue
-    secondary: "#27272A", // Sleek Matte Charcoal
-    accent: "#0FF0FC", // Electric Cyan / Intelligent Teal
-    accentBgMuted: "rgba(15, 240, 252, 0.08)", // Replaces cyan-50
-    pageBg: "#FFFFFF", // Crisp Tech White
-    cardBg: "#FAF6EE", // Warm off-white for contrast
-  },
-  option2: {
-    id: "seamless-intelligence",
-    primary: "#2E1065", // Deep Midnight Violet
-    secondary: "#3F3F46", // Ash Gray
-    accent: "#6EE7B7", // Luminescent Mint / Neo-Green
-    accentBgMuted: "rgba(110, 231, 183, 0.1)", // Mint tint
-    pageBg: "#FAFAFA", // Pure Alabaster
-    cardBg: "#F3F4F6", // Ash Gray light tint
-  },
+const ACTIVE_THEME = {
+  primary: theme.primary,
+  secondary: theme.secondary,
+  accent: theme.accent,
+  accentBgMuted: withAlpha(theme.accent, 0.08),
+  pageBg: theme.pageBg,
+  cardBg: theme.cardWarm,
 };
-
-// Toggle this variable to switch between brand palettes globally across this component
-const ACTIVE_THEME = THEMES.option2;
-// -----------------------------------
 
 const CHANNELS = [
   {

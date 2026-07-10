@@ -2,36 +2,18 @@
 
 import { useCallback, useEffect, useState } from "react";
 import React from "react";
+import { theme, withAlpha } from "@/lib/theme";
 
-// --- BRAND COLOR PALETTE OPTIONS ---
-const THEMES = {
-  option1: {
-    id: "cognitive-partner",
-    sectionBg: "#1C1C1E", // Deep Charcoal
-    cardBg: "#2A2A2D", // Charcoal Card Base
-    primaryGlow: "#1E3A8A", // Deep Cognitive Blue
-    accent: "#0FF0FC", // Electric Cyan / Intelligent Teal
-    accentMuted: "rgba(15, 240, 252, 0.1)",
-    textHeading: "#F5F7FA", // Tech White
-    textBody: "#A0A4AC", // Soft Gray
-    textInactive: "#6B6E76", // Muted text for inactive cards
-  },
-  option2: {
-    id: "seamless-intelligence",
-    sectionBg: "#18181B", // Very Dark Ash Gray (zinc-900)
-    cardBg: "#27272A", // Dark Ash Gray (zinc-800)
-    primaryGlow: "#2E1065", // Deep Midnight Violet
-    accent: "#6EE7B7", // Luminescent Mint / Neo-Green
-    accentMuted: "rgba(110, 231, 183, 0.1)",
-    textHeading: "#FAFAFA", // Pure Alabaster
-    textBody: "#D4D4D8", // Light Ash Gray
-    textInactive: "#71717A", // Muted text for inactive cards
-  },
+const ACTIVE_THEME = {
+  sectionBg: theme.surfaceDark,
+  cardBg: theme.surfaceCard,
+  primaryGlow: theme.primary,
+  accent: theme.accent,
+  accentMuted: withAlpha(theme.accent, 0.1),
+  textHeading: theme.textHeading,
+  textBody: theme.textBody,
+  textInactive: theme.textInactive,
 };
-
-// Toggle this variable to switch between brand palettes globally across this component
-const ACTIVE_THEME = THEMES.option2;
-// -----------------------------------
 
 const PILLARS = [
   {

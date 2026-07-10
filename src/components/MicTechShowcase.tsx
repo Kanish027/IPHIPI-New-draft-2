@@ -2,32 +2,16 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { theme } from "@/lib/theme";
 
-// --- BRAND COLOR PALETTE OPTIONS ---
-const THEMES = {
-  option1: {
-    id: "cognitive-partner",
-    primary: "#1E3A8A", // Deep Cognitive Blue
-    secondary: "#27272A", // Sleek Matte Charcoal
-    accent: "#0FF0FC", // Electric Cyan / Intelligent Teal
-    bodyText: "#6E6659", // Muted body copy
-    pageBg: "#FFFFFF", // Crisp Tech White
-    borderInactive: "#E4E4E7", // zinc-200
-  },
-  option2: {
-    id: "seamless-intelligence",
-    primary: "#2E1065", // Deep Midnight Violet
-    secondary: "#3F3F46", // Ash Gray
-    accent: "#6EE7B7", // Luminescent Mint / Neo-Green
-    bodyText: "#71717A", // Ash Gray muted
-    pageBg: "#FAFAFA", // Pure Alabaster
-    borderInactive: "#E5E7EB",
-  },
+const ACTIVE_THEME = {
+  primary: theme.primary,
+  secondary: theme.secondary,
+  accent: theme.accent,
+  bodyText: theme.bodyText,
+  pageBg: theme.pageBg,
+  borderInactive: theme.borderInactive,
 };
-
-// Toggle this variable to switch between brand palettes globally across this component
-const ACTIVE_THEME = THEMES.option2;
-// -----------------------------------
 
 const TECHS = [
   {

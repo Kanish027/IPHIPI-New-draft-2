@@ -1,28 +1,14 @@
 "use client";
 
-// --- BRAND COLOR PALETTE OPTIONS ---
-const THEMES = {
-  option1: {
-    id: "cognitive-partner",
-    sectionBg: "#152A63", // Deep Cognitive Blue (Darkened for contrast)
-    accent: "#0FF0FC", // Electric Cyan / Intelligent Teal
-    accentMuted: "rgba(15, 240, 252, 0.4)",
-    textHeading: "#F5F7FA", // Tech White
-    textBody: "#A0A4AC", // Soft Gray
-  },
-  option2: {
-    id: "seamless-intelligence",
-    sectionBg: "#1D0A40", // Deep Midnight Violet (Darkened for contrast)
-    accent: "#6EE7B7", // Luminescent Mint / Neo-Green
-    accentMuted: "rgba(110, 231, 183, 0.4)",
-    textHeading: "#FAFAFA", // Pure Alabaster
-    textBody: "#D4D4D8", // Ash Gray (Light tint)
-  },
-};
+import { theme, withAlpha } from "@/lib/theme";
 
-// Toggle this variable to switch between brand palettes globally across this component
-const ACTIVE_THEME = THEMES.option2;
-// -----------------------------------
+const ACTIVE_THEME = {
+  sectionBg: theme.surfaceDeepBlue,
+  accent: theme.accent,
+  accentMuted: withAlpha(theme.accent, 0.4),
+  textHeading: theme.textHeading,
+  textBody: theme.textBody,
+};
 
 const PARTNERS = [
   {

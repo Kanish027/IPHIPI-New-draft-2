@@ -1,74 +1,58 @@
 "use client";
 
-import Image from "next/image";
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { theme, withAlpha } from "@/lib/theme";
 
-// --- BRAND COLOR PALETTE OPTIONS ---
-const THEMES = {
-  option1: {
-    id: "cognitive-partner",
-    primary: "#1E3A8A", // Deep Cognitive Blue
-    secondary: "#27272A", // Sleek Matte Charcoal
-    accent: "#0FF0FC", // Electric Cyan / Intelligent Teal
-    accentRgb: "15, 240, 252", // For rgba manipulation in tags
-    bodyText: "#6E6659", // Muted body copy on light background
-    pageBg: "#FFFFFF",
-  },
-  option2: {
-    id: "seamless-intelligence",
-    primary: "#2E1065", // Deep Midnight Violet
-    secondary: "#3F3F46", // Ash Gray
-    accent: "#6EE7B7", // Luminescent Mint / Neo-Green
-    accentRgb: "110, 231, 183", // For rgba manipulation in tags
-    bodyText: "#71717A", // Ash Gray muted
-    pageBg: "#FAFAFA",
-  },
+const ACTIVE_THEME = {
+  primary: theme.primary,
+  secondary: theme.secondary,
+  accent: theme.accent,
+  bodyText: theme.bodyText,
+  pageBg: theme.pageBg,
 };
 
-// Toggle this variable to switch between brand palettes globally across this component
-const ACTIVE_THEME = THEMES.option2;
-// -----------------------------------
+type Tech = {
+  label: string;
+  spec: string;
+  image: string;
+  video?: string;
+  /** Tailwind aspect ratio — mixes tall & wide tiles for a masonry rhythm. */
+  aspect: string;
+};
 
-const TECHS = [
-  {
-    id: "single-mic",
-    tag: "Single Mic",
-    image: "/tech/single-mic.png",
-    video: "",
-  },
-  {
-    id: "dual-mic",
-    tag: "Dual Mic",
-    image: "/tech/dual-mic.png",
-    video: "",
-  },
-  {
-    id: "kws",
-    tag: "Keyword Spotting",
-    image: "/tech/kws.png",
-    video: "",
-  },
-  {
-    id: "far-field",
-    tag: "Far-Field",
-    image: "/tech/far-field.png",
-    video: "",
-  },
+const TECHS: Tech[] = [
+  { label: "Single Mic", spec: "70 dB noise suppression", image: "/tech/single-mic.png", aspect: "aspect-[4/5]" },
+  { label: "Dual Mic", spec: "85 dB · multi-speaker", image: "/tech/dual-mic.png", aspect: "aspect-[3/2]" },
+  { label: "Keyword Spotting", spec: "5 mW · fully on-device", image: "/tech/kws.png", aspect: "aspect-[3/2]" },
+  { label: "Far-Field", spec: "5 m+ capture range", image: "/tech/far-field.png", aspect: "aspect-[4/5]" },
 ];
 
-function MediaBlock({
-  tech,
-  className = "",
-}: {
-  tech: (typeof TECHS)[0];
-  className?: string;
-}) {
+// --- One video tile — fixed size, always fully visible ------------------
+
+function TechTile({ tech, index }: { tech: Tech; index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+    el.style.setProperty("--my", `${e.clientY - rect.top}px`);
+  };
+
   return (
-    <div
-      className={`group relative w-full overflow-hidden rounded-[28px] border border-white/10 bg-black shadow-[0_24px_70px_rgba(0,0,0,0.18)] ring-1 ring-black/5 ${className}`}
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="absolute inset-0 h-full w-full bg-black">
+      <div
+        ref={ref}
+        onMouseMove={onMouseMove}
+        className={`group relative ${tech.aspect} w-full overflow-hidden rounded-[26px] border border-white/10 bg-black shadow-[0_24px_70px_rgba(0,0,0,0.28)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_36px_90px_rgba(0,0,0,0.4)]`}
+      >
         {tech.video ? (
           <video
             src={tech.video}
@@ -76,51 +60,60 @@ function MediaBlock({
             loop
             muted
             playsInline
-            className="h-full w-full object-cover transition-transform duration-[1.6s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
         ) : (
-          <Image
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
             src={tech.image}
-            alt={tech.tag}
-            fill
-            sizes="(max-width: 1024px) 100vw, 80vw"
-            className="object-cover transition-transform duration-[1.6s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_40%)]" />
-      </div>
+        {/* Bottom scrim keeps the label readable without hiding the video */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent" />
 
-      <div className="absolute left-4 top-4 z-20 md:left-5 md:top-5">
+        {/* Cursor-tracked spotlight */}
         <div
-          className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-white shadow-[0_10px_30px_rgba(0,0,0,0.22)] backdrop-blur-2xl backdrop-saturate-150 transition-colors duration-500 md:px-4 md:py-2"
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           style={{
-            borderColor: `rgba(${ACTIVE_THEME.accentRgb}, 0.25)`, // equivalent to ~40 hex
-            backgroundColor: `rgba(${ACTIVE_THEME.accentRgb}, 0.08)`, // equivalent to ~14 hex
+            background: `radial-gradient(460px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.12), transparent 60%)`,
+          }}
+        />
+
+        {/* Index numeral */}
+        <span
+          className="pointer-events-none absolute right-5 top-4 select-none font-semibold leading-none text-transparent md:right-6 md:top-5"
+          style={{
+            fontSize: "clamp(2rem, 3vw, 3rem)",
+            WebkitTextStroke: `1.25px ${withAlpha(theme.accent, 0.55)}`,
           }}
         >
+          {String(index + 1).padStart(2, "0")}
+        </span>
+
+        {/* Keyword + spec */}
+        <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
           <div
-            className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full ring-1 transition-colors duration-500"
+            className="inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1.5 text-white backdrop-blur-md"
             style={{
-              backgroundColor: `rgba(${ACTIVE_THEME.accentRgb}, 0.15)`, // equivalent to ~26 hex
-              // @ts-expect-error -- ring color via CSS var
-              "--tw-ring-color": `rgba(${ACTIVE_THEME.accentRgb}, 0.25)`,
+              borderColor: withAlpha(theme.accent, 0.3),
+              backgroundColor: "rgba(0,0,0,0.35)",
             }}
           >
-            <div
-              className="h-1.5 w-1.5 animate-pulse rounded-full transition-colors duration-500"
-              style={{ backgroundColor: ACTIVE_THEME.accent }}
-            />
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full" style={{ backgroundColor: ACTIVE_THEME.accent }} />
+            <span className="whitespace-nowrap text-[11px] font-semibold tracking-[0.18em]">{tech.label}</span>
           </div>
-          <span className="text-[11px] font-semibold tracking-[0.18em] text-white/95 md:text-[12px]">
-            {tech.tag}
-          </span>
+          <p className="mt-2.5 text-xs font-medium uppercase tracking-[0.18em] text-white/60">{tech.spec}</p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
+
+// --- Section ------------------------------------------------------------
 
 export default function TechnologiesSection() {
   const containerRef = useRef<HTMLElement>(null);
@@ -129,16 +122,9 @@ export default function TechnologiesSection() {
     target: containerRef,
     offset: ["start end", "end start"],
   });
-
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 80,
-    damping: 25,
-    mass: 0.5,
-  });
-
-  const yRightColumn = useTransform(smoothProgress, [0, 1], [0, 140]);
-  const yLeftTop = useTransform(smoothProgress, [0, 1], [0, -70]);
-  const yLeftBottom = useTransform(smoothProgress, [0, 1], [0, -120]);
+  const smooth = useSpring(scrollYProgress, { stiffness: 80, damping: 25, mass: 0.5 });
+  // Right column drifts slightly, deepening the staggered rhythm on scroll.
+  const rightY = useTransform(smooth, [0, 1], [40, -40]);
 
   return (
     <section
@@ -148,65 +134,50 @@ export default function TechnologiesSection() {
       style={{ backgroundColor: ACTIVE_THEME.pageBg }}
     >
       <div
-        className="absolute inset-0 transition-colors duration-500"
+        className="pointer-events-none absolute inset-0"
         style={{
-          // Using hex opacity suffixes: 14 = ~8%, 0D = ~5%
           backgroundImage: `radial-gradient(circle at top, ${ACTIVE_THEME.primary}14, transparent 35%), radial-gradient(circle at bottom, ${ACTIVE_THEME.accent}0D, transparent 42%)`,
         }}
       />
-      <div className="relative mx-auto max-w-[1500px] px-6 md:px-12">
+
+      <div className="relative mx-auto max-w-[1400px] px-6 md:px-12">
         <div className="grid grid-cols-1 gap-8 border-b border-[#1A1814]/10 pb-16 md:grid-cols-12 lg:pb-24">
           <div className="col-span-6 md:col-span-7">
             <div className="mb-4 flex items-center gap-2">
               <span
-                className="text-xs font-semibold uppercase tracking-[0.28em] transition-colors duration-500"
+                className="text-xs font-semibold uppercase tracking-[0.28em]"
                 style={{ color: ACTIVE_THEME.secondary }}
               >
                 IPHIPI Technologies
               </span>
             </div>
             <h2
-              className="max-w-xl text-4xl font-medium tracking-tight transition-colors duration-500 md:text-5xl lg:text-6xl"
+              className="max-w-xl text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl"
               style={{ color: ACTIVE_THEME.secondary }}
             >
               Adaptive Audio Intelligence.
             </h2>
           </div>
 
-          <div className="flex flex-col justify-end md:col-span-5 md:col-start-8 lg:col-span-5 lg:col-start-8">
-            <p
-              className="max-w-md text-lg leading-relaxed transition-colors duration-500 lg:text-xl"
-              style={{ color: ACTIVE_THEME.bodyText }}
-            >
+          <div className="flex flex-col justify-end md:col-span-5 md:col-start-8">
+            <p className="max-w-md text-lg leading-relaxed lg:text-xl" style={{ color: ACTIVE_THEME.bodyText }}>
               Four core technologies — engineered for every wearable category.
-              Scroll to explore the architecture.
             </p>
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-12 lg:mt-32 lg:gap-24">
-          <motion.div style={{ y: yLeftTop }} className="grid grid-cols-1 md:grid-cols-12">
-            <div className="md:col-span-12 lg:col-span-10 lg:col-start-2">
-              <MediaBlock tech={TECHS[0]} className="aspect-[4/3] md:aspect-[16/9]" />
-            </div>
-          </motion.div>
-
-          <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-12 md:gap-4 lg:gap-3">
-            <motion.div
-              style={{ y: yLeftBottom }}
-              className="flex flex-col gap-12 md:col-span-6 lg:col-span-5 lg:col-start-1 lg:gap-16"
-            >
-              <MediaBlock tech={TECHS[1]} className="aspect-[4/5]" />
-              <MediaBlock tech={TECHS[2]} className="aspect-[3/4]" />
-            </motion.div>
-
-            <motion.div
-              style={{ y: yRightColumn }}
-              className="flex flex-col md:col-span-6 md:col-start-7 md:mt-24 lg:col-span-6 lg:col-start-7 lg:mt-48"
-            >
-              <MediaBlock tech={TECHS[3]} className="aspect-[4/5] md:aspect-[3/4]" />
-            </motion.div>
+        {/* Staggered two-column layout: right column sits lower, so the four
+            videos read as an offset editorial flow rather than a flat grid.
+            Every tile is a fixed size and always fully visible. */}
+        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mt-24 lg:gap-8">
+          <div className="flex flex-col gap-6 lg:gap-8">
+            <TechTile tech={TECHS[0]} index={0} />
+            <TechTile tech={TECHS[2]} index={2} />
           </div>
+          <motion.div style={{ y: rightY }} className="flex flex-col gap-6 md:mt-16 lg:gap-8">
+            <TechTile tech={TECHS[1]} index={1} />
+            <TechTile tech={TECHS[3]} index={3} />
+          </motion.div>
         </div>
       </div>
     </section>

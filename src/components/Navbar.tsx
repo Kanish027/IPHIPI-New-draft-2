@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import StoryLightbox from "@/components/StoryLightbox";
+import { theme, withAlpha } from "@/lib/theme";
 
 const NAV_LINKS = [
   { label: "AI Technologies", href: "/ai-technologies" },
@@ -78,10 +79,16 @@ export default function Navbar() {
           hidden && !open && !storyOpen ? "-translate-y-[calc(100%+1.25rem)]" : "translate-y-0"
         }`}
       >
+        <style>{`
+          .theme-nav-menu-btn:hover .theme-nav-menu-btn-bg {
+            background-color: ${withAlpha(theme.secondary, 0.05)};
+          }
+        `}</style>
         <div
-          className="pointer-events-auto relative mx-auto overflow-hidden rounded-xl border border-zinc-200/80 bg-white/85 text-[#27272A] backdrop-blur-2xl transition-[width] duration-500 ease-in-out [--menu-width-closed:100%] [--menu-width-open:100%] sm:[--menu-width-closed:330px] sm:[--menu-width-open:50vw] md:[--menu-width-open:70vw] xl:[--menu-width-open:50vw]"
+          className="pointer-events-auto relative mx-auto overflow-hidden rounded-xl border border-zinc-200/80 bg-white/85 backdrop-blur-2xl transition-[width] duration-500 ease-in-out [--menu-width-closed:100%] [--menu-width-open:100%] sm:[--menu-width-closed:330px] sm:[--menu-width-open:50vw] md:[--menu-width-open:70vw] xl:[--menu-width-open:50vw]"
           style={{
             width: open ? "var(--menu-width-open)" : "var(--menu-width-closed)",
+            color: theme.secondary,
           }}
         >
           {/* Top bar: logo / wordmark / toggle */}
@@ -114,9 +121,9 @@ export default function Navbar() {
                 aria-label={open ? "Close menu" : "Open menu"}
                 aria-expanded={open}
                 onClick={() => setOpen((v) => !v)}
-                className="group relative h-[60px] w-[60px] cursor-pointer p-5"
+                className="theme-nav-menu-btn group relative h-[60px] w-[60px] cursor-pointer p-5"
               >
-                <div className="absolute inset-0 m-2.5 flex items-center justify-center rounded-lg transition-colors duration-200 group-hover:bg-[#27272A]/5" />
+                <div className="theme-nav-menu-btn-bg absolute inset-0 m-2.5 flex items-center justify-center rounded-lg transition-colors duration-200" />
                 <span
                   className="absolute left-1/2 top-1/2 h-[2px] w-[20px] rounded-full bg-current transition-transform duration-300"
                   style={{
@@ -222,7 +229,10 @@ export default function Navbar() {
                     href="/beta-program"
                   >
                     <span className="pr-1">Beta Application</span>
-                    <span className="inline-block h-2 w-2 animate-[blinking_0.75s_ease-in-out_infinite] rounded-full bg-gold-500" />
+                    <span
+                      className="inline-block h-2 w-2 animate-[blinking_0.75s_ease-in-out_infinite] rounded-full"
+                      style={{ backgroundColor: theme.accent }}
+                    />
                   </a>
                 </div>
               </div>

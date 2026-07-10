@@ -1,34 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { theme } from "@/lib/theme";
 
-// --- BRAND COLOR PALETTE OPTIONS ---
-const THEMES = {
-  option1: {
-    id: "cognitive-partner",
-    primary: "#1E3A8A", // Deep Cognitive Blue
-    secondary: "#27272A", // Sleek Matte Charcoal
-    accent: "#22D3EE", // Electric Cyan / Intelligent Teal
-    bodyText: "#6E6659", // Muted body copy on light background
-    pageBg: "#FFFFFF", // Crisp Tech White
-    railInactive: "#D4D4D8",
-    railTextInactive: "#A1A1AA",
-  },
-  option2: {
-    id: "seamless-intelligence",
-    primary: "#2E1065", // Deep Midnight Violet
-    secondary: "#3F3F46", // Ash Gray
-    accent: "#6EE7B7", // Luminescent Mint / Neo-Green
-    bodyText: "#71717A", // Ash Gray muted
-    pageBg: "#FAFAFA", // Pure Alabaster
-    railInactive: "#E5E7EB",
-    railTextInactive: "#A1A1AA",
-  },
+const ACTIVE_THEME = {
+  primary: theme.primary,
+  secondary: theme.secondary,
+  accent: theme.accent,
+  bodyText: theme.bodyText,
+  pageBg: theme.pageBg,
+  railInactive: theme.railInactive,
+  railTextInactive: theme.railTextInactive,
 };
-
-// Toggle this variable to switch between brand palettes globally across this component
-const ACTIVE_THEME = THEMES.option2;
-// -----------------------------------
 
 const STATS = [
   {

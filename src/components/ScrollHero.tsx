@@ -1,32 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-
-// --- BRAND COLOR PALETTE OPTIONS ---
-const THEMES = {
-  option1: {
-    id: "cognitive-partner",
-    secondary: "#27272A", // Sleek Matte Charcoal (Dark text on light bg)
-    textLight: "#FFFFFF", // Crisp Tech White (Light text on video/dark bg)
-    videoBg: "#27272A", // Matte Charcoal fallback for video container
-    accentRgb: "15, 240, 252", // Electric Cyan for fallback gradient glow
-    gradDark1: "#0d0d14",
-    gradDark2: "#0a0a0f",
-  },
-  option2: {
-    id: "seamless-intelligence",
-    secondary: "#3F3F46", // Ash Gray (Dark text on light bg)
-    textLight: "#FAFAFA", // Pure Alabaster (Light text on video/dark bg)
-    videoBg: "#18181B", // Darker Ash Gray fallback for video container
-    accentRgb: "110, 231, 183", // Luminescent Mint for fallback gradient glow
-    gradDark1: "#18181B",
-    gradDark2: "#09090B",
-  },
-};
-
-// Toggle this variable to switch between brand palettes globally across this component
-const ACTIVE_THEME = THEMES.option2;
-// -----------------------------------
+import { theme, withAlpha } from "@/lib/theme";
 
 const SIDE_MARGIN = 36; // px inset of the video at rest
 const TOP_START = 62; // vh — where the video's top edge starts
@@ -63,7 +38,7 @@ function HeroText({
     <div
       className="absolute inset-x-0 top-[18vh] flex flex-col items-center gap-10 px-4 text-center transition-colors duration-500"
       style={{
-        color: variant === "dark" ? ACTIVE_THEME.secondary : ACTIVE_THEME.textLight,
+        color: variant === "dark" ? theme.secondary : theme.textLight,
       }}
     >
       <div className="text-base font-medium leading-relaxed">
@@ -90,7 +65,7 @@ export default function ScrollHero(props: ScrollHeroProps) {
   const [progress, setProgress] = useState(0);
 
   // Construct dynamic fallback gradient if one is not explicitly provided
-  const activeGradient = gradient || `radial-gradient(circle at 25% 15%, rgba(${ACTIVE_THEME.accentRgb}, 0.22), transparent 55%), linear-gradient(160deg, ${ACTIVE_THEME.gradDark1} 0%, ${ACTIVE_THEME.gradDark2} 60%)`;
+  const activeGradient = gradient || `radial-gradient(circle at 25% 15%, ${withAlpha(theme.accent, 0.22)}, transparent 55%), linear-gradient(160deg, ${theme.gradDark1} 0%, ${theme.gradDark2} 60%)`;
 
   useEffect(() => {
     let raf = 0;
@@ -156,7 +131,7 @@ export default function ScrollHero(props: ScrollHeroProps) {
             left: side,
             right: side,
             borderRadius: radius,
-            backgroundColor: ACTIVE_THEME.videoBg,
+            backgroundColor: theme.secondary,
           }}
         >
           {videoSrc ? (

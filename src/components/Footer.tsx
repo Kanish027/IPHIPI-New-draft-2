@@ -2,24 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { theme } from "@/lib/theme";
 
-// --- BRAND COLOR PALETTE OPTIONS ---
-const THEMES = {
-  option1: {
-    id: "cognitive-partner",
-    footerBg: "#1E3A8A", // Deep Cognitive Blue
-    accent: "#0FF0FC", // Electric Cyan / Intelligent Teal
-  },
-  option2: {
-    id: "seamless-intelligence",
-    footerBg: "#2E1065", // Deep Midnight Violet
-    accent: "#6EE7B7", // Luminescent Mint / Neo-Green
-  },
+const ACTIVE_THEME = {
+  footerBg: theme.primary,
+  accent: theme.accent,
 };
-
-// Toggle this variable to switch between brand palettes globally across this component
-const ACTIVE_THEME = THEMES.option2;
-// -----------------------------------
 
 const EXPLORE = [
   { label: "Home", href: "/" },

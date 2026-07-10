@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import ResearchHero from "@/components/ResearchHero";
 import React from "react";
+import { theme, withAlpha } from "@/lib/theme";
 
 export const metadata: Metadata = {
   title: "R&D — IPHIPI",
@@ -9,33 +10,14 @@ export const metadata: Metadata = {
     "The research behind the agentic AI experience — productive, living, personal, and spatial intelligence.",
 };
 
-// --- BRAND COLOR PALETTE OPTIONS ---
-const THEMES = {
-  option1: {
-    id: "cognitive-partner",
-    primary: "#1E3A8A", // Deep Cognitive Blue
-    secondary: "#27272A", // Sleek Matte Charcoal
-    accent: "#0FF0FC", // Electric Cyan / Intelligent Teal
-    accentRgb: "15, 240, 252", // For gradients and radar sweeps
-    accentBgMuted: "rgba(15, 240, 252, 0.08)",
-    pageBg: "#FFFFFF", // Crisp Tech White
-    cardBg: "#FAF6EE", // Warm off-white
-  },
-  option2: {
-    id: "seamless-intelligence",
-    primary: "#2E1065", // Deep Midnight Violet
-    secondary: "#3F3F46", // Ash Gray
-    accent: "#6EE7B7", // Luminescent Mint / Neo-Green
-    accentRgb: "110, 231, 183", 
-    accentBgMuted: "rgba(110, 231, 183, 0.1)",
-    pageBg: "#FAFAFA", // Pure Alabaster
-    cardBg: "#F3F4F6", // Ash Gray light tint
-  },
+const ACTIVE_THEME = {
+  primary: theme.primary,
+  secondary: theme.secondary,
+  accent: theme.accent,
+  accentBgMuted: withAlpha(theme.accent, 0.08),
+  pageBg: theme.pageBg,
+  cardBg: theme.cardWarm,
 };
-
-// Toggle this variable to switch between brand palettes globally across this component
-const ACTIVE_THEME = THEMES.option2;
-// -----------------------------------
 
 /* The Signal: used for audio/spatial signal indicators
    (DOA radar, navigation/vision/audio icons). Dynamically maps to the Accent color. */
@@ -198,7 +180,7 @@ function DoaRadar() {
         <div
           className="absolute inset-0 animate-[spin_4s_linear_infinite]"
           style={{
-            background: `conic-gradient(from 0deg, rgba(${ACTIVE_THEME.accentRgb}, 0.35), transparent 75deg)`,
+            background: `conic-gradient(from 0deg, ${withAlpha(theme.accent, 0.35)}, transparent 75deg)`,
           }}
         />
       </div>

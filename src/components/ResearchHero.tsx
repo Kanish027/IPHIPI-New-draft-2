@@ -13,7 +13,6 @@ export default function ResearchHero() {
       eyebrow="R&D at IPHIPI"
       title="The technology behind the experience"
       tagline="Four research areas power the agentic AI platform."
-      gradient="bg-[radial-gradient(circle_at_80%_20%,rgba(6,182,212,0.14),transparent_52%),linear-gradient(200deg,#faf6ee_0%,#ffffff_62%)]"
     >
       <div className="flex flex-wrap justify-center gap-2">
         {AREA_LINKS.map((area) => (

@@ -1,21 +1,14 @@
 import type { Metadata } from "next";
-import { Geist_Mono, IBM_Plex_Sans, Space_Grotesk } from "next/font/google";
+import { Geist_Mono, IBM_Plex_Sans } from "next/font/google";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
-// Reverted back to IBM Plex Sans with all weights and styles
 const phi = IBM_Plex_Sans({
   variable: "--font-phi",
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700"],
   style: ["normal", "italic"],
-  display: "swap",
-});
-
-const iota = Space_Grotesk({
-  variable: "--font-iota",
-  subsets: ["latin"],
   display: "swap",
 });
 
@@ -38,7 +31,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${phi.variable} ${iota.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${phi.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body 
         className="font-sans min-h-full flex flex-col"
