@@ -250,13 +250,13 @@ export default function AiTechnologiesPage() {
             className="text-xs font-semibold uppercase tracking-[0.2em]"
             style={{ color: ACTIVE_THEME.accent }}
           >
-            The NDP 115 — AI Audio Processor
+            AI Audio Processor
           </p>
           <h2 className="mt-3 text-headline font-semibold tracking-tight">
             Audio Processing Flow
           </h2>
           <p className="mt-4 max-w-2xl text-zinc-400">
-            Our proprietary AI chip seamlessly processes audio from raw input
+            Our AI chip seamlessly processes audio from raw input
             to crystal-clear output.
           </p>
 
