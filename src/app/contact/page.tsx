@@ -32,7 +32,8 @@ const CHANNELS = [
 const SOCIALS = [
   { label: "Twitter", href: "https://twitter.com/iphipi" },
   { label: "LinkedIn", href: "https://linkedin.com/company/iphipi" },
-  { label: "GitHub", href: "https://github.com/iphipi" },
+  { label: "Youtube", href: "" },
+  { label: "Instagram", href: "" },
 ];
 
 export default function ContactPage() {

@@ -109,16 +109,16 @@ const FORM_FACTORS = [
       </svg>
     ),
   },
-  {
-    name: "Hearing Devices",
-    desc: "Assistive enhancement",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
-        <path d="M8 14c-2-1-3-3-3-5a5 5 0 0 1 10 0c0 2 1.5 2.5 1.5 4.5A3.5 3.5 0 0 1 13 17c-1 0-1.5-.5-1.5-1.5" />
-        <path d="M6 20a3 3 0 0 0 5 1" />
-      </svg>
-    ),
-  },
+  // {
+  //   name: "Hearing Devices",
+  //   desc: "Assistive enhancement",
+  //   icon: (
+  //     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+  //       <path d="M8 14c-2-1-3-3-3-5a5 5 0 0 1 10 0c0 2 1.5 2.5 1.5 4.5A3.5 3.5 0 0 1 13 17c-1 0-1.5-.5-1.5-1.5" />
+  //       <path d="M6 20a3 3 0 0 0 5 1" />
+  //     </svg>
+  //   ),
+  // },
   {
     name: "Smart Glasses",
     desc: "Multimodal + spatial",
@@ -130,18 +130,18 @@ const FORM_FACTORS = [
       </svg>
     ),
   },
-  {
-    name: "Neckbands",
-    desc: "All-day battery",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
-        <path d="M5 4c0 6 2 10 7 10s7-4 7-10" />
-        <circle cx="5" cy="18" r="1.8" />
-        <circle cx="19" cy="18" r="1.8" />
-        <path d="M5 14v2.2M19 14v2.2" />
-      </svg>
-    ),
-  },
+  // {
+  //   name: "Neckbands",
+  //   desc: "All-day battery",
+  //   icon: (
+  //     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+  //       <path d="M5 4c0 6 2 10 7 10s7-4 7-10" />
+  //       <circle cx="5" cy="18" r="1.8" />
+  //       <circle cx="19" cy="18" r="1.8" />
+  //       <path d="M5 14v2.2M19 14v2.2" />
+  //     </svg>
+  //   ),
+  // },
   {
     name: "Smart Ring",
     desc: "Ultra-low power",
