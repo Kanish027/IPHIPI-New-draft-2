@@ -107,6 +107,17 @@
   80%, 100% { transform: scale(1.6); opacity: 0; }
 }
 
+/* Partner marquee — two rows scroll in opposite directions. Each track holds
+   the list twice, so a -50% translate loops seamlessly. */
+@keyframes iphipiMarqueeLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes iphipiMarqueeRight {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
 /* Resting pulse-line glow (low-power / always-on visual) */
 @keyframes iphipiPulseGlow {
   0%, 100% { opacity: 0.5; }

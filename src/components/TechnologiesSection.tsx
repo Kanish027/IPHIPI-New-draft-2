@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { theme, withAlpha } from "@/lib/theme";
+import PartnersSection from "./PartnersSection";
 
 const ACTIVE_THEME = {
   primary: theme.primary,
@@ -130,7 +131,7 @@ export default function TechnologiesSection() {
     <section
       ref={containerRef}
       id="technologies"
-      className="relative overflow-hidden py-28 transition-colors duration-500 md:py-36 lg:py-48"
+      className="relative overflow-hidden py-28 transition-colors duration-500 md:pt-36 lg:pt-48"
       style={{ backgroundColor: ACTIVE_THEME.pageBg }}
     >
       <div
@@ -159,11 +160,11 @@ export default function TechnologiesSection() {
             </h2>
           </div>
 
-          <div className="flex flex-col justify-end md:col-span-5 md:col-start-8">
+          {/* <div className="flex flex-col justify-end md:col-span-5 md:col-start-8">
             <p className="max-w-md text-lg leading-relaxed lg:text-xl" style={{ color: ACTIVE_THEME.bodyText }}>
               Four core technologies — engineered for every wearable category.
             </p>
-          </div>
+          </div> */}
         </div>
 
         {/* Staggered two-column layout: right column sits lower, so the four

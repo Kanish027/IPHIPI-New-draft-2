@@ -20,7 +20,7 @@ const TECHS = [
     body: "Engineered for interiors — household noise, appliances, and nearby conversations fade away so your voice stays the focus.",
     meter: { label: "Noise suppression", value: "70 dB", percent: 70 },
     chips: ["Home", "Office", "Calls"],
-    image: "/tech/single-mic.png",
+    image: "/tech/single-dual-mic-arch.png",
   },
   {
     title: "Dual Mic Enhancement",
@@ -28,7 +28,7 @@ const TECHS = [
     body: "Built for multi-speaker environments. Isolates the user's voice and handles wind noise — even during high-speed travel.",
     meter: { label: "Noise suppression", value: "85 dB", percent: 85 },
     chips: ["Streets", "Travel", "Crowds"],
-    image: "/tech/dual-mic.png",
+    image: "/tech/single-dual-mic-arch.png",
   },
   {
     title: "Keyword Spotting",
@@ -36,7 +36,7 @@ const TECHS = [
     body: "Ultra-low-power wake-word and custom command detection — always listening, never draining the battery, with nothing sent to the cloud.",
     meter: { label: "Power draw", value: "5 mW", percent: 12 },
     chips: ["Wake Word", "On-Device", "Always-On"],
-    image: "/tech/kws.png",
+    image: "/tech/kws-arch.png",
   },
   {
     title: "Far-Field Enhancement",
@@ -44,7 +44,7 @@ const TECHS = [
     body: "Clear speech from a distance for drive-through and outdoor scenarios — the HME use case — suppressing ambient noise and reverberation.",
     meter: { label: "Capture range", value: "Distant voice", percent: 100 },
     chips: ["Drive-through", "Kiosks", "Meeting rooms"],
-    image: "/tech/far-field.png",
+    image: "/tech/far-field-arch.png",
   },
 ];
 
@@ -185,7 +185,7 @@ export default function MicTechShowcase() {
           {/* Right — pinned crossfading image */}
           <div className="hidden lg:block">
             <div className="sticky top-24 flex h-[calc(100vh-8rem)] items-center">
-              <div className="relative aspect-[3/2] w-full overflow-hidden rounded-[24px] border border-zinc-200/70 bg-[#121212]">
+              <div className="relative aspect-[3/2] w-full overflow-hidden rounded-[24px]">
                 {TECHS.map((tech, i) => (
                   <Image
                     key={tech.title}

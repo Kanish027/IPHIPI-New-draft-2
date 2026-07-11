@@ -623,7 +623,7 @@ export default function ResearchPage() {
           </div>
         </section>
 
-        <TechDeepDive />
+        {/* <TechDeepDive /> */}
         <TeamSection />
       </div>
     </main>

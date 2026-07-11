@@ -9,7 +9,7 @@ export default function Hero() {
       taglineSub="enabling next-generation intelligent hearables and wearables with seamless assistive experiences"
       title="Audio Intelligence with you. Around you."
       titleClassName="max-w-[19ch] text-[clamp(2.5rem,6.5vw,7.5rem)] leading-[1.02]"
-      videoSrc="/hero.mp4"
+      videoSrc="videos/agentic-2.mp4"
       poster="/our-story-poster.jpg"
     />
   );

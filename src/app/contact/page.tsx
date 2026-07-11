@@ -24,7 +24,7 @@ const CHANNELS = [
   },
   {
     title: "General",
-    email: "hello@iphipi.com",
+    email: "contact@iphipi.com",
     description: "Press, careers, and everything else.",
   },
 ];
@@ -117,7 +117,7 @@ export default function ContactPage() {
                 <p className="mt-3 text-sm leading-relaxed text-zinc-600">
                   IPHIPI Inc.
                   <br />
-                  San Francisco, CA
+                  Singapore
                 </p>
               </div>
 

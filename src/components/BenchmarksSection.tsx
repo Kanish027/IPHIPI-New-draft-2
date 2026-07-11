@@ -117,7 +117,7 @@ export default function BenchmarksSection() {
             className="mt-3 text-subhead font-semibold tracking-tight transition-colors duration-500"
             style={{ color: ACTIVE_THEME.secondary }}
           >
-            Raising the Bar on Audio Performance Benchmarks
+            Raising the Bar on Audio Performance
           </h2>
         </div>
 
