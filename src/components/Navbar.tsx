@@ -1,8 +1,186 @@
+// "use client";
+
+// import Image from "next/image";
+// import Link from "next/link";
+// import { usePathname } from "next/navigation";
+// import { useState, useEffect } from "react";
+
+// const NAV_LINKS = [
+//   { label: "AI Technologies", href: "/ai-technologies" },
+//   { label: "R&D", href: "/research" },
+//   { label: "Events", href: "/events" },
+//   { label: "Contact", href: "/contact" },
+// ];
+
+// export default function Navbar() {
+//   const [isOpen, setIsOpen] = useState(false);
+//   const [isVisible, setIsVisible] = useState(true);
+//   const [isScrolled, setIsScrolled] = useState(false);
+//   const pathname = usePathname();
+
+//   // Hide navbar on scroll down, show on scroll up
+//   useEffect(() => {
+//     let lastScrollY = window.scrollY;
+
+//     const handleScroll = () => {
+//       const currentScrollY = window.scrollY;
+
+//       setIsScrolled(currentScrollY > 8);
+
+//       if (isOpen) return;
+
+//       if (currentScrollY > lastScrollY && currentScrollY > 80) {
+//         setIsVisible(false);
+//       } else {
+//         setIsVisible(true);
+//       }
+
+//       lastScrollY = currentScrollY;
+//     };
+
+//     window.addEventListener("scroll", handleScroll, { passive: true });
+//     return () => window.removeEventListener("scroll", handleScroll);
+//   }, [isOpen]);
+
+//   // Lock body scroll when mobile menu is open
+//   useEffect(() => {
+//     document.body.style.overflow = isOpen ? "hidden" : "";
+//     return () => {
+//       document.body.style.overflow = "";
+//     };
+//   }, [isOpen]);
+
+//   return (
+//     <header
+//       className={`fixed top-0 z-50 w-full transition-all duration-300 ease-in-out ${
+//         isVisible ? "translate-y-0" : "-translate-y-full"
+//       } ${
+//         isScrolled
+//           ? "bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-200"
+//           : "bg-white/0 border-b border-transparent"
+//       }`}
+//     >
+//       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+//         {/* Logo & Brand */}
+//         <Link
+//           href="/"
+//           className="group flex items-center gap-3"
+//           onClick={() => setIsOpen(false)}
+//         >
+//           <Image
+//             src="/iphipi-primary.png"
+//             alt="iphipi logo"
+//             width={40}
+//             height={40}
+//             priority
+//             className="transition-transform duration-300 group-hover:scale-105"
+//           />
+//           <span className="text-lg font-extrabold uppercase tracking-widest text-gray-900">
+//             iphipi
+//           </span>
+//         </Link>
+
+//         {/* Desktop Navigation */}
+//         <nav className="hidden items-center gap-1 md:flex">
+//           {NAV_LINKS.map((link) => {
+//             const isActive = pathname === link.href;
+//             return (
+//               <Link
+//                 key={link.label}
+//                 href={link.href}
+//                 className={`relative px-3 py-2 text-sm font-medium transition-colors ${
+//                   isActive ? "text-black" : "text-gray-600 hover:text-black"
+//                 }`}
+//               >
+//                 {link.label}
+//                 <span
+//                   className={`absolute inset-x-3 -bottom-0.5 h-[2px] origin-left scale-x-0 bg-black transition-transform duration-300 ${
+//                     isActive ? "scale-x-100" : "group-hover:scale-x-100"
+//                   }`}
+//                 />
+//               </Link>
+//             );
+//           })}
+//         </nav>
+
+//         {/* Mobile Menu Toggle Button */}
+//         <div className="flex items-center md:hidden">
+//           <button
+//             onClick={() => setIsOpen(!isOpen)}
+//             className="relative z-50 flex h-10 w-10 items-center justify-center rounded-full text-gray-700 transition-colors hover:bg-gray-100 hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-black/60"
+//             aria-label={isOpen ? "Close menu" : "Open menu"}
+//             aria-expanded={isOpen}
+//           >
+//             <svg
+//               className="h-6 w-6"
+//               fill="none"
+//               viewBox="0 0 24 24"
+//               stroke="currentColor"
+//             >
+//               <path
+//                 strokeLinecap="round"
+//                 strokeLinejoin="round"
+//                 strokeWidth={2}
+//                 className={`origin-center transition-all duration-300 ${
+//                   isOpen ? "opacity-0 scale-50" : "opacity-100 scale-100"
+//                 }`}
+//                 d="M4 6h16M4 12h16M4 18h16"
+//               />
+//               <path
+//                 strokeLinecap="round"
+//                 strokeLinejoin="round"
+//                 strokeWidth={2}
+//                 className={`origin-center transition-all duration-300 ${
+//                   isOpen ? "opacity-100 scale-100" : "opacity-0 scale-50"
+//                 }`}
+//                 d="M6 18L18 6M6 6l12 12"
+//                 transform="translate(0,0)"
+//                 style={{ display: isOpen ? "block" : "none" }}
+//               />
+//             </svg>
+//           </button>
+//         </div>
+//       </div>
+
+//       {/* Mobile Navigation Menu */}
+//       <div
+//         className={`overflow-hidden transition-all duration-300 ease-in-out md:hidden ${
+//           isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+//         }`}
+//       >
+//         <div className="border-t border-gray-100 bg-white px-4 py-4 pb-6 sm:px-6">
+//           <div className="flex flex-col space-y-1">
+//             {NAV_LINKS.map((link, i) => {
+//               const isActive = pathname === link.href;
+//               return (
+//                 <Link
+//                   key={link.label}
+//                   href={link.href}
+//                   onClick={() => setIsOpen(false)}
+//                   style={{ transitionDelay: isOpen ? `${i * 50}ms` : "0ms" }}
+//                   className={`translate-y-0 rounded-lg px-3 py-2.5 text-base font-medium transition-all duration-300 ${
+//                     isActive
+//                       ? "bg-gray-100 text-black"
+//                       : "text-gray-600 hover:bg-gray-50 hover:text-black"
+//                   }`}
+//                 >
+//                   {link.label}
+//                 </Link>
+//               );
+//             })}
+//           </div>
+//         </div>
+//       </div>
+//     </header>
+//   );
+// }
+
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import StoryLightbox from "@/components/StoryLightbox";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 import { theme, withAlpha } from "@/lib/theme";
 
 const NAV_LINKS = [
@@ -12,237 +190,191 @@ const NAV_LINKS = [
   { label: "Contact", href: "/contact" },
 ];
 
-
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [storyOpen, setStoryOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
-  const previewRef = useRef<HTMLVideoElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
-  // Hide the navbar while scrolling down; reveal it on the first scroll up.
+  // Hide navbar on scroll down, show on scroll up
   useEffect(() => {
-    let lastY = window.scrollY;
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const y = window.scrollY;
-        const delta = y - lastY;
-        lastY = y;
-        if (Math.abs(delta) < 2) return; // ignore jitter
-        setHidden(delta > 0 && y > 80);
-      });
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      setIsScrolled(currentScrollY > 8);
+
+      if (isOpen) return;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+
+      lastScrollY = currentScrollY;
     };
-    window.addEventListener("scroll", onScroll, { passive: true });
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isOpen]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(raf);
+      document.body.style.overflow = "";
     };
+  }, [isOpen]);
+
+  // Close mobile menu on Escape
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // Pause the preview when the tab is hidden; resume when it's visible again.
+  // Close mobile menu on route change
   useEffect(() => {
-    const onVisibility = () => {
-      const v = previewRef.current;
-      if (!v) return;
-      if (document.hidden) v.pause();
-      else v.play().catch(() => {});
-    };
-    document.addEventListener("visibilitychange", onVisibility);
-    return () => document.removeEventListener("visibilitychange", onVisibility);
-  }, []);
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key !== "Escape") return;
-      setStoryOpen((story) => {
-        if (!story) setOpen(false);
-        return false;
-      });
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
-    <>
-      {/* Dimmed backdrop */}
-      <div
-        onClick={() => setOpen(false)}
-        className={`fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 ${
-          open ? "opacity-100" : "pointer-events-none opacity-0"
-        }`}
-      />
+    <header
+      className={`fixed top-0 z-50 w-full transition-all duration-300 ease-in-out ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      } ${
+        isScrolled
+          ? "bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-200"
+          : "bg-white/0 border-b border-transparent"
+      }`}
+    >
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+        {/* Logo & Brand */}
+        <Link
+          href="/"
+          className="group flex items-center gap-3"
+          onClick={() => setIsOpen(false)}
+        >
+          <Image
+            src="/iphipi-primary.png"
+            alt="iphipi logo"
+            width={40}
+            height={40}
+            priority
+            className="transition-transform duration-300 group-hover:scale-105"
+          />
+          <span
+            className="text-lg font-extrabold uppercase tracking-widest"
+            style={{ color: theme.secondary }}
+          >
+            iphipi
+          </span>
+        </Link>
 
-      <header
-        className={`pointer-events-none fixed inset-x-0 top-5 z-50 px-4 transition-transform duration-300 ease-in-out ${
-          hidden && !open && !storyOpen ? "-translate-y-[calc(100%+1.25rem)]" : "translate-y-0"
+        {/* Desktop Navigation */}
+        <nav className="hidden items-center gap-1 md:flex">
+          {NAV_LINKS.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="group relative px-3 py-2 text-sm font-medium transition-colors"
+                style={{
+                  color: isActive ? theme.secondary : theme.textMuted,
+                }}
+              >
+                {link.label}
+                <span
+                  className={`absolute inset-x-3 -bottom-0.5 h-[2px] origin-left transition-transform duration-300 ${
+                    isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                  }`}
+                  style={{ backgroundColor: theme.accent }}
+                />
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Mobile Menu Toggle Button */}
+        <div className="flex items-center md:hidden">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="relative z-50 flex h-10 w-10 items-center justify-center rounded-full transition-colors focus:outline-none focus-visible:ring-2"
+            style={{
+              color: theme.secondary,
+            }}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-nav-menu"
+          >
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                className={`origin-center transition-all duration-300 ${
+                  isOpen ? "opacity-0 scale-50" : "opacity-100 scale-100"
+                }`}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                className={`origin-center transition-all duration-300 ${
+                  isOpen ? "opacity-100 scale-100" : "opacity-0 scale-50"
+                }`}
+                d="M6 18L18 6M6 6l12 12"
+                style={{ display: isOpen ? "block" : "none" }}
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Navigation Menu */}
+      <div
+        id="mobile-nav-menu"
+        className={`overflow-hidden transition-all duration-300 ease-in-out md:hidden ${
+          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <style>{`
-          .theme-nav-menu-btn:hover .theme-nav-menu-btn-bg {
-            background-color: ${withAlpha(theme.secondary, 0.05)};
-          }
-        `}</style>
         <div
-          className="pointer-events-auto relative mx-auto overflow-hidden rounded-xl border border-zinc-200/80 bg-white/85 backdrop-blur-2xl transition-[width] duration-500 ease-in-out [--menu-width-closed:100%] [--menu-width-open:100%] sm:[--menu-width-closed:330px] sm:[--menu-width-open:50vw] md:[--menu-width-open:70vw] xl:[--menu-width-open:50vw]"
-          style={{
-            width: open ? "var(--menu-width-open)" : "var(--menu-width-closed)",
-            color: theme.secondary,
-          }}
+          className="border-t px-4 py-4 pb-6 sm:px-6"
+          style={{ borderColor: theme.borderInactive, backgroundColor: theme.pageBg }}
         >
-          {/* Top bar: logo / wordmark / toggle */}
-          <div className="flex h-[60px] w-full items-center justify-between">
-            <a aria-label="Home" href="/">
-              <div
-                className="flex h-[60px] w-[60px] items-center justify-center transition-transform duration-500"
-                style={{ transform: open ? "rotate(-360deg)" : "rotate(0deg)" }}
-              >
-                <Image
-                  src="/iphipi-primary.png"
-                  alt=""
-                  width={40}
-                  height={40}
-                  priority
-                  className="p-1.5"
-                />
-              </div>
-            </a>
-
-            <a className="flex h-[60px] items-center p-5" aria-label="Home" href="/">
-              <span className="text-sm font-extrabold uppercase leading-none tracking-[0.35em]">
-                iphipi
-              </span>
-            </a>
-
-            <div className="flex items-center">
-              <button
-                type="button"
-                aria-label={open ? "Close menu" : "Open menu"}
-                aria-expanded={open}
-                onClick={() => setOpen((v) => !v)}
-                className="theme-nav-menu-btn group relative h-[60px] w-[60px] cursor-pointer p-5"
-              >
-                <div className="theme-nav-menu-btn-bg absolute inset-0 m-2.5 flex items-center justify-center rounded-lg transition-colors duration-200" />
-                <span
-                  className="absolute left-1/2 top-1/2 h-[2px] w-[20px] rounded-full bg-current transition-transform duration-300"
+          <div className="flex flex-col space-y-1">
+            {NAV_LINKS.map((link, i) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
                   style={{
-                    transform: open
-                      ? "translateX(-50%) translateY(-50%) rotate(45deg)"
-                      : "translateX(-50%) translateY(calc(-50% - 4px))",
+                    transitionDelay: isOpen ? `${i * 50}ms` : "0ms",
+                    backgroundColor: isActive ? withAlpha(theme.accent, 0.08) : "transparent",
+                    color: isActive ? theme.primary : theme.textMuted,
                   }}
-                />
-                <span
-                  className="absolute left-1/2 top-1/2 h-[2px] w-[20px] rounded-full bg-current transition-transform duration-300"
-                  style={{
-                    transform: open
-                      ? "translateX(-50%) translateY(-50%) rotate(-45deg)"
-                      : "translateX(-50%) translateY(calc(-50% + 4px))",
-                  }}
-                />
-              </button>
-            </div>
-          </div>
-
-          {/* Expanding panel — max-height transition to the content's natural
-              height (no JS measurement, so no leftover gap below the footer) */}
-          <div
-            className={`overflow-hidden transition-[max-height] duration-500 ease-in-out ${
-              open ? "max-h-[80vh]" : "max-h-0"
-            }`}
-          >
-            <div
-              className={`flex w-full flex-col gap-8 p-6 transition-opacity duration-300 ${
-                open ? "opacity-100 delay-150" : "opacity-0"
-              }`}
-            >
-              <div className="grid grid-cols-4 items-center">
-                <div className="col-span-4 flex flex-col lg:col-span-2">
-                  <nav className="col-auto flex flex-col items-start gap-2 pb-8 lg:pb-0">
-                    {NAV_LINKS.map((link) => (
-                      <a
-                        key={link.label}
-                        href={link.href}
-                        className="text-2xl font-medium tracking-tight transition-colors duration-200 hover:text-zinc-500"
-                      >
-                        {link.label}
-                      </a>
-                    ))}
-                  </nav>
-                </div>
-
-                {/* Story video card */}
-                <div className="col-span-4 lg:col-span-2">
-                  <button
-                    type="button"
-                    aria-label="Watch our story"
-                    onClick={() => setStoryOpen(true)}
-                    className="group relative flex aspect-video max-h-44 w-full cursor-pointer items-center justify-center overflow-hidden rounded-md bg-black"
-                  >
-                    {/* Lightweight muted preview; mounted only while the menu is
-                        open (and not covered by the story lightbox) so nothing
-                        plays or downloads in the background. */}
-                    {open && !storyOpen && (
-                      <video
-                        ref={previewRef}
-                        src="/our-story-preview.mp4"
-                        poster="/our-story-poster.jpg"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="absolute inset-0 h-full w-full object-cover opacity-80"
-                      />
-                    )}
-                    <span className="absolute z-10 inline-flex items-center gap-1.5 rounded-full border border-transparent bg-white/20 py-2.5 pl-2.5 pr-3.5 text-sm font-medium leading-none text-white backdrop-blur-xl transition-colors group-hover:bg-white group-hover:text-black">
-                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-white/20 p-1 backdrop-blur-xl transition-colors group-hover:bg-black">
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="white"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="h-3 w-3"
-                          aria-hidden="true"
-                        >
-                          <polygon points="6 3 20 12 6 21 6 3" fill="white" />
-                        </svg>
-                      </span>
-                      <span>Our story</span>
-                    </span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Footer row */}
-              <div className="grid w-full grid-cols-4">
-                <div className="hidden lg:col-span-2 lg:block">
-                  <p className="text-sm text-neutral-500">The voice intelligence company</p>
-                </div>
-                <div className="col-span-2 lg:col-span-1">
-                  <p className="text-sm text-neutral-500">Launching 2026</p>
-                </div>
-                <div className="col-span-2 lg:col-span-1">
-                  <a
-                    className="flex items-center justify-end text-right text-sm text-neutral-500"
-                    href="/beta-program"
-                  >
-                    <span className="pr-1">Beta Application</span>
-                    <span
-                      className="inline-block h-2 w-2 animate-[blinking_0.75s_ease-in-out_infinite] rounded-full"
-                      style={{ backgroundColor: theme.accent }}
-                    />
-                  </a>
-                </div>
-              </div>
-            </div>
+                  className="translate-y-0 rounded-lg px-3 py-2.5 text-base font-medium transition-all duration-300"
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
-      </header>
-
-      <StoryLightbox open={storyOpen} onClose={() => setStoryOpen(false)} />
-    </>
+      </div>
+    </header>
   );
 }
-

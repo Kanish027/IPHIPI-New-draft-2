@@ -80,7 +80,7 @@ export default function EventsPage() {
                 className="grid gap-6 rounded-xl border border-zinc-200 p-6 sm:p-8 md:grid-cols-[1fr_2fr_auto] md:items-center"
               >
                 <div>
-                  <p className="text-2xl font-semibold tracking-tight">{event.name}</p>
+                  <p className="text-subhead font-semibold tracking-tight">{event.name}</p>
                   <p className="mt-1 text-sm text-zinc-500">
                     {event.date} · {event.location}
                   </p>
@@ -138,7 +138,7 @@ export default function EventsPage() {
                   />
                 </div>
                 <div className="flex flex-col justify-center p-6 sm:p-10">
-                  <p className="text-2xl font-semibold tracking-tight">{event.name}</p>
+                  <p className="text-subhead font-semibold tracking-tight">{event.name}</p>
                   <p
                     className="mt-1 text-sm"
                     style={{ color: ACTIVE_THEME.secondary }}

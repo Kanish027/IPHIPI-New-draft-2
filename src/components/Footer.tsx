@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { theme } from "@/lib/theme";
+import { theme, withAlpha } from "@/lib/theme";
 
 const ACTIVE_THEME = {
   footerBg: theme.primary,
@@ -39,15 +39,15 @@ export default function Footer() {
       {/* Injecting CSS Variables for Dynamic Hover States */}
       <style>{`
         .theme-footer-link {
-          color: rgba(255, 255, 255, 0.7);
+          color: ${withAlpha(theme.textLight, 0.7)};
         }
         .theme-footer-link:hover {
           color: ${ACTIVE_THEME.accent};
         }
-        
+
         .theme-footer-social {
-          border-color: rgba(255, 255, 255, 0.15);
-          color: rgba(255, 255, 255, 0.7);
+          border-color: ${withAlpha(theme.textLight, 0.15)};
+          color: ${withAlpha(theme.textLight, 0.7)};
         }
         .theme-footer-social:hover {
           border-color: ${ACTIVE_THEME.accent};
@@ -176,7 +176,7 @@ export default function Footer() {
 
         {/* Watermark wordmark */}
         <div className="pointer-events-none mt-10 select-none overflow-hidden">
-          <p className="text-center text-[clamp(4rem,17vw,17rem)] font-semibold leading-[0.8] tracking-tight text-white/[0.05]">
+          <p className="text-center text-[clamp(var(--text-display),17vw,var(--text-mega))] font-semibold leading-[0.8] tracking-tight text-white/[0.05]">
             IPHIPI
           </p>
         </div>

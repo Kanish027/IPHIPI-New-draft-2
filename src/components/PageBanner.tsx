@@ -10,7 +10,7 @@ export default function PageBanner({
   eyebrow,
   title,
   tagline,
-  titleClassName = "text-[clamp(2.5rem,5vw,4.5rem)]",
+  titleClassName = "text-[clamp(var(--text-headline),5vw,var(--text-display))]",
   gradient,
   children,
 }: {

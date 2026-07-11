@@ -16,29 +16,80 @@ const PARTNERS = [
 interface PartnersSectionProps {
   /** Seconds for one full loop of the track. Lower = faster, higher = slower. */
   speed?: number;
-  /** Scroll direction. */
+  /** Scroll direction for the primary row. */
   direction?: "left" | "right";
+  /** Show a second row scrolling the opposite way for extra depth. */
+  dualRow?: boolean;
 }
 
 /**
- * PartnersSection — infinite logo marquee with a "trusted by" label.
+ * PartnersSection — infinite logo marquee with a modern "trusted by" aesthetic.
  */
 export default function PartnersSection({
-  speed = 32,
+  speed = 35,
   direction = "left",
+  dualRow = false,
 }: PartnersSectionProps) {
   // Triplicated so the loop point is invisible at any viewport width.
   const marqueeItems = [...PARTNERS, ...PARTNERS, ...PARTNERS];
+  const reversedItems = [...PARTNERS].reverse();
+  const marqueeItemsReversed = [...reversedItems, ...reversedItems, ...reversedItems];
 
   const trackStyle = {
     "--marquee-speed": `${speed}s`,
   } as CSSProperties;
 
+  const trackStyleSecondary = {
+    "--marquee-speed": `${speed * 1.2}s`, // Slightly different speed for parallax effect
+  } as CSSProperties;
+
+  const renderRow = (
+    items: string[],
+    dir: "left" | "right",
+    style: CSSProperties,
+    keyPrefix: string
+  ) => (
+    <div
+      className="relative w-full overflow-hidden"
+      style={{
+        // Widened the mask gradient for a smoother fade-in/out effect
+        maskImage:
+          "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)",
+        WebkitMaskImage:
+          "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)",
+      }}
+    >
+      <div
+        className={`partners-track partners-track--${dir} flex w-max items-center py-4`}
+        style={style}
+        aria-hidden="true"
+      >
+        {items.map((partner, index) => (
+          <div key={`${keyPrefix}-${partner}-${index}`} className="flex items-center">
+            <div className="group flex h-24 w-[180px] shrink-0 items-center justify-center px-4 sm:w-[220px]">
+              <div className="flex h-16 w-full cursor-default items-center justify-center rounded-2xl border border-slate-100 bg-white/50 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-blue-100 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+                <span
+                  className="select-none whitespace-nowrap text-body font-extrabold tracking-tight text-slate-300 transition-colors duration-300 ease-out group-hover:text-blue-600 sm:text-subhead"
+                  style={{ fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif" }}
+                >
+                  {partner}
+                </span>
+              </div>
+            </div>
+            {/* Subtle separator dot */}
+            <span className="h-1 w-1 shrink-0 rounded-full bg-slate-200" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
-    <section className="relative overflow-hidden">
-      {/* ambient background accent */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-100/50 blur-3xl" />
+    <section className="relative overflow-hidden bg-slate-50/50 py-24 sm:py-32">
+      {/* Ambient background accents */}
+      <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
+        <div className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-100/40 blur-[100px]" />
+        <div className="absolute bottom-0 right-0 h-[400px] w-[400px] translate-x-1/3 translate-y-1/3 rounded-full bg-indigo-100/40 blur-[100px]" />
       </div>
 
       <style>{`
@@ -50,63 +101,54 @@ export default function PartnersSection({
           0% { transform: translateX(-33.3333%); }
           100% { transform: translateX(0); }
         }
-        .partners-track {
-          animation: ${direction === "right" ? "marquee-right" : "marquee-left"} var(--marquee-speed, 32s) linear infinite;
+        .partners-track--left {
+          animation: marquee-left var(--marquee-speed, 32s) linear infinite;
           will-change: transform;
         }
-        .partners-track:hover {
+        .partners-track--right {
+          animation: marquee-right var(--marquee-speed, 32s) linear infinite;
+          will-change: transform;
+        }
+        .partners-track--left:hover,
+        .partners-track--right:hover {
           animation-play-state: paused;
         }
         @media (prefers-reduced-motion: reduce) {
-          .partners-track {
+          .partners-track--left,
+          .partners-track--right {
             animation: none;
           }
         }
       `}</style>
 
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-center px-4 md:px-8">
-        <div className="mb-12 flex items-center gap-3">
-          <span className="h-px w-8 bg-slate-300" />
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-500">
-            Trusted across industries
-          </p>
-          <span className="h-px w-8 bg-slate-300" />
-        </div>
-
-        {/* Marquee viewport */}
-        <div
-          className="relative w-full overflow-hidden"
-          style={{
-            maskImage:
-              "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
-            WebkitMaskImage:
-              "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
-          }}
-        >
-          <div
-            className="partners-track flex w-max items-center"
-            style={trackStyle}
-            aria-hidden="true"
-          >
-            {marqueeItems.map((partner, index) => (
-              <div
-                key={`${partner}-${index}`}
-                className="group flex h-24 w-[220px] shrink-0 items-center justify-center px-6 sm:w-[260px]"
-              >
-                <div className="flex h-16 w-full items-center justify-center rounded-xl border border-transparent bg-transparent transition-all duration-300 ease-out group-hover:border-slate-200 group-hover:bg-white group-hover:shadow-[0_8px_24px_-8px_rgba(15,23,42,0.12)]">
-                  <span
-                    className="select-none whitespace-nowrap text-2xl font-bold tracking-tight text-slate-400 transition-colors duration-300 ease-out group-hover:text-[#1E3A8A] sm:text-3xl"
-                    style={{ fontFamily: "'Helvetica Neue', Arial, sans-serif" }}
-                  >
-                    {partner}
-                  </span>
-                </div>
-              </div>
-            ))}
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-center px-4 md:px-8">
+        
+        {/* Modern Pill Badge Header */}
+        <div className="mb-14 flex items-center justify-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-slate-200/60 bg-white/60 px-4 py-1.5 shadow-sm backdrop-blur-sm">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75"></span>
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
+            </span>
+            <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500">
+              Trusted by industry leaders
+            </h2>
           </div>
         </div>
 
-        {/* Static, screen-reader-only list (marquee content above is duplicated and hidden) */}
+        {/* Marquee viewport(s) */}
+        <div className="flex w-full flex-col gap-4">
+          {renderRow(marqueeItems, direction, trackStyle, "row1")}
+          {dualRow &&
+            renderRow(
+              marqueeItemsReversed,
+              direction === "left" ? "right" : "left",
+              trackStyleSecondary,
+              "row2"
+            )}
+        </div>
+
+        {/* Static, screen-reader-only list */}
         <span className="sr-only">Partners: {PARTNERS.join(", ")}</span>
       </div>
     </section>

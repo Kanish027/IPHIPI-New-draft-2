@@ -24,11 +24,27 @@
   --font-geometric: var(--font-phi), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "Cascadia Code", monospace;
 
-  /* ---------- Type scale ---------- */
+  /* ---------- Type scale — golden ratio (φ ≈ 1.618) ----------
+     Every step is the previous step multiplied by exactly 1.618, rooted at
+     a 1rem body. Client requirement: font sizes must follow the golden
+     ratio, not rounded/arbitrary steps — so these values are the real
+     products of φ, not convenient round numbers.
+       caption  = body ÷ φ   = 1rem   ÷ 1.618 = 0.618rem
+       body     = 1rem                                  (anchor)
+       subhead  = body × φ   = 1rem   × 1.618 = 1.618rem
+       headline = subhead × φ = 1.618rem × 1.618 = 2.618rem  (φ²)
+       display  = headline × φ = 2.618rem × 1.618 = 4.236rem (φ³)
+       hero     = display × φ  = 4.236rem × 1.618 = 6.854rem (φ⁴)
+       giant    = hero × φ     = 6.854rem × 1.618 = 11.089rem (φ⁵)
+       mega     = giant × φ    = 11.089rem × 1.618 = 17.942rem (φ⁶)
+     Extended upward so every large fluid headline (hero banners, stat
+     counters, footer watermark) is bounded by real φ steps instead of
+     arbitrary clamp() endpoints. */
+  --text-caption: 0.618rem; /* ≈ 9.9px */
   --text-body: 1rem; /* 16px */
-  --text-subhead: 1.5rem; /* 24px */
-  --text-headline: 2.5rem; /* 40px */
-  --text-display: 4rem; /* 64px */
+  --text-subhead: 1.618rem; /* ≈ 25.9px */
+  --text-headline: 2.618rem; /* ≈ 41.9px */
+  --text-display: 4.236rem; /* ≈ 67.8px */
 
   /* ---------- Radii & shadows ---------- */
   --radius-4xl: 2rem;
@@ -49,6 +65,19 @@
     from { opacity: 0; transform: translateY(1rem); }
     to { opacity: 1; transform: translateY(0); }
   }
+}
+
+/* ---------- Golden-ratio steps above --text-display (φ⁴–φ⁶) ----------
+   Plain CSS custom properties, not @theme tokens: these are only ever
+   consumed via var(--text-hero) etc. inside arbitrary clamp() values
+   (Hero, PageBanner, BenchmarksSection, Footer), never as a bare
+   Tailwind utility class — so Tailwind's JIT scan would tree-shake them
+   out of @theme. Declaring them here keeps them in the compiled CSS
+   regardless of how they're referenced. */
+:root {
+  --text-hero: 6.854rem; /* ≈ 109.7px, φ⁴ */
+  --text-giant: 11.089rem; /* ≈ 177.4px, φ⁵ */
+  --text-mega: 17.942rem; /* ≈ 287.1px, φ⁶ */
 }
 
 /* ---------- Semantic tokens (theme-aware) ---------- */
@@ -116,6 +145,17 @@
 @keyframes iphipiMarqueeRight {
   from { transform: translateX(-50%); }
   to { transform: translateX(0); }
+}
+
+/* Directional slide — new pillar content enters from the side it was
+   navigated toward, instead of just cross-fading in place. */
+@keyframes iphipiSlideFromRight {
+  from { transform: translateX(56px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes iphipiSlideFromLeft {
+  from { transform: translateX(-56px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
 }
 
 /* Resting pulse-line glow (low-power / always-on visual) */

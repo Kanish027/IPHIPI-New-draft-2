@@ -152,7 +152,7 @@ export default function BenchmarksSection() {
                   </span>
                 </p>
                 <p
-                  className="mt-2 font-geometric text-[clamp(5rem,17vw,15rem)] font-semibold leading-[0.95] tracking-tighter tabular-nums transition-colors duration-500"
+                  className="mt-2 font-geometric text-[clamp(var(--text-display),17vw,var(--text-giant))] font-semibold leading-[0.95] tracking-tighter tabular-nums transition-colors duration-500"
                   style={{ color: ACTIVE_THEME.primary }}
                 >
                   {stat.value}

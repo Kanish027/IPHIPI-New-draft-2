@@ -48,8 +48,8 @@ export default function ContactPage() {
       {/* Injecting CSS Variables for Tailwind hover states */}
       <style>{`
         .theme-social-link {
-          border-color: #E5E7EB; /* zinc-200 */
-          color: #3F3F46; /* zinc-700 */
+          border-color: ${theme.borderInactive};
+          color: #3F3F46; /* zinc-700 — no matching theme token */
         }
         .theme-social-link:hover {
           border-color: ${ACTIVE_THEME.accent};
@@ -63,7 +63,7 @@ export default function ContactPage() {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400">
           Contact
         </p>
-        <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">
+        <h1 className="mt-3 max-w-3xl text-headline leading-[1.0] font-semibold tracking-tight sm:text-display">
           Let&apos;s build voice-first products together
         </h1>
         <p className="mt-5 max-w-2xl text-lg text-zinc-500">

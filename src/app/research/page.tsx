@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import ResearchHero from "@/components/ResearchHero";
 import TechDeepDive from "@/components/TechDeepDive";
 import TeamSection from "@/components/TeamSection";
@@ -343,20 +342,20 @@ export default function ResearchPage() {
       {/* Injecting CSS Variables for Dynamic Hover States */}
       <style>{`
         .theme-hover-living-card {
-          border-color: #E5E7EB; /* Default zinc-200 */
+          border-color: ${withAlpha(theme.textLight, 0.1)};
         }
         .theme-hover-living-card:hover {
           border-color: ${ACTIVE_THEME.accent};
-          background-color: ${ACTIVE_THEME.accentBgMuted};
+          background-color: ${withAlpha(theme.textLight, 0.04)};
         }
-        
+
         .theme-hover-living-icon {
-          background-color: #FAFAFA; /* Default zinc-50 */
-          color: #3F3F46; /* Default zinc-700 */
+          background-color: ${withAlpha(theme.textLight, 0.06)};
+          color: ${withAlpha(theme.textLight, 0.7)};
         }
         .theme-hover-living-card:hover .theme-hover-living-icon {
-          background-color: ${ACTIVE_THEME.pageBg};
-          color: ${ACTIVE_THEME.primary};
+          background-color: ${ACTIVE_THEME.accent};
+          color: ${ACTIVE_THEME.secondary};
         }
       `}</style>
 
@@ -462,16 +461,22 @@ export default function ResearchPage() {
             </div>
           </div>
         </section>
+      </div>
 
-        {/* ============================= */}
-        {/* Living Intelligence            */}
-        {/* ============================= */}
-        <section id="living-intelligence" className="mt-28 scroll-mt-24">
+      {/* ============================= */}
+      {/* Living Intelligence            */}
+      {/* ============================= */}
+      <section
+        id="living-intelligence"
+        className="mt-28 scroll-mt-24 px-4 py-24 text-white transition-colors duration-500 lg:px-6"
+        style={{ backgroundColor: ACTIVE_THEME.secondary }}
+      >
+        <div className="mx-auto max-w-6xl">
           <Eyebrow>Living Intelligence</Eyebrow>
-          <h2 className="mt-3 max-w-2xl text-subhead font-semibold tracking-tight">
+          <h2 className="mt-3 max-w-2xl text-subhead font-semibold tracking-tight text-white">
             Your Home, Intelligently Managed
           </h2>
-          <p className="mt-4 max-w-2xl leading-relaxed text-zinc-500">
+          <p className="mt-4 max-w-2xl leading-relaxed text-zinc-400">
             Understands household activities, recognizes family members, and
             filters unnecessary sounds. Provides timely assistance for cooking,
             shopping, reminders, and home automation.
@@ -529,14 +534,16 @@ export default function ResearchPage() {
                   {f.icon}
                 </span>
                 <span>
-                  <p className="font-medium">{f.name}</p>
-                  <p className="mt-1 text-sm text-zinc-500">{f.desc}</p>
+                  <p className="font-medium text-white">{f.name}</p>
+                  <p className="mt-1 text-sm text-zinc-400">{f.desc}</p>
                 </span>
               </div>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
+      <div className="mx-auto max-w-6xl px-4 lg:px-6">
         {/* ============================= */}
         {/* Personal Intelligence          */}
         {/* ============================= */}
@@ -570,16 +577,10 @@ export default function ResearchPage() {
         {/* Spatial Intelligence           */}
         {/* ============================= */}
         <section id="spatial-intelligence" className="relative mt-28 scroll-mt-24 overflow-hidden rounded-xl">
-          <div className="relative min-h-[70vh] w-full">
-            {/* Sample image — swap for real spatial-intelligence footage */}
-            <Image
-              src="/samples/rd-spatial.jpg"
-              alt="Digital intelligence meets the physical world"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30" />
-
+          <div
+            className="relative min-h-[70vh] w-full"
+            style={{ backgroundColor: ACTIVE_THEME.secondary }}
+          >
             <div className="relative z-10 flex h-full min-h-[70vh] flex-col justify-center p-6 sm:p-12">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-300">
                 Spatial Intelligence

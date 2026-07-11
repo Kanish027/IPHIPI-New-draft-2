@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import AiTechHero from "@/components/AiTechHero";
 import MicTechShowcase from "@/components/MicTechShowcase";
+import FormFactorsShowcase from "@/components/FormFactorsShowcase";
 import { theme, withAlpha } from "@/lib/theme";
 
 export const metadata: Metadata = {
@@ -86,96 +87,6 @@ const STAGES = [
 
 const SEPARATION_INPUTS = ["Speaker voice", "Background noise", "Surrounding voices"];
 
-const FORM_FACTORS = [
-  {
-    name: "TWS Earbuds",
-    desc: "In-ear, dual-mic ready",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
-        <circle cx="9" cy="8" r="4" />
-        <path d="M9 12v6a2 2 0 0 0 4 0" />
-        <path d="M17 5a4 4 0 0 1 0 6M19.5 3a7 7 0 0 1 0 10" />
-      </svg>
-    ),
-  },
-  {
-    name: "OWS / Open Ear",
-    desc: "Open-ear comfort",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
-        <path d="M8 20c-3-2-5-5-5-8a7 7 0 0 1 14 0" />
-        <path d="M17 12v4a4 4 0 0 1-4 4" />
-        <circle cx="17" cy="9" r="1.5" />
-      </svg>
-    ),
-  },
-  // {
-  //   name: "Hearing Devices",
-  //   desc: "Assistive enhancement",
-  //   icon: (
-  //     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
-  //       <path d="M8 14c-2-1-3-3-3-5a5 5 0 0 1 10 0c0 2 1.5 2.5 1.5 4.5A3.5 3.5 0 0 1 13 17c-1 0-1.5-.5-1.5-1.5" />
-  //       <path d="M6 20a3 3 0 0 0 5 1" />
-  //     </svg>
-  //   ),
-  // },
-  {
-    name: "Smart Glasses",
-    desc: "Multimodal + spatial",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
-        <circle cx="7" cy="14" r="3.5" />
-        <circle cx="17" cy="14" r="3.5" />
-        <path d="M10.5 14a2 2 0 0 1 3 0M3.5 13 2 8M20.5 13 22 8" />
-      </svg>
-    ),
-  },
-  // {
-  //   name: "Neckbands",
-  //   desc: "All-day battery",
-  //   icon: (
-  //     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
-  //       <path d="M5 4c0 6 2 10 7 10s7-4 7-10" />
-  //       <circle cx="5" cy="18" r="1.8" />
-  //       <circle cx="19" cy="18" r="1.8" />
-  //       <path d="M5 14v2.2M19 14v2.2" />
-  //     </svg>
-  //   ),
-  // },
-  {
-    name: "Smart Ring",
-    desc: "Ultra-low power",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
-        <circle cx="12" cy="14" r="7" />
-        <circle cx="12" cy="14" r="3.5" />
-        <path d="m10 4 2-2 2 2" />
-      </svg>
-    ),
-  },
-  {
-    name: "Smart Watch",
-    desc: "On-wrist voice",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
-        <rect x="7" y="7" width="10" height="10" rx="3" />
-        <path d="M9 7V3h6v4M9 17v4h6v-4M12 10v2.5l1.5 1" />
-      </svg>
-    ),
-  },
-  {
-    name: "Pendant",
-    desc: "Ambient wearable",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
-        <path d="M4 3c2 4 5 6 8 6s6-2 8-6" />
-        <path d="M12 9v3" />
-        <circle cx="12" cy="16" r="4" />
-      </svg>
-    ),
-  },
-];
-
 function Waveform({
   bars,
   className = "",
@@ -214,24 +125,6 @@ export default function AiTechnologiesPage() {
         @keyframes iphipiWave {
           0%, 100% { transform: scaleY(0.4); }
           50% { transform: scaleY(1); }
-        }
-        
-        /* Dynamic Theme Classes */
-        .theme-hover-card {
-          border-color: #E5E7EB; /* Default zinc-200 */
-        }
-        .theme-hover-card:hover {
-          border-color: ${ACTIVE_THEME.accent};
-          background-color: ${ACTIVE_THEME.cardHoverBg};
-        }
-        
-        .theme-hover-icon {
-          background-color: #FAFAFA; /* Default zinc-50 */
-          color: #3F3F46; /* Default zinc-700 */
-        }
-        .theme-hover-card:hover .theme-hover-icon {
-          background-color: ${ACTIVE_THEME.pageBg};
-          color: ${ACTIVE_THEME.accent};
         }
       `}</style>
 
@@ -377,29 +270,26 @@ export default function AiTechnologiesPage() {
 
       <div className="mx-auto max-w-6xl px-4 lg:px-6">
         {/* Form factors */}
-        <section className="mt-28">
-          <h2 className="text-subhead font-semibold tracking-tight">
-            Supported Wearable Form Factors
-          </h2>
-          <p className="mt-3 max-w-2xl text-zinc-500">
-            Engineered for seamless integration across a wide range of devices.
-          </p>
-          <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
-            {FORM_FACTORS.map((factor) => (
-              <div
-                key={factor.name}
-                className="theme-hover-card group flex flex-col items-center gap-4 rounded-[20px] border px-4 py-8 text-center transition-all duration-300 hover:-translate-y-0.5"
-              >
-                <span className="theme-hover-icon flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300">
-                  {factor.icon}
-                </span>
-                <span>
-                  <span className="block text-sm font-medium">{factor.name}</span>
-                  <span className="mt-1 block text-xs text-zinc-500">{factor.desc}</span>
-                </span>
-              </div>
-            ))}
+        <section className="mt-28 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <h2 className="text-subhead font-semibold tracking-tight">
+              Supported Wearable Form Factors
+            </h2>
+            <p className="mt-4 max-w-md leading-relaxed text-zinc-500">
+              One noise-suppression engine, tuned per device. From in-ear
+              earbuds to ambient pendants, the same AI core adapts its
+              beamforming and gain profile to each form factor&apos;s mic
+              geometry — no separate tuning pass required per SKU.
+            </p>
+            <button
+              type="button"
+              className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+              style={{ backgroundColor: ACTIVE_THEME.secondary }}
+            >
+              Book a Demo
+            </button>
           </div>
+          <FormFactorsShowcase />
         </section>
       </div>
     </main>

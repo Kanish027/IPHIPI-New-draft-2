@@ -16,7 +16,7 @@ function SectionHeading({ eyebrow, title, tagline }: { eyebrow: string; title: s
       <p className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: ACTIVE_THEME.accent }}>
         {eyebrow}
       </p>
-      <h3 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl" style={{ color: ACTIVE_THEME.secondary }}>
+      <h3 className="mt-3 text-subhead font-semibold tracking-tight" style={{ color: ACTIVE_THEME.secondary }}>
         {title}
       </h3>
       <p className="mt-3 leading-relaxed text-zinc-500">{tagline}</p>
@@ -76,7 +76,7 @@ function OneMicSolution() {
         {/* Center callout */}
         <div
           className="flex flex-col items-center justify-center gap-3 rounded-2xl p-6 text-center"
-          style={{ background: `linear-gradient(160deg, ${ACTIVE_THEME.secondary} 0%, #101012 100%)` }}
+          style={{ background: `linear-gradient(160deg, ${ACTIVE_THEME.secondary} 0%, ${theme.gradDark2} 100%)` }}
         >
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/90">IPHIPI</p>
           <p className="text-sm font-medium text-white/70">One Mic Solution</p>
@@ -133,7 +133,7 @@ function TwoMicSolution() {
       <div className="mt-8 grid gap-4 lg:grid-cols-2">
         <div
           className="rounded-2xl p-6 sm:p-8"
-          style={{ background: `linear-gradient(160deg, ${ACTIVE_THEME.secondary} 0%, #101012 100%)` }}
+          style={{ background: `linear-gradient(160deg, ${ACTIVE_THEME.secondary} 0%, ${theme.gradDark2} 100%)` }}
         >
           <p className="text-xs font-semibold uppercase tracking-wide text-white/60">Wind Noise Suppression</p>
           <p className="mt-2 text-4xl font-semibold tabular-nums text-white">
@@ -229,7 +229,7 @@ function FarFieldSolution() {
 
         <div
           className="flex flex-col items-center justify-center gap-3 rounded-2xl p-6 text-center sm:p-8"
-          style={{ background: `linear-gradient(160deg, ${ACTIVE_THEME.secondary} 0%, #101012 100%)` }}
+          style={{ background: `linear-gradient(160deg, ${ACTIVE_THEME.secondary} 0%, ${theme.gradDark2} 100%)` }}
         >
           <p className="text-4xl font-semibold tabular-nums text-white">
             2<span style={{ color: ACTIVE_THEME.accent }} className="ml-1 text-lg">m</span>
@@ -284,7 +284,7 @@ function KeywordSpottingSolution() {
 
       <div className="mt-8 flex flex-col items-stretch gap-3 lg:flex-row lg:items-center">
         <div className="flex flex-1 flex-col items-center gap-3 rounded-2xl border border-zinc-200 p-6 text-center">
-          <MiniWave bars={NOISY_BARS} color="#A1A1AA" className="h-8" />
+          <MiniWave bars={NOISY_BARS} color={theme.railTextInactive} className="h-8" />
           <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">Voice Input</p>
         </div>
 
@@ -292,7 +292,7 @@ function KeywordSpottingSolution() {
 
         <div
           className="flex flex-1 flex-col items-center gap-2 rounded-2xl p-6 text-center"
-          style={{ background: `linear-gradient(160deg, ${ACTIVE_THEME.secondary} 0%, #101012 100%)` }}
+          style={{ background: `linear-gradient(160deg, ${ACTIVE_THEME.secondary} 0%, ${theme.gradDark2} 100%)` }}
         >
           <div
             className="flex h-11 w-11 items-center justify-center rounded-xl"

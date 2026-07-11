@@ -160,7 +160,7 @@ export default function ScrollHero(props: ScrollHeroProps) {
             clipPath: `inset(${topVh}vh ${side}px 0 ${side}px round ${radius}px)`,
           }}
         >
-          <HeroText {...props} titleClassName={titleClassName} variant="light" />
+          {/* <HeroText {...props} titleClassName={titleClassName} variant="light" /> */}
         </div>
       </div>
     </section>

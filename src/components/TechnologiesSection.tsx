@@ -142,7 +142,10 @@ export default function TechnologiesSection() {
       />
 
       <div className="relative mx-auto max-w-[1400px] px-6 md:px-12">
-        <div className="grid grid-cols-1 gap-8 border-b border-[#1A1814]/10 pb-16 md:grid-cols-12 lg:pb-24">
+        <div
+          className="grid grid-cols-1 gap-8 border-b pb-16 md:grid-cols-12 lg:pb-24"
+          style={{ borderColor: withAlpha(ACTIVE_THEME.secondary, 0.1) }}
+        >
           <div className="col-span-6 md:col-span-7">
             <div className="mb-4 flex items-center gap-2">
               <span
@@ -153,7 +156,7 @@ export default function TechnologiesSection() {
               </span>
             </div>
             <h2
-              className="max-w-xl text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl"
+              className="max-w-xl text-headline font-medium tracking-tight leading-[1.2] lg:text-display"
               style={{ color: ACTIVE_THEME.secondary }}
             >
               Adaptive Audio Intelligence.

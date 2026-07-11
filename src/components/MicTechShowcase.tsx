@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { theme } from "@/lib/theme";
+import { theme, withAlpha } from "@/lib/theme";
 
 const ACTIVE_THEME = {
   primary: theme.primary,
@@ -208,7 +208,7 @@ export default function MicTechShowcase() {
                       className="h-1.5 rounded-full transition-all duration-300"
                       style={{
                         width: i === active ? "1.5rem" : "0.375rem",
-                        backgroundColor: i === active ? ACTIVE_THEME.accent : "rgba(255, 255, 255, 0.4)",
+                        backgroundColor: i === active ? ACTIVE_THEME.accent : withAlpha(theme.textLight, 0.4),
                       }}
                     />
                   ))}
@@ -219,7 +219,10 @@ export default function MicTechShowcase() {
 
           {/* Mobile — image sits inline under the scroll steps container */}
           <div className="lg:hidden">
-            <div className="relative aspect-[3/2] w-full overflow-hidden rounded-[24px] border border-zinc-200/70 bg-[#121212]">
+            <div
+              className="relative aspect-[3/2] w-full overflow-hidden rounded-[24px] border border-zinc-200/70"
+              style={{ backgroundColor: theme.surfaceDark }}
+            >
               {TECHS.map((tech, i) => (
                 <Image
                   key={tech.title}

@@ -27,8 +27,8 @@ const PILLARS = [
       "https://picsum.photos/seed/work-intelligence-c/700/900",
     ],
     stats: [
-      { value: "Metric/Feature", label: "Less context-switching" },
-      { value: "Metric/Feature", label: "Always-on assistant" },
+      { value: "Metric", label: "Less context-switching" },
+      { value: "Metric", label: "Always-on assistant" },
     ],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
@@ -47,8 +47,8 @@ const PILLARS = [
       "https://picsum.photos/seed/living-intelligence-c/700/900",
     ],
     stats: [
-      { value: "Metric/Feature", label: "Routines automated" },
-      { value: "Metric/Feature", label: "On-device privacy" },
+      { value: "Metric", label: "Routines automated" },
+      { value: "Metric", label: "On-device privacy" },
     ],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
@@ -67,8 +67,8 @@ const PILLARS = [
       "https://picsum.photos/seed/personal-intelligence-c/700/900",
     ],
     stats: [
-      { value: "Metric/Feature", label: "Faster health insights" },
-      { value: "Metric/Feature", label: "Personalized check-ins" },
+      { value: "Metric", label: "Faster health insights" },
+      { value: "Metric", label: "Personalized check-ins" },
     ],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
@@ -86,8 +86,8 @@ const PILLARS = [
       "https://picsum.photos/seed/spatial-intelligence-c/700/900",
     ],
     stats: [
-      { value: "Metric/Feature", label: "Real-time scene analysis" },
-      { value: "Metric/Feature", label: "Spatial awareness" },
+      { value: "Metric", label: "Real-time scene analysis" },
+      { value: "Metric", label: "Spatial awareness" },
     ],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
@@ -116,38 +116,47 @@ function EdgeNavButton({ direction, onClick }: { direction: "left" | "right"; on
       style={{
         left: direction === "left" ? "-1.5rem" : undefined,
         right: direction === "right" ? "-1.5rem" : undefined,
-        backgroundColor: "rgba(255,255,255,0.06)",
+        backgroundColor: withAlpha(theme.textLight, 0.06),
       }}
       onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = ACTIVE_THEME.accentMuted)}
-      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.06)")}
+      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = withAlpha(theme.textLight, 0.06))}
     >
       <ArrowIcon direction={direction} />
     </button>
   );
 }
 
-function PhotoFan({ images, title }: { images: string[]; title: string }) {
+function PhotoFan({ images, title, photoIndex }: { images: string[]; title: string; photoIndex: number }) {
+  const count = images.length;
+  // Rotate which image sits front/center vs. the two back slots, based on
+  // photoIndex — this cycles photos WITHIN the current pillar, independent
+  // of which pillar is active.
+  const front = images[photoIndex % count];
+  const backLeft = images[(photoIndex + 1) % count];
+  const backRight = images[(photoIndex + 2) % count];
+
   return (
     <div className="relative mx-auto h-[420px] w-full max-w-sm">
       {/* Back-left photo */}
       <div className="absolute left-[2%] top-[10%] h-[260px] w-[190px] -rotate-[9deg] overflow-hidden rounded-2xl border-4 border-white/90 shadow-2xl">
-        <img src={images[1]} alt="" aria-hidden="true" draggable={false} className="h-full w-full select-none object-cover" />
+        <img src={backLeft} alt="" aria-hidden="true" draggable={false} className="h-full w-full select-none object-cover" />
       </div>
       {/* Back-right photo */}
       <div className="absolute right-[2%] top-[10%] h-[260px] w-[190px] rotate-[9deg] overflow-hidden rounded-2xl border-4 border-white/90 shadow-2xl">
-        <img src={images[2]} alt="" aria-hidden="true" draggable={false} className="h-full w-full select-none object-cover" />
+        <img src={backRight} alt="" aria-hidden="true" draggable={false} className="h-full w-full select-none object-cover" />
       </div>
       {/* Center active photo */}
       <div
-        className="absolute inset-x-[16%] top-0 h-[360px] overflow-hidden rounded-2xl border-4 shadow-2xl"
-        style={{ borderColor: "#fff" }}
+        key={front}
+        className="absolute inset-x-[16%] top-0 h-[360px] animate-fade-in overflow-hidden rounded-2xl border-4 shadow-2xl"
+        style={{ borderColor: theme.textLight }}
       >
-        <img src={images[0]} alt="" aria-hidden="true" draggable={false} className="h-full w-full select-none object-cover" />
+        <img src={front} alt="" aria-hidden="true" draggable={false} className="h-full w-full select-none object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/5 to-transparent" />
 
         <div
           className="absolute left-3 top-3 flex h-9 w-9 items-center justify-center rounded-full border"
-          style={{ backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.9), borderColor: "rgba(255,255,255,0.4)" }}
+          style={{ backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.9), borderColor: withAlpha(theme.textLight, 0.4) }}
         >
           <svg viewBox="0 0 24 24" fill={ACTIVE_THEME.sectionBg} className="ml-0.5 h-3.5 w-3.5">
             <path d="M7 4.5v15l13-7.5z" />
@@ -164,12 +173,29 @@ function PhotoFan({ images, title }: { images: string[]; title: string }) {
 
 export default function PillarsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  // 1 = navigated forward (slide in from the right), -1 = navigated back
+  // (slide in from the left) — drives the directional entrance animation.
+  const [direction, setDirection] = useState<1 | -1>(1);
+  // Which of the pillar's 3 photos is currently front/center — resets to 0
+  // whenever the pillar itself changes.
+  const [photoIndex, setPhotoIndex] = useState(0);
   const count = PILLARS.length;
   const pillar = PILLARS[activeIndex];
 
-  const goTo = useCallback((index: number) => setActiveIndex(((index % count) + count) % count), [count]);
-  const goPrev = useCallback(() => goTo(activeIndex - 1), [activeIndex, goTo]);
-  const goNext = useCallback(() => goTo(activeIndex + 1), [activeIndex, goTo]);
+  const goTo = useCallback(
+    (index: number, dir: 1 | -1 = 1) => {
+      setDirection(dir);
+      setPhotoIndex(0);
+      setActiveIndex(((index % count) + count) % count);
+    },
+    [count]
+  );
+  const goPrev = useCallback(() => goTo(activeIndex - 1, -1), [activeIndex, goTo]);
+  const goNext = useCallback(() => goTo(activeIndex + 1, 1), [activeIndex, goTo]);
+
+  const cyclePhoto = (dir: 1 | -1) => {
+    setPhotoIndex((i) => ((i + dir) % 3 + 3) % 3);
+  };
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
@@ -211,7 +237,12 @@ export default function PillarsSection() {
           <EdgeNavButton direction="left" onClick={goPrev} />
           <EdgeNavButton direction="right" onClick={goNext} />
 
-          <div key={pillar.id} className="grid animate-fade-in gap-10 rounded-[32px] border border-white/10 p-6 sm:p-10 lg:grid-cols-2 lg:items-center lg:gap-4">
+          <div
+            key={pillar.id}
+            className={`grid gap-10 rounded-[32px] border border-white/10 p-6 sm:p-10 lg:grid-cols-2 lg:items-center lg:gap-4 ${
+              direction === 1 ? "animate-[iphipiSlideFromRight_0.5s_ease-out]" : "animate-[iphipiSlideFromLeft_0.5s_ease-out]"
+            }`}
+          >
             {/* Left: content */}
             <div>
               <div
@@ -221,7 +252,7 @@ export default function PillarsSection() {
                 {pillar.icon}
               </div>
 
-              <h3 className="mt-6 text-3xl font-semibold leading-tight tracking-tight sm:text-4xl" style={{ color: ACTIVE_THEME.textHeading }}>
+              <h3 className="mt-6 text-subhead font-semibold leading-tight tracking-tight sm:text-headline" style={{ color: ACTIVE_THEME.textHeading }}>
                 {pillar.title}
               </h3>
               <p className="mt-4 max-w-md leading-relaxed" style={{ color: ACTIVE_THEME.textBody }}>
@@ -239,7 +270,7 @@ export default function PillarsSection() {
 
               <div className="mt-5 grid grid-cols-2 gap-4">
                 <div className="rounded-2xl p-5" style={{ backgroundColor: ACTIVE_THEME.accent }}>
-                  <p className="text-3xl font-semibold tabular-nums" style={{ color: ACTIVE_THEME.sectionBg }}>
+                  <p className="text-headline font-semibold tabular-nums" style={{ color: ACTIVE_THEME.sectionBg }}>
                     {pillar.stats[0].value}
                   </p>
                   <p className="mt-1 text-xs font-medium" style={{ color: ACTIVE_THEME.sectionBg }}>
@@ -247,7 +278,7 @@ export default function PillarsSection() {
                   </p>
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-                  <p className="text-3xl font-semibold tabular-nums" style={{ color: ACTIVE_THEME.textHeading }}>
+                  <p className="text-headline font-semibold tabular-nums" style={{ color: ACTIVE_THEME.textHeading }}>
                     {pillar.stats[1].value}
                   </p>
                   <p className="mt-1 text-xs font-medium" style={{ color: ACTIVE_THEME.textBody }}>
@@ -266,25 +297,26 @@ export default function PillarsSection() {
               </Link>
             </div>
 
-            {/* Right: fanned photo stack */}
+            {/* Right: fanned photo stack — its own prev/next cycles the 3
+                photos of THIS pillar, separate from the pillar navigation */}
             <div>
-              <PhotoFan images={pillar.images} title={pillar.title} />
+              <PhotoFan images={pillar.images} title={pillar.title} photoIndex={photoIndex} />
               <div className="mt-4 flex items-center justify-center gap-3">
                 <button
                   type="button"
-                  onClick={goPrev}
-                  aria-label="Previous pillar"
+                  onClick={() => cyclePhoto(-1)}
+                  aria-label="Previous photo"
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white transition-colors"
-                  style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
+                  style={{ backgroundColor: withAlpha(theme.textLight, 0.06) }}
                 >
                   <ArrowIcon direction="left" />
                 </button>
                 <button
                   type="button"
-                  onClick={goNext}
-                  aria-label="Next pillar"
+                  onClick={() => cyclePhoto(1)}
+                  aria-label="Next photo"
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white transition-colors"
-                  style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
+                  style={{ backgroundColor: withAlpha(theme.textLight, 0.06) }}
                 >
                   <ArrowIcon direction="right" />
                 </button>
@@ -299,10 +331,10 @@ export default function PillarsSection() {
             <button
               key={p.id}
               type="button"
-              onClick={() => goTo(index)}
+              onClick={() => goTo(index, index >= activeIndex ? 1 : -1)}
               aria-label={`Go to ${p.title}`}
               className="h-1.5 w-10 overflow-hidden rounded-full transition-colors duration-300"
-              style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+              style={{ backgroundColor: withAlpha(theme.textLight, 0.15) }}
             >
               <span
                 className="block h-full rounded-full transition-transform duration-500 ease-out"
