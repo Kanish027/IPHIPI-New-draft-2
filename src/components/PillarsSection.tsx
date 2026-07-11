@@ -27,8 +27,8 @@ const PILLARS = [
       "https://picsum.photos/seed/work-intelligence-c/700/900",
     ],
     stats: [
-      { value: "40%", label: "Less context-switching" },
-      { value: "24/7", label: "Always-on assistant" },
+      { value: "Metric/Feature", label: "Less context-switching" },
+      { value: "Metric/Feature", label: "Always-on assistant" },
     ],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
@@ -47,8 +47,8 @@ const PILLARS = [
       "https://picsum.photos/seed/living-intelligence-c/700/900",
     ],
     stats: [
-      { value: "12+", label: "Routines automated" },
-      { value: "100%", label: "On-device privacy" },
+      { value: "Metric/Feature", label: "Routines automated" },
+      { value: "Metric/Feature", label: "On-device privacy" },
     ],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
@@ -67,8 +67,8 @@ const PILLARS = [
       "https://picsum.photos/seed/personal-intelligence-c/700/900",
     ],
     stats: [
-      { value: "3x", label: "Faster health insights" },
-      { value: "Daily", label: "Personalized check-ins" },
+      { value: "Metric/Feature", label: "Faster health insights" },
+      { value: "Metric/Feature", label: "Personalized check-ins" },
     ],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
@@ -86,8 +86,8 @@ const PILLARS = [
       "https://picsum.photos/seed/spatial-intelligence-c/700/900",
     ],
     stats: [
-      { value: "60fps", label: "Real-time scene analysis" },
-      { value: "360°", label: "Spatial awareness" },
+      { value: "Metric/Feature", label: "Real-time scene analysis" },
+      { value: "Metric/Feature", label: "Spatial awareness" },
     ],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
