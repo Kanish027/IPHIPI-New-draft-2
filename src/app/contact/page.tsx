@@ -49,7 +49,7 @@ export default function ContactPage() {
       <style>{`
         .theme-social-link {
           border-color: ${theme.borderInactive};
-          color: #3F3F46; /* zinc-700 — no matching theme token */
+          color: ${ACTIVE_THEME.secondary};
         }
         .theme-social-link:hover {
           border-color: ${ACTIVE_THEME.accent};
@@ -60,13 +60,16 @@ export default function ContactPage() {
 
       <div className="mx-auto w-full max-w-6xl">
         {/* Page header */}
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400">
+        <p
+          className="text-xs font-semibold uppercase tracking-[0.2em]"
+          style={{ color: theme.textMuted }}
+        >
           Contact
         </p>
         <h1 className="mt-3 max-w-3xl text-headline leading-[1.0] font-semibold tracking-tight sm:text-display">
           Let&apos;s build voice-first products together
         </h1>
-        <p className="mt-5 max-w-2xl text-lg text-zinc-500">
+        <p className="mt-5 max-w-2xl text-lg" style={{ color: theme.textMuted }}>
           Whether you&apos;re an OEM exploring on-device audio intelligence or a
           brand designing a voice experience — we&apos;d love to hear from you.
         </p>

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import StoryLightbox from "@/components/StoryLightbox";
+import { theme } from "@/lib/theme";
 
 const STATEMENT =
   "Built for modern products, IPHIPI works 24/7 to make every voice interaction effortless. Hand off wake words, commands and conversations, so you can focus on what really matters.";
@@ -76,7 +77,10 @@ export default function MissionSection() {
       </p>
 
       {/* Story card */}
-      <div className="mx-auto mt-40 grid w-full max-w-[52rem] items-center gap-6 rounded-xl border border-zinc-200 bg-white p-4 md:grid-cols-2">
+      <div
+        className="mx-auto mt-24 grid w-full max-w-[52rem] items-center gap-6 rounded-xl border bg-white p-4 md:grid-cols-2"
+        style={{ borderColor: theme.borderInactive }}
+      >
         <p className="mx-auto max-w-xs text-center text-base font-medium leading-relaxed">
           Voice should give you back what matters most — time. Watch how our
           team came together to work on this mission.

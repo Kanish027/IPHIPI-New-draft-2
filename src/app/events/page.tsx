@@ -77,11 +77,12 @@ export default function EventsPage() {
             {UPCOMING.map((event) => (
               <div
                 key={event.name}
-                className="grid gap-6 rounded-xl border border-zinc-200 p-6 sm:p-8 md:grid-cols-[1fr_2fr_auto] md:items-center"
+                className="grid gap-6 rounded-xl border p-6 sm:p-8 md:grid-cols-[1fr_2fr_auto] md:items-center"
+                style={{ borderColor: theme.borderInactive }}
               >
                 <div>
                   <p className="text-subhead font-semibold tracking-tight">{event.name}</p>
-                  <p className="mt-1 text-sm text-zinc-500">
+                  <p className="mt-1 text-sm" style={{ color: theme.textMuted }}>
                     {event.date} · {event.location}
                   </p>
                   <p
@@ -98,7 +99,7 @@ export default function EventsPage() {
                     {event.status}
                   </p>
                 </div>
-                <p className="text-sm leading-relaxed text-zinc-500">{event.body}</p>
+                <p className="text-sm leading-relaxed" style={{ color: theme.textMuted }}>{event.body}</p>
                 <a
                   href="mailto:hello@iphipi.com?subject=Meeting request — CES 2027"
                   className="theme-btn-dark justify-self-start rounded-full px-5 py-2.5 text-sm font-medium text-white transition-colors duration-300 md:justify-self-end"
@@ -107,6 +108,16 @@ export default function EventsPage() {
                 </a>
               </div>
             ))}
+
+            {/* Placeholder — more dates to be announced */}
+            <div
+              className="rounded-xl border border-dashed p-6 text-center sm:p-8"
+              style={{ borderColor: theme.borderInactive }}
+            >
+              <p className="text-sm font-medium" style={{ color: theme.textMuted }}>
+                More dates to be announced — check back soon.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -126,7 +137,8 @@ export default function EventsPage() {
             {PAST.map((event) => (
               <div
                 key={event.name}
-                className="grid overflow-hidden rounded-xl border border-zinc-200 md:grid-cols-2"
+                className="grid overflow-hidden rounded-xl border md:grid-cols-2"
+                style={{ borderColor: theme.borderInactive }}
               >
                 {/* Sample image — swap for real booth/show-floor photos */}
                 <div className="relative min-h-56">
@@ -145,7 +157,7 @@ export default function EventsPage() {
                   >
                     {event.date} · {event.location}
                   </p>
-                  <p className="mt-4 leading-relaxed text-zinc-500">{event.body}</p>
+                  <p className="mt-4 leading-relaxed" style={{ color: theme.textMuted }}>{event.body}</p>
                 </div>
               </div>
             ))}

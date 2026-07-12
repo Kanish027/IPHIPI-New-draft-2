@@ -1,6 +1,7 @@
 "use client";
 
 import type { CSSProperties } from "react";
+import { theme, withAlpha } from "@/lib/theme";
 
 const PARTNERS = [
   "Mivi",
@@ -67,17 +68,20 @@ export default function PartnersSection({
         {items.map((partner, index) => (
           <div key={`${keyPrefix}-${partner}-${index}`} className="flex items-center">
             <div className="group flex h-24 w-[180px] shrink-0 items-center justify-center px-4 sm:w-[220px]">
-              <div className="flex h-16 w-full cursor-default items-center justify-center rounded-2xl border border-slate-100 bg-white/50 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-blue-100 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+              <div
+                className="theme-partner-card flex h-16 w-full cursor-default items-center justify-center rounded-2xl border bg-white/50 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]"
+                style={{ borderColor: theme.borderInactive }}
+              >
                 <span
-                  className="select-none whitespace-nowrap text-body font-extrabold tracking-tight text-slate-300 transition-colors duration-300 ease-out group-hover:text-blue-600 sm:text-subhead"
-                  style={{ fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif" }}
+                  className="theme-partner-label select-none whitespace-nowrap text-body font-extrabold tracking-tight transition-colors duration-300 ease-out sm:text-subhead"
+                  style={{ fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif", color: theme.railTextInactive }}
                 >
                   {partner}
                 </span>
               </div>
             </div>
             {/* Subtle separator dot */}
-            <span className="h-1 w-1 shrink-0 rounded-full bg-slate-200" />
+            <span className="h-1 w-1 shrink-0 rounded-full" style={{ backgroundColor: theme.borderInactive }} />
           </div>
         ))}
       </div>
@@ -85,14 +89,29 @@ export default function PartnersSection({
   );
 
   return (
-    <section className="relative overflow-hidden bg-slate-50/50 py-24 sm:py-32">
+    <section
+      className="relative overflow-hidden py-24 sm:py-32"
+      style={{ backgroundColor: theme.cardHover }}
+    >
       {/* Ambient background accents */}
       <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
-        <div className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-100/40 blur-[100px]" />
-        <div className="absolute bottom-0 right-0 h-[400px] w-[400px] translate-x-1/3 translate-y-1/3 rounded-full bg-indigo-100/40 blur-[100px]" />
+        <div
+          className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
+          style={{ backgroundColor: withAlpha(theme.primary, 0.1) }}
+        />
+        <div
+          className="absolute bottom-0 right-0 h-[400px] w-[400px] translate-x-1/3 translate-y-1/3 rounded-full blur-[100px]"
+          style={{ backgroundColor: withAlpha(theme.accent, 0.1) }}
+        />
       </div>
 
       <style>{`
+        .theme-partner-card:hover {
+          border-color: ${withAlpha(theme.primary, 0.25)};
+        }
+        .theme-partner-card:hover .theme-partner-label {
+          color: ${theme.primary};
+        }
         @keyframes marquee-left {
           0% { transform: translateX(0); }
           100% { transform: translateX(-33.3333%); }
@@ -125,12 +144,18 @@ export default function PartnersSection({
         
         {/* Modern Pill Badge Header */}
         <div className="mb-14 flex items-center justify-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-slate-200/60 bg-white/60 px-4 py-1.5 shadow-sm backdrop-blur-sm">
+          <div
+            className="inline-flex items-center gap-2 rounded-full border bg-white/60 px-4 py-1.5 shadow-sm backdrop-blur-sm"
+            style={{ borderColor: withAlpha(theme.secondary, 0.1) }}
+          >
             <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75"></span>
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
+              <span
+                className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
+                style={{ backgroundColor: withAlpha(theme.accent, 0.75) }}
+              ></span>
+              <span className="relative inline-flex h-2 w-2 rounded-full" style={{ backgroundColor: theme.accent }}></span>
             </span>
-            <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500">
+            <h2 className="text-xs font-bold uppercase tracking-widest" style={{ color: theme.textMuted }}>
               Trusted by industry leaders
             </h2>
           </div>

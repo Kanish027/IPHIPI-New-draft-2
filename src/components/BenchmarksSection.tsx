@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { theme } from "@/lib/theme";
+import { theme, withAlpha } from "@/lib/theme";
 
 const ACTIVE_THEME = {
   primary: theme.primary,
@@ -101,6 +101,15 @@ export default function BenchmarksSection() {
       className="relative h-[420vh] transition-colors duration-500"
       style={{ backgroundColor: ACTIVE_THEME.pageBg }}
     >
+      <style>{`
+        .rail-item-inactive:hover .rail-number {
+          color: ${withAlpha(ACTIVE_THEME.accent, 0.7)} !important;
+        }
+        .rail-item-inactive:hover .rail-line {
+          width: 1.75rem !important;
+          background-color: ${withAlpha(ACTIVE_THEME.accent, 0.5)} !important;
+        }
+      `}</style>
       <div
         className="sticky top-0 flex h-screen flex-col overflow-hidden transition-colors duration-500"
         style={{ color: ACTIVE_THEME.secondary }}
@@ -180,10 +189,12 @@ export default function BenchmarksSection() {
                 key={stat.label}
                 onClick={() => jumpTo(i)}
                 aria-label={stat.label}
-                className="group flex cursor-pointer items-center gap-3"
+                className={`group flex cursor-pointer items-center gap-3 ${
+                  i === active ? "" : "rail-item-inactive"
+                }`}
               >
                 <span
-                  className="font-geometric text-[10px] transition-colors duration-300"
+                  className="rail-number font-geometric text-[10px] transition-colors duration-300"
                   style={{
                     color: i === active ? ACTIVE_THEME.accent : ACTIVE_THEME.railTextInactive,
                   }}
@@ -191,7 +202,7 @@ export default function BenchmarksSection() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span
-                  className="h-px transition-all duration-300"
+                  className="rail-line h-px transition-all duration-300"
                   style={{
                     width: i === active ? "2.5rem" : "1.25rem",
                     backgroundColor: i === active ? ACTIVE_THEME.accent : ACTIVE_THEME.railInactive,

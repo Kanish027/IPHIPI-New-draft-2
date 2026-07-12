@@ -52,6 +52,8 @@ export default function Footer() {
         .theme-footer-social:hover {
           border-color: ${ACTIVE_THEME.accent};
           color: ${ACTIVE_THEME.accent};
+          background-color: ${withAlpha(ACTIVE_THEME.accent, 0.08)};
+          transform: translateY(-2px);
         }
       `}</style>
 
@@ -83,7 +85,7 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="theme-footer-social rounded-full border px-4 py-2 text-sm transition-colors duration-300"
+                  className="theme-footer-social rounded-full border px-4 py-2 text-sm transition-all duration-300"
                 >
                   {social.label}
                 </a>
