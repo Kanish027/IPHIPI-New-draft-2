@@ -103,7 +103,7 @@ export default function Navbar() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="group relative px-3 py-2 text-sm font-medium transition-colors"
+                className="group relative px-3.5 py-2 text-base font-medium transition-colors"
                 style={{
                   color: isActive ? theme.secondary : theme.textMuted,
                 }}

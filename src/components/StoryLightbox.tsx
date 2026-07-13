@@ -37,7 +37,7 @@ export default function StoryLightbox({
         </button>
       </div>
       <div
-        className="flex h-[calc(100%-3.5rem)] items-center justify-center px-6 pb-14"
+        className="flex h-[calc(100%-3.5rem)] cursor-pointer items-center justify-center px-6 pb-14"
         onClick={(e) => e.target === e.currentTarget && onClose()}
       >
         <StoryPlayer />
@@ -109,6 +109,7 @@ function StoryPlayer() {
         loop
         playsInline
         muted={muted}
+        className="cursor-pointer"
         onClick={togglePlay}
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}

@@ -18,6 +18,7 @@ type Member = {
   visible: string;
   rest?: string[];
   featured?: boolean;
+  photo?: string;
 };
 
 const LEADERSHIP: Member[] = [
@@ -26,6 +27,7 @@ const LEADERSHIP: Member[] = [
     title: "Founder & CEO",
     initials: "PJ",
     featured: true,
+    photo: "https://www.iphipi.com/pankajCopy.jpeg",
     visible:
       "Pankaj Joshi, the founder and director of IPHIPI Technologies, has over two decades of extensive experience in technology innovation, product management, and strategic leadership. His expertise is centered on AI wearables, audio AI, and the development of B2B tech solutions. With a robust track record, Pankaj has previously held senior roles at companies including Meeami Technologies, Contify, InsideView, and HelloSoft.",
     rest: [
@@ -38,6 +40,8 @@ const LEADERSHIP: Member[] = [
     title: "Chief Technology Officer",
     initials: "AD",
     featured: true,
+    photo:
+      "https://media.licdn.com/dms/image/v2/C5603AQGs8tLpkAxwTA/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1569210812451?e=2147483647&v=beta&t=CQAzVthqCbKXP3B3oaFZ8_Uv042ckFnjUHDjyk3VO3A",
     visible:
       "As CTO of IPHIPI Technologies, Ashrith Deshpande leads the charge in translating our vision into reality, heading all engineering efforts with a focus on market-driven product innovation. A core DSP expert and seasoned architect, he structures our engineering roadmap to align seamlessly with IPHIPI's strategic goals, ensuring technical excellence and rigorous timeline management.",
     rest: [
@@ -52,6 +56,8 @@ const ENGINEERING: Member[] = [
     name: "Kuldeep Daram",
     title: "Data Science & Embedded AI",
     initials: "KD",
+    photo:
+      "https://media.licdn.com/dms/image/v2/D5603AQHd3Q-3-xq_kg/profile-displayphoto-scale_200_200/B56Zxfx56jH8AY-/0/1771133445358?e=2147483647&v=beta&t=1qCZuyf-QWRQCtVwH3I2F-CJDxt2m4pKGfXJNishHq4",
     visible:
       "Kuldeep Daram is Co-Founder and Head of Data Science at IPHIPI, where he leads end-to-end AI ownership spanning data science, machine learning, embedded systems, and agentic AI. He translates advanced AI research into production-grade audio solutions — covering data strategy, model design, optimization, and embedded deployment.",
     rest: [
@@ -63,6 +69,8 @@ const ENGINEERING: Member[] = [
     name: "Sasank Kottapalli",
     title: "Edge AI & Audio Intelligence",
     initials: "SK",
+    photo:
+      "https://media.licdn.com/dms/image/v2/C4E03AQEavBnn84vT5g/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1553160010288?e=2147483647&v=beta&t=8_v-7687PCoPaJPCG4Tc7z7VZrrGudI-8WBBJB6ipUw",
     visible:
       "Sasank Kottapalli is the Co-founder and Lead AI Architect at IPHIPI Technologies, where he leads the development of advanced edge-AI and audio intelligence solutions for wearables and embedded devices. His expertise spans speech enhancement, keyword spotting, environmental noise cancellation, model compression, and deployment on low-power processors.",
     rest: [
@@ -73,6 +81,8 @@ const ENGINEERING: Member[] = [
     name: "Naveen Kumar Gindi",
     title: "Model Optimization & Deployment",
     initials: "NG",
+    photo:
+      "https://media.licdn.com/dms/image/v2/D5603AQGp0ufEj1tsPg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1729970301968?e=2147483647&v=beta&t=sgTvWKSmgIvD8B8ycrNMr4UFjbcbOfOQEDOG-NJU9Q0",
     visible:
       "Naveen Kumar Gindi is an Edge AI Engineer at IPHIPI Technologies with a strong background in deep learning, AI research, and neural-network architectures. He specializes in deploying and optimizing AI models for embedded and low-power chipsets through quantization, hardware-aware optimization, and efficient C implementations.",
     rest: [
@@ -100,7 +110,7 @@ function TeamCard({ member, onOpen }: { member: Member; onOpen: () => void }) {
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={placeholderPhoto(member.name)}
+        src={member.photo ?? placeholderPhoto(member.name)}
         alt={member.name}
         className="h-16 w-16 rounded-full object-cover"
       />
@@ -118,18 +128,16 @@ function TeamCard({ member, onOpen }: { member: Member; onOpen: () => void }) {
           className="flex h-8 w-8 items-center justify-center rounded-full transition-colors duration-300"
           style={{ backgroundColor: theme.cardHover, color: ACTIVE_THEME.secondary }}
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4">
-            <rect x="3" y="3" width="18" height="18" rx="5" />
-            <circle cx="12" cy="12" r="3.5" />
-            <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none" />
+          <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
           </svg>
         </span>
         <span
           className="flex h-8 w-8 items-center justify-center rounded-full transition-colors duration-300"
           style={{ backgroundColor: theme.cardHover, color: ACTIVE_THEME.secondary }}
         >
-          <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
-            <path d="M4.98 3.5C4.98 4.9 3.9 6 2.5 6S0 4.9 0 3.5 1.1 1 2.5 1s2.48 1.1 2.48 2.5zM.5 8h4V23h-4V8zm7 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V23h-4v-6.9c0-1.65-.03-3.77-2.3-3.77-2.3 0-2.65 1.8-2.65 3.65V23h-4V8z" />
+          <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.56V9h3.554z" />
           </svg>
         </span>
       </span>
@@ -140,11 +148,11 @@ function TeamCard({ member, onOpen }: { member: Member; onOpen: () => void }) {
 function TeamModal({ member, onClose }: { member: Member; onClose: () => void }) {
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+      className="fixed inset-0 z-50 flex cursor-pointer items-center justify-center bg-black/50 p-4"
       onClick={onClose}
     >
       <div
-        className="relative grid w-full max-w-2xl gap-6 rounded-2xl bg-white p-6 shadow-2xl sm:grid-cols-[160px_1fr] sm:p-8"
+        className="relative grid w-full max-w-2xl cursor-default gap-6 rounded-2xl bg-white p-6 shadow-2xl sm:grid-cols-[160px_1fr] sm:p-8"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -160,7 +168,7 @@ function TeamModal({ member, onClose }: { member: Member; onClose: () => void })
 
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={placeholderPhoto(member.name)}
+          src={member.photo ?? placeholderPhoto(member.name)}
           alt={member.name}
           className="mx-auto h-32 w-32 rounded-full object-cover sm:mx-0"
         />
