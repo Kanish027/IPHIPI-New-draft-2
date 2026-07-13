@@ -109,7 +109,6 @@ function StoryPlayer() {
         loop
         playsInline
         muted={muted}
-        className="cursor-pointer"
         onClick={togglePlay}
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
