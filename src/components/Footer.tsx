@@ -175,13 +175,6 @@ export default function Footer() {
           <p>© 2026 IPHIPI Inc. All rights reserved.</p>
           <p>The voice intelligence company</p>
         </div>
-
-        {/* Watermark wordmark */}
-        <div className="pointer-events-none mt-10 select-none overflow-hidden">
-          <p className="text-center text-[clamp(var(--text-display),17vw,var(--text-mega))] font-semibold leading-[0.8] tracking-tight text-white/[0.05]">
-            IPHIPI
-          </p>
-        </div>
       </div>
     </footer>
   );
