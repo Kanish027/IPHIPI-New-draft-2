@@ -1,15 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { theme } from "@/lib/theme";
-
-const ACTIVE_THEME = {
-  primary: theme.primary,
-  secondary: theme.secondary,
-  accent: theme.accent,
-  bodyText: theme.bodyText,
-  cardBg: theme.cardWarm,
-};
+import { useState, useEffect, useRef } from "react";
+import { theme, withAlpha } from "@/lib/theme";
 
 type Member = {
   name: string;
@@ -91,20 +83,42 @@ const ENGINEERING: Member[] = [
   },
 ];
 
-/** Default avatar — plain gray circle + person silhouette, the same
- *  fallback Instagram shows for accounts with no profile photo. Used
- *  whenever a Member has no real `photo` set. */
 function DefaultAvatar({ className }: { className?: string }) {
   return (
-    <span className={`flex items-center justify-center overflow-hidden rounded-full bg-zinc-200 ${className ?? ""}`}>
-      <svg viewBox="0 0 24 24" fill="currentColor" className="h-[70%] w-[70%] text-zinc-400">
+    <span className={`flex items-center justify-center overflow-hidden bg-white/5 ${className ?? ""}`}>
+      <svg viewBox="0 0 24 24" fill="currentColor" className="h-[55%] w-[55%]" style={{ color: theme.textMuted }}>
         <path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-4.42 0-9 2.24-9 5v2a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-2c0-2.76-4.58-5-9-5Z" />
       </svg>
     </span>
   );
 }
 
-function TeamCard({ member, onOpen }: { member: Member; onOpen: () => void }) {
+function ChipFrame({ photo, name, size }: { photo?: string; name: string; size: number }) {
+  const notch = Math.round(size * 0.16);
+  const clip = `polygon(${notch}px 0, calc(100% - ${notch}px) 0, 100% ${notch}px, 100% calc(100% - ${notch}px), calc(100% - ${notch}px) 100%, ${notch}px 100%, 0 calc(100% - ${notch}px), 0 ${notch}px)`;
+  return (
+    <div
+      className="relative flex-shrink-0 overflow-hidden"
+      style={{ 
+        width: size, 
+        height: size, 
+        clipPath: clip, 
+        border: `2px solid ${theme.accent}`,
+        background: theme.surfaceDark,
+        boxShadow: `0 0 20px ${withAlpha(theme.accent, 0.2)}`
+      }}
+    >
+      {photo ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={photo} alt={name} className="h-full w-full object-cover" />
+      ) : (
+        <DefaultAvatar className="h-full w-full" />
+      )}
+    </div>
+  );
+}
+
+function LeadershipCard({ member, onOpen }: { member: Member; onOpen: () => void }) {
   const blurb = member.visible.split(". ")[0].trim().replace(/\.$/, "") + ".";
 
   return (
@@ -112,93 +126,126 @@ function TeamCard({ member, onOpen }: { member: Member; onOpen: () => void }) {
       type="button"
       onClick={onOpen}
       aria-label={`Read more about ${member.name}`}
-      className="flex h-full w-full flex-col items-start rounded-2xl border bg-white p-7 text-left shadow-[0_8px_30px_-12px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_-15px_rgba(0,0,0,0.18)]"
-      style={{ borderColor: theme.borderInactive }}
+      className="group relative flex h-full w-full cursor-pointer flex-col items-start overflow-hidden rounded-xl p-7 text-left transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl"
+      style={{
+        background: theme.surfaceCard,
+        border: `1px solid ${withAlpha(theme.accent, 0.2)}`,
+      }}
     >
-      {member.photo ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={member.photo}
-          alt={member.name}
-          className="h-16 w-16 rounded-full object-cover"
-        />
-      ) : (
-        <DefaultAvatar className="h-16 w-16" />
-      )}
-      <p className="mt-5 text-xl font-semibold tracking-tight" style={{ color: ACTIVE_THEME.secondary }}>
-        {member.name}
-      </p>
-      <p className="mt-0.5 text-sm font-medium" style={{ color: ACTIVE_THEME.primary }}>
-        {member.title}
-      </p>
-      <p className="mt-3 line-clamp-3 text-sm leading-relaxed" style={{ color: theme.textMuted }}>
+      <span
+        className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
+        style={{ background: `linear-gradient(90deg, transparent, ${theme.accent}, transparent)` }}
+      />
+      <div className="flex items-center gap-4">
+        <ChipFrame photo={member.photo} name={member.name} size={64} />
+        <div>
+          <p className="text-xl font-semibold tracking-tight" style={{ color: theme.textHeading }}>
+            {member.name}
+          </p>
+          <p
+            className="mt-1 text-xs font-medium uppercase tracking-[0.14em]"
+            style={{ color: theme.accent, fontFamily: "var(--font-mono, monospace)" }}
+          >
+            {member.title}
+          </p>
+        </div>
+      </div>
+      <p className="mt-5 line-clamp-3 text-sm leading-relaxed" style={{ color: theme.textBody }}>
         {blurb}
       </p>
-      <span className="mt-5 flex items-center gap-2">
-        <span
-          className="flex h-8 w-8 items-center justify-center rounded-full transition-colors duration-300"
-          style={{ backgroundColor: theme.cardHover, color: ACTIVE_THEME.secondary }}
-        >
-          <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-          </svg>
-        </span>
-        <span
-          className="flex h-8 w-8 items-center justify-center rounded-full transition-colors duration-300"
-          style={{ backgroundColor: theme.cardHover, color: ACTIVE_THEME.secondary }}
-        >
-          <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.56V9h3.554z" />
-          </svg>
-        </span>
+      <span
+        className="mt-5 text-xs font-medium uppercase tracking-[0.14em] transition-colors duration-300"
+        style={{ color: theme.textMuted }}
+      >
+        Read full profile →
       </span>
     </button>
+  );
+}
+
+function EngineerCard({ member, onOpen }: { member: Member; onOpen: () => void }) {
+  const blurb = member.visible.split(". ")[0].trim().replace(/\.$/, "") + ".";
+
+  return (
+    <div className="relative flex flex-col items-center">
+      <span aria-hidden className="h-6 w-[1px]" style={{ background: theme.accent }} />
+      <button
+        type="button"
+        onClick={onOpen}
+        aria-label={`Read more about ${member.name}`}
+        className="flex h-full w-full cursor-pointer flex-col items-center gap-4 rounded-xl p-6 text-center transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl"
+        style={{
+          background: theme.surfaceCard,
+          border: `1px solid ${withAlpha(theme.accent, 0.2)}`,
+        }}
+      >
+        <ChipFrame photo={member.photo} name={member.name} size={56} />
+        <div>
+          <p className="text-base font-semibold tracking-tight" style={{ color: theme.textHeading }}>
+            {member.name}
+          </p>
+          <p
+            className="mt-1 text-[11px] font-medium uppercase tracking-[0.12em]"
+            style={{ color: theme.accent, fontFamily: "var(--font-mono, monospace)" }}
+          >
+            {member.title}
+          </p>
+        </div>
+        <p className="line-clamp-2 text-xs leading-relaxed" style={{ color: theme.textBody }}>
+          {blurb}
+        </p>
+      </button>
+    </div>
   );
 }
 
 function TeamModal({ member, onClose }: { member: Member; onClose: () => void }) {
   return (
     <div
-      className="fixed inset-0 z-50 flex cursor-pointer items-center justify-center bg-black/50 p-4"
+      className="fixed inset-0 z-50 flex cursor-pointer items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
-        className="relative grid w-full max-w-2xl cursor-default gap-6 rounded-2xl bg-white p-6 shadow-2xl sm:grid-cols-[160px_1fr] sm:p-8"
+        className="relative w-full max-w-2xl cursor-default rounded-2xl p-6 shadow-2xl sm:grid sm:grid-cols-[160px_1fr] sm:p-8"
+        style={{
+          background: theme.surfaceDark,
+          border: `1px solid ${theme.accent}`,
+        }}
         onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-700"
+          className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-white/10"
+          style={{ color: theme.textMuted }}
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
             <path d="M18 6 6 18M6 6l12 12" />
           </svg>
         </button>
 
-        {member.photo ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={member.photo}
-            alt={member.name}
-            className="mx-auto h-32 w-32 rounded-full object-cover sm:mx-0"
-          />
-        ) : (
-          <DefaultAvatar className="mx-auto h-32 w-32 sm:mx-0" />
-        )}
+        <div className="flex justify-center sm:block">
+          <ChipFrame photo={member.photo} name={member.name} size={128} />
+        </div>
 
-        <div>
+        <div className="mt-4 sm:mt-0">
           <p
             className="border-l-2 pl-3 text-lg font-semibold tracking-tight"
-            style={{ borderColor: ACTIVE_THEME.primary, color: ACTIVE_THEME.secondary }}
+            style={{ borderColor: theme.accent, color: theme.textHeading }}
           >
             {member.name}
           </p>
-          <p className="mt-1 pl-3.5 text-sm font-medium" style={{ color: ACTIVE_THEME.primary }}>
+          <p
+            className="mt-1 pl-3.5 text-xs font-medium uppercase tracking-[0.14em]"
+            style={{ color: theme.accent, fontFamily: "var(--font-mono, monospace)" }}
+          >
             {member.title}
           </p>
-          <div className="mt-4 max-h-64 space-y-3 overflow-y-auto pl-3.5 pr-1 text-sm leading-relaxed text-zinc-600">
+          <div
+            className="mt-4 max-h-64 space-y-3 overflow-y-auto pl-3.5 pr-1 text-sm leading-relaxed"
+            style={{ color: theme.textBody }}
+          >
             <p>{member.visible}</p>
             {member.rest?.map((p, i) => (
               <p key={i}>{p}</p>
@@ -210,44 +257,215 @@ function TeamModal({ member, onClose }: { member: Member; onClose: () => void })
   );
 }
 
+function NeuralNetworkCanvas() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationRef = useRef<number | undefined>(undefined);
+  const timeRef = useRef(0);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const resize = () => {
+      const rect = canvas.parentElement?.getBoundingClientRect();
+      if (rect) {
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        canvas.style.width = `${rect.width}px`;
+        canvas.style.height = `${rect.height}px`;
+        ctx.scale(dpr, dpr);
+      }
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    const nodePositions: Array<{x: number; y: number; phase: number}> = [];
+    const numNodes = 110;
+
+    for (let i = 0; i < numNodes; i++) {
+      nodePositions.push({
+        x: 0.05 + Math.random() * 0.9,
+        y: 0.05 + Math.random() * 0.9,
+        phase: Math.random() * Math.PI * 2
+      });
+    }
+
+    const connections: Array<{from: number; to: number}> = [];
+    for (let i = 0; i < numNodes; i++) {
+      for (let j = i + 1; j < numNodes; j++) {
+        const dx = nodePositions[i].x - nodePositions[j].x;
+        const dy = nodePositions[i].y - nodePositions[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 0.28 && Math.random() < 0.45) {
+          connections.push({ from: i, to: j });
+        }
+      }
+    }
+
+    const animate = () => {
+      timeRef.current += 0.008;
+      const time = timeRef.current;
+      const rect = canvas.parentElement?.getBoundingClientRect();
+      if (!rect) return;
+
+      const w = rect.width;
+      const h = rect.height;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Draw connections with gold
+      connections.forEach((conn) => {
+        const from = nodePositions[conn.from];
+        const to = nodePositions[conn.to];
+        if (!from || !to) return;
+
+        const x1 = from.x * w;
+        const y1 = from.y * h;
+        const x2 = to.x * w;
+        const y2 = to.y * h;
+
+        const gradient = ctx.createLinearGradient(x1, y1, x2, y2);
+        gradient.addColorStop(0, withAlpha(theme.accent, 0.05));
+        gradient.addColorStop(0.5, withAlpha(theme.accent, 0.2));
+        gradient.addColorStop(1, withAlpha(theme.accent, 0.05));
+
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Gold pulse
+        const pulseOffset = (time * 0.4 + conn.from * 0.02) % 1;
+        const px = x1 + (x2 - x1) * pulseOffset;
+        const py = y1 + (y2 - y1) * pulseOffset;
+
+        const pulseGrad = ctx.createRadialGradient(px, py, 0, px, py, 5);
+        pulseGrad.addColorStop(0, withAlpha(theme.accent, 0.6));
+        pulseGrad.addColorStop(1, 'transparent');
+        ctx.beginPath();
+        ctx.arc(px, py, 5, 0, Math.PI * 2);
+        ctx.fillStyle = pulseGrad;
+        ctx.fill();
+      });
+
+      // Draw nodes with gold glow
+      nodePositions.forEach((node, i) => {
+        const x = node.x * w;
+        const y = node.y * h;
+        const radius = 2.5 + Math.sin(time * 1.5 + node.phase) * 1.5;
+
+        // Gold glow
+        const glow = ctx.createRadialGradient(x, y, 0, x, y, radius * 10);
+        glow.addColorStop(0, withAlpha(theme.accent, 0.15));
+        glow.addColorStop(1, 'transparent');
+        ctx.beginPath();
+        ctx.arc(x, y, radius * 10, 0, Math.PI * 2);
+        ctx.fillStyle = glow;
+        ctx.fill();
+
+        // Node with gold
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = theme.accent;
+        ctx.shadowColor = theme.accent;
+        ctx.shadowBlur = 10;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
+
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+      window.removeEventListener('resize', resize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 h-full w-full pointer-events-none"
+      style={{ opacity: 0.5 }}
+    />
+  );
+}
+
 export default function TeamSection() {
   const [openMember, setOpenMember] = useState<Member | null>(null);
 
   return (
-    <section id="team" className="mt-20 scroll-mt-24">
-      {/* Leadership Section */}
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400">Our Leading Team</p>
-      <h2
-        className="mt-3 max-w-2xl text-subhead font-semibold tracking-tight"
-        style={{ color: ACTIVE_THEME.secondary }}
-      >
-        The People Behind the Platform
-      </h2>
-      <p className="mt-4 max-w-2xl leading-relaxed text-zinc-500">
-        Two decades of audio, DSP, and edge-AI expertise from Apple, Logitech, and the wearables industry — brought
-        together to build agentic audio intelligence.
-      </p>
+    <section
+      id="team"
+      className="relative scroll-mt-24 overflow-hidden rounded-xl px-4 py-16 sm:px-8 sm:py-20"
+      style={{
+        background: theme.primary,
+      }}
+    >
+      <NeuralNetworkCanvas />
 
-      <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8">
-        {LEADERSHIP.map((member) => (
-          <TeamCard key={member.name} member={member} onOpen={() => setOpenMember(member)} />
-        ))}
-      </div>
+      <div className="relative z-10 mx-auto max-w-6xl">
+        <div className="text-center">
+          <p
+            className="text-xs font-semibold uppercase tracking-[0.3em]"
+            style={{ color: theme.accent, fontFamily: "var(--font-mono, monospace)" }}
+          >
+            Leadership
+          </p>
+          <h2
+            className="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
+            style={{ color: theme.textHeading }}
+          >
+            The minds behind<br className="hidden sm:block" /> the platform
+          </h2>
+          <p
+            className="mx-auto mt-4 max-w-2xl text-base leading-relaxed"
+            style={{ color: theme.textBody }}
+          >
+            Two decades of audio, DSP, and edge-AI expertise from Apple, Logitech, and the wearables industry —
+            brought together to build agentic audio intelligence.
+          </p>
+        </div>
 
-      {/* Engineering Roster */}
-      <div className="mt-16">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400">
-          In-House Technical Expertise
-        </p>
-        <h2 className="mt-3 max-w-2xl text-subhead font-semibold tracking-tight" style={{ color: ACTIVE_THEME.secondary }}>
-          Our engineering teams
-        </h2>
-      </div>
+        <div className="relative mx-auto mt-12 h-8 w-[1px]" style={{ background: theme.accent }} aria-hidden />
 
-      <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 sm:gap-8">
-        {ENGINEERING.map((member) => (
-          <TeamCard key={member.name} member={member} onOpen={() => setOpenMember(member)} />
-        ))}
+        <div className="mt-2 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8">
+          {LEADERSHIP.map((member) => (
+            <LeadershipCard key={member.name} member={member} onOpen={() => setOpenMember(member)} />
+          ))}
+        </div>
+
+        <div className="mt-24">
+          <p
+            className="text-center text-xs font-semibold uppercase tracking-[0.3em]"
+            style={{ color: theme.textMuted, fontFamily: "var(--font-mono, monospace)" }}
+          >
+            Engineering Excellence
+          </p>
+          <h3 className="mt-3 text-center text-2xl font-semibold tracking-tight" style={{ color: theme.textHeading }}>
+            Our technical team
+          </h3>
+
+          <div className="relative mx-auto mt-10 hidden max-w-3xl sm:block">
+            <div className="absolute left-0 right-0 top-0 h-[1px]" style={{ background: withAlpha(theme.accent, 0.3) }} />
+          </div>
+
+          <div className="mt-0 grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-8">
+            {ENGINEERING.map((member) => (
+              <EngineerCard key={member.name} member={member} onOpen={() => setOpenMember(member)} />
+            ))}
+          </div>
+        </div>
       </div>
 
       {openMember && <TeamModal member={openMember} onClose={() => setOpenMember(null)} />}

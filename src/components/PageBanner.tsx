@@ -27,7 +27,9 @@ export default function PageBanner({
 
   return (
     <section
-      className={`relative flex min-h-[100vh] items-center overflow-hidden px-4 pb-20 pt-32 transition-all duration-500 lg:px-6 ${gradient ? gradient : ""}`}
+      className={`relative flex items-center overflow-hidden px-4 pb-24 pt-32 transition-all duration-500 lg:px-6 ${
+        children ? "min-h-[100vh]" : "min-h-[100vh]"
+      } ${gradient ? gradient : ""}`}
       style={!gradient ? { background: defaultBackground } : undefined}
     >
       <div className="mx-auto flex w-full max-w-4xl flex-col items-center text-center">
