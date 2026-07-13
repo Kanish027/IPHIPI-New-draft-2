@@ -91,10 +91,17 @@ const ENGINEERING: Member[] = [
   },
 ];
 
-/** Placeholder headshot — seeded per name so it stays consistent, swap
- *  for real photos later (see `photo` on each Member). */
-function placeholderPhoto(name: string) {
-  return `https://i.pravatar.cc/300?u=${encodeURIComponent(name)}`;
+/** Default avatar — plain gray circle + person silhouette, the same
+ *  fallback Instagram shows for accounts with no profile photo. Used
+ *  whenever a Member has no real `photo` set. */
+function DefaultAvatar({ className }: { className?: string }) {
+  return (
+    <span className={`flex items-center justify-center overflow-hidden rounded-full bg-zinc-200 ${className ?? ""}`}>
+      <svg viewBox="0 0 24 24" fill="currentColor" className="h-[70%] w-[70%] text-zinc-400">
+        <path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-4.42 0-9 2.24-9 5v2a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-2c0-2.76-4.58-5-9-5Z" />
+      </svg>
+    </span>
+  );
 }
 
 function TeamCard({ member, onOpen }: { member: Member; onOpen: () => void }) {
@@ -108,12 +115,16 @@ function TeamCard({ member, onOpen }: { member: Member; onOpen: () => void }) {
       className="flex h-full w-full flex-col items-start rounded-2xl border bg-white p-7 text-left shadow-[0_8px_30px_-12px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_-15px_rgba(0,0,0,0.18)]"
       style={{ borderColor: theme.borderInactive }}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={member.photo ?? placeholderPhoto(member.name)}
-        alt={member.name}
-        className="h-16 w-16 rounded-full object-cover"
-      />
+      {member.photo ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={member.photo}
+          alt={member.name}
+          className="h-16 w-16 rounded-full object-cover"
+        />
+      ) : (
+        <DefaultAvatar className="h-16 w-16" />
+      )}
       <p className="mt-5 text-xl font-semibold tracking-tight" style={{ color: ACTIVE_THEME.secondary }}>
         {member.name}
       </p>
@@ -166,12 +177,16 @@ function TeamModal({ member, onClose }: { member: Member; onClose: () => void })
           </svg>
         </button>
 
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={member.photo ?? placeholderPhoto(member.name)}
-          alt={member.name}
-          className="mx-auto h-32 w-32 rounded-full object-cover sm:mx-0"
-        />
+        {member.photo ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={member.photo}
+            alt={member.name}
+            className="mx-auto h-32 w-32 rounded-full object-cover sm:mx-0"
+          />
+        ) : (
+          <DefaultAvatar className="mx-auto h-32 w-32 sm:mx-0" />
+        )}
 
         <div>
           <p
