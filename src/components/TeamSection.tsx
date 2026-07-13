@@ -407,9 +407,10 @@ export default function TeamSection() {
   return (
     <section
       id="team"
-      className="relative scroll-mt-24 overflow-hidden rounded-xl px-4 py-16 sm:px-8 sm:py-20"
+      className="relative mt-28 scroll-mt-24 overflow-hidden px-4 py-24 lg:px-6"
       style={{
         background: theme.primary,
+        minHeight: "100vh",
       }}
     >
       <NeuralNetworkCanvas />

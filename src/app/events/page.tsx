@@ -62,7 +62,7 @@ export default function EventsPage() {
 
       <div className="mx-auto max-w-6xl px-4 lg:px-6">
         {/* Upcoming */}
-        <section className="mt-28">
+        <section id="upcoming" className="mt-28">
           <p
             className="text-xs font-semibold uppercase tracking-[0.2em]"
             style={{ color: ACTIVE_THEME.secondary }}
@@ -122,7 +122,7 @@ export default function EventsPage() {
         </section>
 
         {/* Past */}
-        <section className="mt-28">
+        <section id="past" className="mt-28">
           <p
             className="text-xs font-semibold uppercase tracking-[0.2em]"
             style={{ color: ACTIVE_THEME.secondary }}

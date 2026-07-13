@@ -135,6 +135,7 @@ export default function AiTechnologiesPage() {
 
       {/* NDP 115 — audio processing flow (full-bleed, like the Partners band) */}
       <section
+        id="audio-processor"
         className="mt-28 px-4 py-28 text-white transition-colors duration-500 lg:px-6"
         style={{ backgroundColor: ACTIVE_THEME.secondary }}
       >
@@ -270,7 +271,7 @@ export default function AiTechnologiesPage() {
 
       <div className="mx-auto max-w-6xl px-4 lg:px-6">
         {/* Form factors */}
-        <section className="mt-28 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <section id="form-factors" className="mt-28 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <div>
             <h2 className="text-subhead font-semibold tracking-tight">
               Supported Wearable Form Factors

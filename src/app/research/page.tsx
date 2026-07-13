@@ -573,63 +573,61 @@ export default function ResearchPage() {
           </div>
         </section>
 
+        {/* ============================= */}
+        {/* Spatial Intelligence — contained box */}
+        {/* ============================= */}
+        <section id="spatial-intelligence" className="relative mt-28 scroll-mt-24 overflow-hidden rounded-xl">
+          <div
+            className="relative min-h-[70vh] w-full"
+            style={{ backgroundColor: ACTIVE_THEME.secondary }}
+          >
+            <div className="relative z-10 flex h-full min-h-[70vh] flex-col justify-center p-6 sm:p-12">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-300">
+                Spatial Intelligence
+              </p>
+              <h2 className="mt-3 max-w-2xl text-subhead font-semibold tracking-tight text-white">
+                Digital Intelligence Meets the Physical World
+              </h2>
+              <p className="mt-4 max-w-2xl leading-relaxed text-zinc-300">
+                Using spatial audio, scene understanding, and multimodal
+                perception, the platform helps users navigate, identify
+                objects, and access contextual information through smart
+                glasses or hearables.
+              </p>
+
+              <div className="mt-8 grid max-w-3xl gap-8 sm:grid-cols-3">
+                <div>
+                  <span style={{ color: SIGNAL }}>{PinIcon}</span>
+                  <p className="mt-2 font-semibold text-white">Real-Time Navigation</p>
+                  <p className="mt-1 text-sm text-zinc-400">
+                    Understands surroundings and predicts relevant needs.
+                  </p>
+                </div>
+                <div>
+                  <span style={{ color: SIGNAL }}>{EyeIcon}</span>
+                  <p className="mt-2 font-semibold text-white">
+                    Object &amp; Scene Recognition
+                  </p>
+                  <p className="mt-1 text-sm text-zinc-400">
+                    Identifies objects and describes environments contextually.
+                  </p>
+                </div>
+                <div>
+                  <span style={{ color: SIGNAL }}>{SpeakerIcon}</span>
+                  <p className="mt-2 font-semibold text-white">Spatial Audio</p>
+                  <p className="mt-1 text-sm text-zinc-400">
+                    Directional audio cues aligned with the physical environment.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* <TechDeepDive /> */}
       </div>
 
-      {/* ============================= */}
-      {/* Spatial Intelligence — full-bleed, edge to edge */}
-      {/* ============================= */}
-      <section
-        id="spatial-intelligence"
-        className="relative mt-28 scroll-mt-24"
-        style={{ backgroundColor: ACTIVE_THEME.secondary }}
-      >
-        <div className="mx-auto flex min-h-[70vh] max-w-6xl flex-col justify-center px-4 py-16 sm:py-20 lg:px-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-300">
-            Spatial Intelligence
-          </p>
-          <h2 className="mt-3 max-w-2xl text-subhead font-semibold tracking-tight text-white">
-            Digital Intelligence Meets the Physical World
-          </h2>
-          <p className="mt-4 max-w-2xl leading-relaxed text-zinc-300">
-            Using spatial audio, scene understanding, and multimodal
-            perception, the platform helps users navigate, identify
-            objects, and access contextual information through smart
-            glasses or hearables.
-          </p>
-
-          <div className="mt-8 grid max-w-3xl gap-8 sm:grid-cols-3">
-            <div>
-              <span style={{ color: SIGNAL }}>{PinIcon}</span>
-              <p className="mt-2 font-semibold text-white">Real-Time Navigation</p>
-              <p className="mt-1 text-sm text-zinc-400">
-                Understands surroundings and predicts relevant needs.
-              </p>
-            </div>
-            <div>
-              <span style={{ color: SIGNAL }}>{EyeIcon}</span>
-              <p className="mt-2 font-semibold text-white">
-                Object &amp; Scene Recognition
-              </p>
-              <p className="mt-1 text-sm text-zinc-400">
-                Identifies objects and describes environments contextually.
-              </p>
-            </div>
-            <div>
-              <span style={{ color: SIGNAL }}>{SpeakerIcon}</span>
-              <p className="mt-2 font-semibold text-white">Spatial Audio</p>
-              <p className="mt-1 text-sm text-zinc-400">
-                Directional audio cues aligned with the physical environment.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team section — contained box */}
-      <div className="mx-auto max-w-6xl px-4 py-16 lg:px-6">
-        <TeamSection />
-      </div>
+      <TeamSection />
     </main>
   );
 }
