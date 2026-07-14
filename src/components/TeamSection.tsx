@@ -94,15 +94,12 @@ function DefaultAvatar({ className }: { className?: string }) {
 }
 
 function ChipFrame({ photo, name, size }: { photo?: string; name: string; size: number }) {
-  const notch = Math.round(size * 0.16);
-  const clip = `polygon(${notch}px 0, calc(100% - ${notch}px) 0, 100% ${notch}px, 100% calc(100% - ${notch}px), calc(100% - ${notch}px) 100%, ${notch}px 100%, 0 calc(100% - ${notch}px), 0 ${notch}px)`;
   return (
     <div
-      className="relative flex-shrink-0 overflow-hidden"
-      style={{ 
-        width: size, 
-        height: size, 
-        clipPath: clip, 
+      className="relative flex-shrink-0 overflow-hidden rounded-xl"
+      style={{
+        width: size,
+        height: size,
         border: `2px solid ${theme.accent}`,
         background: theme.surfaceDark,
         boxShadow: `0 0 20px ${withAlpha(theme.accent, 0.2)}`
