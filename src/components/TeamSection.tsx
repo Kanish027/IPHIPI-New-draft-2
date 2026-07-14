@@ -290,10 +290,12 @@ function NeuralNetworkCanvas() {
     resize();
     window.addEventListener('resize', resize);
 
-    // Fewer nodes + a lighter connection graph — dense enough to read as a
-    // network without the O(edges) per-frame cost of the earlier version.
+    // Dense node/connection graph — the density itself was never the
+    // performance problem; the per-frame gradient/shadow work was. With
+    // those removed, a denser graph is cheap (a single path + stroke call
+    // for every line, regardless of how many there are).
     const nodePositions: Array<{x: number; y: number; phase: number}> = [];
-    const numNodes = 55;
+    const numNodes = 110;
 
     for (let i = 0; i < numNodes; i++) {
       nodePositions.push({
@@ -309,7 +311,7 @@ function NeuralNetworkCanvas() {
         const dx = nodePositions[i].x - nodePositions[j].x;
         const dy = nodePositions[i].y - nodePositions[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 0.22 && Math.random() < 0.35) {
+        if (dist < 0.28 && Math.random() < 0.45) {
           connections.push({ from: i, to: j });
         }
       }
@@ -317,11 +319,30 @@ function NeuralNetworkCanvas() {
 
     // Line color/pulse color computed once — no gradient objects are
     // created inside the animation loop at all, which was the main cost.
-    const lineColor = withAlpha(theme.accent, 0.15);
+    const lineColor = withAlpha(theme.accent, 0.18);
     const pulseColor = theme.accent;
     // Only a subset of connections carry the traveling pulse dot, so the
     // per-frame work doesn't scale with the full edge count.
-    const pulseConnections = connections.filter((_, i) => i % 4 === 0);
+    const pulseConnections = connections.filter((_, i) => i % 3 === 0);
+
+    // Pre-render the glow as a small bitmap ONCE — every node/pulse then
+    // just drawImage()s this sprite (cheap) instead of each constructing
+    // its own radial gradient every frame (expensive, and the old cost).
+    const glowSize = 48;
+    const glowCanvas = document.createElement('canvas');
+    glowCanvas.width = glowSize;
+    glowCanvas.height = glowSize;
+    const glowCtx = glowCanvas.getContext('2d');
+    if (glowCtx) {
+      const g = glowCtx.createRadialGradient(
+        glowSize / 2, glowSize / 2, 0,
+        glowSize / 2, glowSize / 2, glowSize / 2
+      );
+      g.addColorStop(0, withAlpha(theme.accent, 0.55));
+      g.addColorStop(1, 'transparent');
+      glowCtx.fillStyle = g;
+      glowCtx.fillRect(0, 0, glowSize, glowSize);
+    }
 
     let isVisible = true;
     const observer = new IntersectionObserver(
@@ -353,7 +374,21 @@ function NeuralNetworkCanvas() {
       });
       ctx.stroke();
 
-      // Traveling pulses — plain filled circles, no radial gradients.
+      // Traveling pulses — stamp the pre-rendered glow sprite (cheap
+      // drawImage) instead of building a radial gradient per pulse.
+      const pulseGlowSize = 14;
+      pulseConnections.forEach((conn) => {
+        const from = nodePositions[conn.from];
+        const to = nodePositions[conn.to];
+        const x1 = from.x * w;
+        const y1 = from.y * h;
+        const x2 = to.x * w;
+        const y2 = to.y * h;
+        const pulseOffset = (time * 0.4 + conn.from * 0.02) % 1;
+        const px = x1 + (x2 - x1) * pulseOffset;
+        const py = y1 + (y2 - y1) * pulseOffset;
+        ctx.drawImage(glowCanvas, px - pulseGlowSize / 2, py - pulseGlowSize / 2, pulseGlowSize, pulseGlowSize);
+      });
       ctx.fillStyle = pulseColor;
       pulseConnections.forEach((conn) => {
         const from = nodePositions[conn.from];
@@ -370,8 +405,14 @@ function NeuralNetworkCanvas() {
         ctx.fill();
       });
 
-      // Nodes — flat fill, no glow/shadow (shadowBlur is one of the more
-      // expensive canvas operations, and was applied per-node, per-frame).
+      // Nodes — glow sprite (drawImage, cheap) + a flat-fill dot on top.
+      // No per-frame gradients or shadowBlur, which were the actual cost.
+      const nodeGlowSize = 26;
+      nodePositions.forEach((node) => {
+        const x = node.x * w;
+        const y = node.y * h;
+        ctx.drawImage(glowCanvas, x - nodeGlowSize / 2, y - nodeGlowSize / 2, nodeGlowSize, nodeGlowSize);
+      });
       ctx.fillStyle = theme.accent;
       nodePositions.forEach((node) => {
         const x = node.x * w;
