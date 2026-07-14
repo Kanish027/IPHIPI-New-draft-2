@@ -269,22 +269,31 @@ function NeuralNetworkCanvas() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    // Cap DPR — a 3x/4x canvas on high-density phone/laptop screens forces
+    // every draw call to push far more pixels than is visually necessary.
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    let w = 0;
+    let h = 0;
+
     const resize = () => {
       const rect = canvas.parentElement?.getBoundingClientRect();
       if (rect) {
-        const dpr = window.devicePixelRatio || 1;
-        canvas.width = rect.width * dpr;
-        canvas.height = rect.height * dpr;
-        canvas.style.width = `${rect.width}px`;
-        canvas.style.height = `${rect.height}px`;
-        ctx.scale(dpr, dpr);
+        w = rect.width;
+        h = rect.height;
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        canvas.style.width = `${w}px`;
+        canvas.style.height = `${h}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       }
     };
     resize();
     window.addEventListener('resize', resize);
 
+    // Fewer nodes + a lighter connection graph — dense enough to read as a
+    // network without the O(edges) per-frame cost of the earlier version.
     const nodePositions: Array<{x: number; y: number; phase: number}> = [];
-    const numNodes = 110;
+    const numNodes = 55;
 
     for (let i = 0; i < numNodes; i++) {
       nodePositions.push({
@@ -294,92 +303,84 @@ function NeuralNetworkCanvas() {
       });
     }
 
-    const connections: Array<{from: number; to: number}> = [];
+    const connections: Array<{ from: number; to: number }> = [];
     for (let i = 0; i < numNodes; i++) {
       for (let j = i + 1; j < numNodes; j++) {
         const dx = nodePositions[i].x - nodePositions[j].x;
         const dy = nodePositions[i].y - nodePositions[j].y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < 0.28 && Math.random() < 0.45) {
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 0.22 && Math.random() < 0.35) {
           connections.push({ from: i, to: j });
         }
       }
     }
 
+    // Line color/pulse color computed once — no gradient objects are
+    // created inside the animation loop at all, which was the main cost.
+    const lineColor = withAlpha(theme.accent, 0.15);
+    const pulseColor = theme.accent;
+    // Only a subset of connections carry the traveling pulse dot, so the
+    // per-frame work doesn't scale with the full edge count.
+    const pulseConnections = connections.filter((_, i) => i % 4 === 0);
+
+    let isVisible = true;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+      },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
+
     const animate = () => {
+      animationRef.current = requestAnimationFrame(animate);
+      if (!isVisible || w === 0 || h === 0) return;
+
       timeRef.current += 0.008;
       const time = timeRef.current;
-      const rect = canvas.parentElement?.getBoundingClientRect();
-      if (!rect) return;
-
-      const w = rect.width;
-      const h = rect.height;
 
       ctx.clearRect(0, 0, w, h);
 
-      // Draw connections with gold
+      // Connections — single flat stroke color, no per-frame allocation.
+      ctx.strokeStyle = lineColor;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
       connections.forEach((conn) => {
         const from = nodePositions[conn.from];
         const to = nodePositions[conn.to];
-        if (!from || !to) return;
+        ctx.moveTo(from.x * w, from.y * h);
+        ctx.lineTo(to.x * w, to.y * h);
+      });
+      ctx.stroke();
 
+      // Traveling pulses — plain filled circles, no radial gradients.
+      ctx.fillStyle = pulseColor;
+      pulseConnections.forEach((conn) => {
+        const from = nodePositions[conn.from];
+        const to = nodePositions[conn.to];
         const x1 = from.x * w;
         const y1 = from.y * h;
         const x2 = to.x * w;
         const y2 = to.y * h;
-
-        const gradient = ctx.createLinearGradient(x1, y1, x2, y2);
-        gradient.addColorStop(0, withAlpha(theme.accent, 0.05));
-        gradient.addColorStop(0.5, withAlpha(theme.accent, 0.2));
-        gradient.addColorStop(1, withAlpha(theme.accent, 0.05));
-
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.strokeStyle = gradient;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        // Gold pulse
         const pulseOffset = (time * 0.4 + conn.from * 0.02) % 1;
         const px = x1 + (x2 - x1) * pulseOffset;
         const py = y1 + (y2 - y1) * pulseOffset;
-
-        const pulseGrad = ctx.createRadialGradient(px, py, 0, px, py, 5);
-        pulseGrad.addColorStop(0, withAlpha(theme.accent, 0.6));
-        pulseGrad.addColorStop(1, 'transparent');
         ctx.beginPath();
-        ctx.arc(px, py, 5, 0, Math.PI * 2);
-        ctx.fillStyle = pulseGrad;
+        ctx.arc(px, py, 1.8, 0, Math.PI * 2);
         ctx.fill();
       });
 
-      // Draw nodes with gold glow
-      nodePositions.forEach((node, i) => {
+      // Nodes — flat fill, no glow/shadow (shadowBlur is one of the more
+      // expensive canvas operations, and was applied per-node, per-frame).
+      ctx.fillStyle = theme.accent;
+      nodePositions.forEach((node) => {
         const x = node.x * w;
         const y = node.y * h;
-        const radius = 2.5 + Math.sin(time * 1.5 + node.phase) * 1.5;
-
-        // Gold glow
-        const glow = ctx.createRadialGradient(x, y, 0, x, y, radius * 10);
-        glow.addColorStop(0, withAlpha(theme.accent, 0.15));
-        glow.addColorStop(1, 'transparent');
-        ctx.beginPath();
-        ctx.arc(x, y, radius * 10, 0, Math.PI * 2);
-        ctx.fillStyle = glow;
-        ctx.fill();
-
-        // Node with gold
+        const radius = 2 + Math.sin(time * 1.5 + node.phase) * 1;
         ctx.beginPath();
         ctx.arc(x, y, radius, 0, Math.PI * 2);
-        ctx.fillStyle = theme.accent;
-        ctx.shadowColor = theme.accent;
-        ctx.shadowBlur = 10;
         ctx.fill();
-        ctx.shadowBlur = 0;
       });
-
-      animationRef.current = requestAnimationFrame(animate);
     };
 
     animate();
@@ -389,6 +390,7 @@ function NeuralNetworkCanvas() {
         cancelAnimationFrame(animationRef.current);
       }
       window.removeEventListener('resize', resize);
+      observer.disconnect();
     };
   }, []);
 
