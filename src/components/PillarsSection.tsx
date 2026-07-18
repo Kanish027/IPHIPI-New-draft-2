@@ -18,7 +18,7 @@ const ACTIVE_THEME = {
 
 const PILLARS = [
   {
-    id: "productive-intelligence",
+    id: "work-intelligence",
     title: "Work Intelligence",
     body: "An always-on work companion. Manages conversations, notifications, and workflows — reducing cognitive load.",
     images: [

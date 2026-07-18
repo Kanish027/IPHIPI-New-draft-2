@@ -1,7 +1,7 @@
 import PageBanner from "@/components/PageBanner";
 
 const AREA_LINKS = [
-  { label: "Productive", href: "#productive-intelligence" },
+  { label: "Work", href: "#work-intelligence" },
   { label: "Living", href: "#living-intelligence" },
   { label: "Personal", href: "#personal-intelligence" },
   { label: "Spatial", href: "#spatial-intelligence" },

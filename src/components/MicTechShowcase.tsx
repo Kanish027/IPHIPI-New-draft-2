@@ -15,6 +15,7 @@ const ACTIVE_THEME = {
 
 const TECHS = [
   {
+    id: "single-mic",
     title: "Single Mic Enhancement",
     spec: "Suppresses up to 70 dB SPL",
     body: "Engineered for interiors — household noise, appliances, and nearby conversations fade away so your voice stays the focus.",
@@ -23,6 +24,7 @@ const TECHS = [
     image: "/tech/single-dual-mic-arch.png",
   },
   {
+    id: "dual-mic",
     title: "Dual Mic Enhancement",
     spec: "Suppresses up to 85 dB SPL",
     body: "Built for multi-speaker environments. Isolates the user's voice and handles wind noise — even during high-speed travel.",
@@ -31,6 +33,7 @@ const TECHS = [
     image: "/tech/single-dual-mic-arch.png",
   },
   {
+    id: "keyword-spotting",
     title: "Keyword Spotting",
     spec: "Runs entirely on-device",
     body: "Ultra-low-power wake-word and custom command detection — always listening, never draining the battery, with nothing sent to the cloud.",
@@ -39,6 +42,7 @@ const TECHS = [
     image: "/tech/kws-arch.png",
   },
   {
+    id: "far-field",
     title: "Far-Field Enhancement",
     spec: "Long-range voice capture",
     body: "Clear speech from a distance for drive-through and outdoor scenarios — the HME use case — suppressing ambient noise and reverberation.",
@@ -110,10 +114,11 @@ export default function MicTechShowcase() {
             {TECHS.map((tech, i) => (
               <div
                 key={tech.title}
+                id={tech.id}
                 ref={(el) => {
                   stepRefs.current[i] = el;
                 }}
-                className="flex min-h-[70vh] flex-col justify-center border-l-2 pl-6 transition-all duration-500 sm:pl-8"
+                className="scroll-mt-24 flex min-h-[70vh] flex-col justify-center border-l-2 pl-6 transition-all duration-500 sm:pl-8"
                 style={{
                   borderColor: i === active ? ACTIVE_THEME.accent : ACTIVE_THEME.borderInactive,
                   opacity: i === active ? 1 : 0.4,

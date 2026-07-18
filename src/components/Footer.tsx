@@ -18,10 +18,17 @@ const EXPLORE = [
 ];
 
 const RESEARCH_AREAS = [
-  { label: "Productive Intelligence", href: "/research#productive-intelligence" },
+  { label: "Work Intelligence", href: "/research#work-intelligence" },
   { label: "Living Intelligence", href: "/research#living-intelligence" },
   { label: "Personal Intelligence", href: "/research#personal-intelligence" },
   { label: "Spatial Intelligence", href: "/research#spatial-intelligence" },
+];
+
+const AI_TECHNOLOGIES = [
+  { label: "Single Mic", href: "/ai-technologies#single-mic" },
+  { label: "Dual Mic", href: "/ai-technologies#dual-mic" },
+  { label: "Keyword Spotting", href: "/ai-technologies#keyword-spotting" },
+  { label: "Far-Field", href: "/ai-technologies#far-field" },
 ];
 
 const SOCIALS = [
@@ -86,7 +93,7 @@ export default function Footer() {
       `}</style>
 
       <div className="mx-auto max-w-6xl">
-        <div className="grid gap-12 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
+        <div className="grid gap-12 md:grid-cols-[1.5fr_1fr_1fr_1fr_1fr]">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3">
@@ -129,6 +136,25 @@ export default function Footer() {
             </p>
             <ul className="mt-4 space-y-2.5">
               {EXPLORE.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="theme-footer-link text-sm transition-colors duration-300"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* AI Technologies */}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">
+              AI Technologies
+            </p>
+            <ul className="mt-4 space-y-2.5">
+              {AI_TECHNOLOGIES.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
@@ -202,7 +228,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-16 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-white/40">
           <p>© 2026 IPHIPI Inc. All rights reserved.</p>
-          <p>The voice intelligence company</p>
+          <p>Intelligent.</p>
         </div>
       </div>
     </footer>

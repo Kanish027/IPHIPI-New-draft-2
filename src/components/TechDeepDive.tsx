@@ -115,6 +115,29 @@ function OneMicSolution() {
           </span>
         ))}
       </div>
+
+      {/* Benchmarks */}
+      <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          { stat: "100+", label: "Real-world noise profiles trained" },
+          { stat: "Real-Time", label: "Dereverberation" },
+          { stat: "Adaptive", label: "Environment-aware processing" },
+          { stat: "Natural", label: "DSP-preserved voice tone" },
+        ].map((b) => (
+          <div key={b.label} className="rounded-2xl border border-zinc-200 p-5">
+            <p className="text-2xl font-semibold tracking-tight" style={{ color: ACTIVE_THEME.primary }}>
+              {b.stat}
+            </p>
+            <p className="mt-1 text-xs leading-snug text-zinc-500">{b.label}</p>
+          </div>
+        ))}
+      </div>
+      <p className="mt-4 max-w-2xl text-sm leading-relaxed text-zinc-500">
+        IPHIPI&apos;s single-mic ENC combines AI noise suppression with DSP post-processing to
+        refine the enhanced signal and preserve the natural characteristics of the speaker&apos;s
+        voice — clearer, more intelligible speech without sounding heavily processed, even in
+        shifting acoustic chaos like café chatter, traffic, and construction.
+      </p>
     </div>
   );
 }
@@ -135,11 +158,11 @@ function TwoMicSolution() {
           className="rounded-2xl p-6 sm:p-8"
           style={{ background: `linear-gradient(160deg, ${ACTIVE_THEME.secondary} 0%, ${theme.gradDark2} 100%)` }}
         >
-          <p className="text-xs font-semibold uppercase tracking-wide text-white/60">Wind Noise Suppression</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-white/60">High-Wind Voice Capture</p>
           <p className="mt-2 text-4xl font-semibold tabular-nums text-white">
-            80<span style={{ color: ACTIVE_THEME.accent }} className="ml-1 text-lg">dB</span>
+            80<span style={{ color: ACTIVE_THEME.accent }} className="ml-1 text-lg">km/h</span>
           </p>
-          <p className="mt-1 text-sm text-white/50">Strong wind. Clear voice.</p>
+          <p className="mt-1 text-sm text-white/50">Wind speeds up to 80 km/h. Still clear.</p>
 
           <div className="mt-6 space-y-2.5">
             <div className="flex items-center gap-3">
@@ -155,6 +178,10 @@ function TwoMicSolution() {
               </div>
             </div>
           </div>
+          <p className="mt-5 text-xs leading-relaxed text-white/50">
+            Sensor fusion across talk and feedback mics distinguishes voice from wind
+            turbulence — effortless calls for cyclists, motorbike riders, and tuk-tuk travellers.
+          </p>
         </div>
 
         <div className="rounded-2xl border border-zinc-200 p-6 sm:p-8">
@@ -170,12 +197,14 @@ function TwoMicSolution() {
             ))}
           </div>
           <p className="mt-5 text-xs font-semibold uppercase tracking-wide" style={{ color: ACTIVE_THEME.primary }}>
-            Blocks Noise. Not Conversations.
+            Interfering-Talker Suppression
           </p>
           <p className="mt-1.5 text-sm leading-relaxed text-zinc-500">
-            Two-mic beamforming isolates your voice and keeps interfering
-            talkers out — so calls stay clear without cutting you off from
-            the people around you.
+            Nearby conversations contain speech that closely resembles the wearer&apos;s own voice
+            — one of the hardest noise sources to reject. Our dual-mic fusion engine uses the
+            distinct acoustic relationship of the wearer&apos;s voice across the talk and feedback
+            mics to preserve the wearer and reject surrounding conversations, in offices, cafés,
+            and contact centres.
           </p>
         </div>
       </div>
@@ -267,6 +296,33 @@ function FarFieldSolution() {
           ))}
         </div>
       </div>
+
+      <div className="mt-8 grid gap-4 lg:grid-cols-2">
+        <div className="rounded-2xl border border-zinc-200 p-6 sm:p-8">
+          <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: ACTIVE_THEME.primary }}>
+            Drive-Thru Speech Enhancement
+          </p>
+          <p className="mt-1 text-sm font-medium text-zinc-700">Clearer orders. Faster service. Less listening fatigue.</p>
+          <p className="mt-3 text-sm leading-relaxed text-zinc-500">
+            Isolates the customer&apos;s voice from continuously changing lane noise —
+            engines, traffic, wind, fans, music — before it reaches the crew headset,
+            reducing listening effort and providing cleaner speech for ASR and
+            AI-assisted ordering.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-zinc-200 p-6 sm:p-8">
+          <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: ACTIVE_THEME.primary }}>
+            IoT &amp; Self-Service Systems
+          </p>
+          <p className="mt-1 text-sm font-medium text-zinc-700">Better speech capture. More reliable machine understanding.</p>
+          <p className="mt-3 text-sm leading-relaxed text-zinc-500">
+            Smart home devices, voice kiosks, and connected appliances capture speech from
+            a distance around TVs, kitchen equipment, and crowd chatter — improving clarity
+            before it reaches ASR, wake-word, or intent-recognition models, for fewer false
+            triggers and faster interactions.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -330,6 +386,35 @@ function KeywordSpottingSolution() {
               <p className="text-[11px] text-zinc-500">Wakes the device, enables the AI agent</p>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="mt-8 grid gap-4 sm:grid-cols-3">
+        <div className="rounded-2xl border border-zinc-200 p-6">
+          <p className="text-2xl font-semibold tracking-tight" style={{ color: ACTIVE_THEME.primary }}>
+            ~2 mW
+          </p>
+          <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-zinc-500">The Intelligence Anchor</p>
+          <p className="mt-2 text-sm leading-relaxed text-zinc-500">
+            An always-on, low-power listening layer that recognizes wake words and commands
+            directly on-device — no streaming to the cloud, no full ASR pipeline running.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-zinc-200 p-6">
+          <p className="text-sm font-semibold text-zinc-700">Wake the agent only when it&apos;s needed</p>
+          <p className="mt-2 text-sm leading-relaxed text-zinc-500">
+            The full agentic AI stack — speech enhancement, ASR, intent recognition — stays
+            asleep in a low-power state until KWS detects the wake word, then activates the
+            downstream chain instantly.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-zinc-200 p-6">
+          <p className="text-sm font-semibold text-zinc-700">Brand-customizable wake words</p>
+          <p className="mt-2 text-sm leading-relaxed text-zinc-500">
+            One platform, tailored to every brand. Using a brand&apos;s preferred wake phrase and
+            speech data, the KWS model fine-tunes to recognize custom wake words — &ldquo;Hey
+            Mivi,&rdquo; &ldquo;Hey Boat&rdquo; — while staying low-power and on-device.
+          </p>
         </div>
       </div>
     </div>

@@ -58,7 +58,7 @@ const PARTNERS: Partner[] = [
         <img
           src="https://brandlogos.net/wp-content/uploads/2023/10/baseus-logo_brandlogos.net_3wbfi.png"
           alt="Baseus"
-          className="h-9 w-auto object-contain"
+          className="h-9 w-auto max-w-[100px] object-contain"
         />
       </span>
     ),
@@ -126,10 +126,11 @@ export default function PartnersSection() {
             style={{ backgroundColor: withAlpha(theme.secondary, 0.1) }}
           />
           <h2
-            className="relative px-4 text-base"
+            className="relative max-w-2xl px-4 text-center text-base"
             style={{ color: theme.textMuted, backgroundColor: theme.pageBg }}
           >
-            Trusted by industry leaders
+            Powering voice experiences for consumer audio, mobile devices,
+            commercial communications, and emerging AI wearables
           </h2>
         </div>
 
@@ -138,7 +139,7 @@ export default function PartnersSection() {
           {PARTNERS.map((partner, i) => {
             const monogramColor = i % 2 === 0 ? theme.primary : theme.secondary;
             return (
-              <span key={partner.name} className="theme-partner-lockup group flex items-center gap-2.5">
+              <span key={partner.name} className="theme-partner-lockup group flex min-w-0 items-center gap-2.5">
                 {partner.icon ? (
                   <span className="flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
                     {partner.icon}

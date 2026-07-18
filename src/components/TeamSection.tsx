@@ -41,6 +41,15 @@ const LEADERSHIP: Member[] = [
       "Driven by a passion for exploring what audio can achieve, Ashrith is dedicated to enhancing human-machine interaction and pioneering new ways for audio to interface with the world. By blending deep technical roots with leadership experience, he ensures that IPHIPI remains at the forefront of audio technology, consistently delivering scalable and impactful solutions.",
     ],
   },
+  {
+    name: "Dhruv Gupta",
+    title: "Chief Operating Officer",
+    initials: "DG",
+    featured: true,
+    photo: `https://ui-avatars.com/api/?name=Dhruv+Gupta&background=${theme.surfaceDark.replace("#", "")}&color=${theme.accent.replace("#", "")}&size=256&bold=true`,
+    visible:
+      "As COO of IPHIPI Technologies, Dhruv Gupta drives the company's operational strategy, ensuring the business scales in step with its engineering ambitions.",
+  },
 ];
 
 const ENGINEERING: Member[] = [
@@ -292,7 +301,7 @@ function NeuralNetworkCanvas() {
     // those removed, a denser graph is cheap (a single path + stroke call
     // for every line, regardless of how many there are).
     const nodePositions: Array<{x: number; y: number; phase: number}> = [];
-    const numNodes = 110;
+    const numNodes = 100;
 
     for (let i = 0; i < numNodes; i++) {
       nodePositions.push({

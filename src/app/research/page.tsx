@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import ResearchHero from "@/components/ResearchHero";
-import TechDeepDive from "@/components/TechDeepDive";
 import TeamSection from "@/components/TeamSection";
 import React from "react";
 import { theme, withAlpha } from "@/lib/theme";
@@ -67,7 +66,7 @@ function TechChips({ items }: { items: string[] }) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Productive Intelligence — technology visualization cards (dark)   */
+/*  Work Intelligence — technology visualization cards (dark)         */
 /* ------------------------------------------------------------------ */
 
 function TechCard({
@@ -363,10 +362,10 @@ export default function ResearchPage() {
 
       <div className="mx-auto max-w-6xl px-4 lg:px-6">
         {/* ============================= */}
-        {/* Productive Intelligence        */}
+        {/* Work Intelligence              */}
         {/* ============================= */}
-        <section id="productive-intelligence" className="mt-28 scroll-mt-24">
-          <Eyebrow>Productive Intelligence</Eyebrow>
+        <section id="work-intelligence" className="mt-28 scroll-mt-24">
+          <Eyebrow>Work Intelligence</Eyebrow>
           <h2 className="mt-3 max-w-2xl text-subhead font-semibold tracking-tight">
             Your Always-On Executive Assistant
           </h2>
@@ -624,7 +623,81 @@ export default function ResearchPage() {
           </div>
         </section>
 
-        {/* <TechDeepDive /> */}
+        {/* ============================= */}
+        {/* Roadmap — audio intelligence today, agentic AI tomorrow */}
+        {/* ============================= */}
+        <section id="roadmap" className="mt-28 scroll-mt-24">
+          <Eyebrow>Roadmap</Eyebrow>
+          <h2 className="mt-3 max-w-2xl text-subhead font-semibold tracking-tight">
+            From Audio Intelligence Today to Proactive AI Tomorrow
+          </h2>
+          <p className="mt-4 max-w-2xl leading-relaxed text-zinc-500">
+            IPHIPI Intelligence begins by transforming conventional TWS into
+            intelligent hearables with exceptional voice clarity. It learns to
+            understand spoken intent, becomes an always-available AI
+            assistant, then expands beyond hearing by gaining vision and new
+            sensor inputs — growing increasingly proactive, context-aware, and
+            capable of delivering seamless real-world assistance wherever the
+            user goes.
+          </p>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                stage: "Today",
+                title: "It Begins with Hearing",
+                desc: "IPHIPI Intelligence transforms ordinary TWS into intelligent hearables with exceptional voice clarity.",
+              },
+              {
+                stage: "Today",
+                title: "It Understands Spoken Intent",
+                desc: "Makes work required, natural interactions — it listens, it understands, it responds.",
+              },
+              {
+                stage: "Next",
+                title: "It Becomes Your AI Assistant",
+                desc: "Always available, always ready — meeting notes, summaries, reminders, and context-aware suggestions.",
+              },
+              {
+                stage: "Next",
+                title: "It Expands Beyond Hearing",
+                desc: "Gains context beyond hearing — navigation, live translation, notes and summaries, silent pitch-coach timing.",
+              },
+              {
+                stage: "Tomorrow",
+                title: "It Grows with New Sensors",
+                desc: "More context, more intelligence — health and activity sensors, fall detection, intruder detection.",
+              },
+              {
+                stage: "Tomorrow",
+                title: "It Becomes Proactive & Context-Aware",
+                desc: "One intelligence, many forms, seamless assistance — always acting, always a moment ahead.",
+              },
+            ].map((step, i) => (
+              <div
+                key={step.title}
+                className="rounded-xl border border-zinc-200/70 p-5 transition-colors duration-500"
+                style={{ backgroundColor: ACTIVE_THEME.cardBg }}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-geometric text-xs font-semibold" style={{ color: ACTIVE_THEME.accent }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span
+                    className="rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.15em]"
+                    style={{ backgroundColor: ACTIVE_THEME.accentBgMuted, color: ACTIVE_THEME.primary }}
+                  >
+                    {step.stage}
+                  </span>
+                </div>
+                <p className="mt-3 text-sm font-semibold" style={{ color: ACTIVE_THEME.secondary }}>
+                  {step.title}
+                </p>
+                <p className="mt-1.5 text-sm leading-relaxed text-zinc-500">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
 
       <TeamSection />

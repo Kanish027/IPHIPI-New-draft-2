@@ -24,7 +24,7 @@ const CHANNELS = [
   },
   {
     title: "General",
-    email: "contact@iphipi.com",
+    email: "hello@iphipi.com",
     description: "Press, careers, and everything else.",
   },
 ];
@@ -32,8 +32,7 @@ const CHANNELS = [
 const SOCIALS = [
   { label: "Twitter", href: "https://twitter.com/iphipi" },
   { label: "LinkedIn", href: "https://linkedin.com/company/iphipi" },
-  { label: "Youtube", href: "" },
-  { label: "Instagram", href: "" },
+  { label: "GitHub", href: "https://github.com/iphipi" },
 ];
 
 export default function ContactPage() {

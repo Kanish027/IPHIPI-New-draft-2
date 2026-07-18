@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import AiTechHero from "@/components/AiTechHero";
 import MicTechShowcase from "@/components/MicTechShowcase";
+import TechDeepDive from "@/components/TechDeepDive";
 import FormFactorsShowcase from "@/components/FormFactorsShowcase";
 import { theme, withAlpha } from "@/lib/theme";
 
@@ -132,6 +133,11 @@ export default function AiTechnologiesPage() {
 
       {/* Mic technology enhancements — sticky-scroll showcase */}
       <MicTechShowcase />
+
+      {/* Technical deep dive — benchmarks and sub-use-cases per technology */}
+      <div className="mx-auto max-w-6xl px-4 lg:px-6">
+        <TechDeepDive />
+      </div>
 
       {/* NDP 115 — audio processing flow (full-bleed, like the Partners band) */}
       <section

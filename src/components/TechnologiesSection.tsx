@@ -163,11 +163,12 @@ export default function TechnologiesSection() {
             </h2>
           </div>
 
-          {/* <div className="flex flex-col justify-end md:col-span-5 md:col-start-8">
+          <div className="flex flex-col justify-end md:col-span-5 md:col-start-8">
             <p className="max-w-md text-lg leading-relaxed lg:text-xl" style={{ color: ACTIVE_THEME.bodyText }}>
-              Four core technologies — engineered for every wearable category.
+              Proprietary environmental noise suppression and speech
+              enhancement — engineered for every wearable category.
             </p>
-          </div> */}
+          </div>
         </div>
 
         {/* Staggered two-column layout: right column sits lower, so the four

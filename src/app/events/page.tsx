@@ -29,7 +29,19 @@ const UPCOMING = [
   },
 ];
 
-const PAST = [
+type PastEvent = {
+  name: string;
+  date: string;
+  location: string;
+  image: string;
+  body: string;
+  /* Optional: either a local/hosted video file (mp4/webm) or a YouTube/Vimeo
+     embed URL. When set, it renders instead of `image` in the media slot. */
+  video?: string;
+  videoEmbed?: string;
+};
+
+const PAST: PastEvent[] = [
   {
     name: "CES 2026",
     date: "January 2026",
@@ -140,14 +152,33 @@ export default function EventsPage() {
                 className="grid overflow-hidden rounded-xl border md:grid-cols-2"
                 style={{ borderColor: theme.borderInactive }}
               >
-                {/* Sample image — swap for real booth/show-floor photos */}
+                {/* Media slot — embedded video takes priority, then a hosted
+                    video file, falling back to the sample/show-floor photo */}
                 <div className="relative min-h-56">
-                  <Image
-                    src={event.image}
-                    alt={event.name}
-                    fill
-                    className="object-cover"
-                  />
+                  {event.videoEmbed ? (
+                    <iframe
+                      src={event.videoEmbed}
+                      title={event.name}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="absolute inset-0 h-full w-full"
+                    />
+                  ) : event.video ? (
+                    <video
+                      src={event.video}
+                      controls
+                      playsInline
+                      poster={event.image}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  ) : (
+                    <Image
+                      src={event.image}
+                      alt={event.name}
+                      fill
+                      className="object-cover"
+                    />
+                  )}
                 </div>
                 <div className="flex flex-col justify-center p-6 sm:p-10">
                   <p className="text-subhead font-semibold tracking-tight">{event.name}</p>
