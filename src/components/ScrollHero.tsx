@@ -10,6 +10,8 @@ const RADIUS = 16; // px corner radius at rest
 export type HeroVariant = "dark" | "light";
 
 type ScrollHeroProps = {
+  /** Small label shown above the tagline, e.g. "Agentic AI Audio Platform" */
+  eyebrow?: string;
   taglineTop: string;
   taglineSub: string;
   title: string;
@@ -28,6 +30,7 @@ type ScrollHeroProps = {
 
 function HeroText({
   variant,
+  eyebrow,
   taglineTop,
   taglineSub,
   title,
@@ -41,9 +44,14 @@ function HeroText({
         color: variant === "dark" ? theme.secondary : theme.textLight,
       }}
     >
-      <div className="text-base font-medium leading-relaxed">
-        <p>{taglineTop}</p>
-        <p className="opacity-60">{taglineSub}</p>
+      <div className="flex flex-col items-center gap-3">
+        {eyebrow && (
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] opacity-70">{eyebrow}</p>
+        )}
+        <div className="text-base font-medium leading-relaxed">
+          <p>{taglineTop}</p>
+          <p className="opacity-60">{taglineSub}</p>
+        </div>
       </div>
       <h1 className={`font-semibold tracking-tight ${titleClassName}`}>{title}</h1>
       {extra?.(variant)}

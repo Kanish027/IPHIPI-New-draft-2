@@ -53,9 +53,9 @@ function OneMicSolution() {
   return (
     <div className="mt-10">
       <SectionHeading
-        eyebrow="One Mic Solution"
-        title="Freedom to Work. Confidence to Be Heard."
-        tagline="Background noise is everywhere. Our single-mic AI suppresses it — so you don't have to change your life."
+        eyebrow="Single Mic Speech Enhancement"
+        title="Built for the Noises of Everyday Life"
+        tagline="Conversations compete with unpredictable background noise—from TVs and kitchen sounds to cafés, traffic, construction noises. IPHIPI's AI-powered Single Mic Speech Enhancement delivers exceptional voice clarity through edge-optimized, real-time audio processing."
       />
 
       <div className="mt-8 grid gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-6">
@@ -116,28 +116,40 @@ function OneMicSolution() {
         ))}
       </div>
 
-      {/* Benchmarks */}
+      {/* Benchmarks — matches the doc's four exact bullets */}
       <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {[
-          { stat: "100+", label: "Real-world noise profiles trained" },
-          { stat: "Real-Time", label: "Dereverberation" },
-          { stat: "Adaptive", label: "Environment-aware processing" },
-          { stat: "Natural", label: "DSP-preserved voice tone" },
+          { stat: "01", label: "Trained Across 100+ Real-World Noise Profiles" },
+          { stat: "02", label: "Optimized for dynamic acoustic environments" },
+          { stat: "03", label: "Real-Time Dereverberation" },
+          { stat: "04", label: "Environment-Adaptive Processing" },
         ].map((b) => (
           <div key={b.label} className="rounded-2xl border border-zinc-200 p-5">
-            <p className="text-2xl font-semibold tracking-tight" style={{ color: ACTIVE_THEME.primary }}>
+            <p className="font-geometric text-xs font-semibold" style={{ color: ACTIVE_THEME.accent }}>
               {b.stat}
             </p>
-            <p className="mt-1 text-xs leading-snug text-zinc-500">{b.label}</p>
+            <p className="mt-1.5 text-sm font-medium leading-snug text-zinc-700">{b.label}</p>
           </div>
         ))}
       </div>
-      <p className="mt-4 max-w-2xl text-sm leading-relaxed text-zinc-500">
-        IPHIPI&apos;s single-mic ENC combines AI noise suppression with DSP post-processing to
-        refine the enhanced signal and preserve the natural characteristics of the speaker&apos;s
-        voice — clearer, more intelligible speech without sounding heavily processed, even in
-        shifting acoustic chaos like café chatter, traffic, and construction.
-      </p>
+
+      {/* DSP-Driven Voice Enhancement */}
+      <div className="mt-10">
+        <SectionHeading
+          eyebrow="DSP-Driven Voice Enhancement"
+          title="Natural speech, even in extreme noise"
+          tagline="Effective voice enhancement requires more than suppressing background noise. IPHIPI's single-microphone ENC combines AI noise suppression with DSP-based post-processing to refine the enhanced signal and preserve the natural characteristics of the speaker's voice. The result is clearer and more intelligible speech without making it sound heavily processed."
+        />
+      </div>
+
+      {/* AI-Based Noise Suppression */}
+      <div className="mt-10">
+        <SectionHeading
+          eyebrow="AI-Based Noise Suppression That Defines Clarity"
+          title="Adaptive Noise Suppression for Real-World Chaos"
+          tagline="IPHIPI's single-microphone ENC is engineered to maintain clear speech even in the most challenging acoustic environments. It effectively suppresses complex, dynamic noise such as overlapping café chatter, heavy traffic, and construction activity, where sound patterns are constantly shifting. The AI-based separation engine continuously adapts in real time, isolating the speaker's voice from rapidly changing background noise. The result is a conversation that sounds as though it is taking place in a quiet environment, even when it is not."
+        />
+      </div>
     </div>
   );
 }
@@ -148,21 +160,53 @@ function TwoMicSolution() {
   return (
     <div className="mt-16">
       <SectionHeading
-        eyebrow="Two Mic Solution"
-        title="Clear Voice. Anywhere."
-        tagline="Dual microphones with real-time beamforming — built for the outside world, not just the office."
+        eyebrow="Dual Mic Speech Enhancement"
+        title="Clear voice through dual-microphone intelligence"
+        tagline="Harsh noise conditions require more than a single view of the acoustic environment. IPHIPI's two-microphone ENC combines signals from the talk microphone and feedback microphone to improve voice capture and provide the AI engine with complementary information about the wearer's speech."
       />
 
+      <div className="mt-8">
+        <SectionHeading
+          eyebrow="Clean, Natural Speech"
+          title="Natural Voice Clarity, Powered by Dual-Microphone AI"
+          tagline="Through dual-microphone sensor fusion, AI-based speech separation, and DSP post-processing, the system suppresses severe environmental noise without over-processing the speech. It preserves the speaker's natural tone, clarity, and vocal characteristics, delivering intelligible and comfortable voice transmission in heavy traffic, strong wind, café babble, subway environments, and the presence of nearby interfering talkers."
+        />
+      </div>
+
       <div className="mt-8 grid gap-4 lg:grid-cols-2">
+        <div className="rounded-2xl border border-zinc-200 p-6 sm:p-8">
+          <p className="text-xs font-semibold uppercase tracking-wide text-zinc-400">Interfering-Talker Suppression</p>
+          <p className="mt-1 text-sm font-medium text-zinc-700">Preserve the wearer. Reject surrounding conversations.</p>
+          <div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2 text-sm text-zinc-600">
+            {["Offices", "Homes", "Cafés", "Contact Centres", "Shared Workspaces"].map((tag) => (
+              <div key={tag} className="flex items-center gap-2">
+                <svg viewBox="0 0 24 24" fill="none" stroke={ACTIVE_THEME.accent} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 shrink-0" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+                {tag}
+              </div>
+            ))}
+          </div>
+          <p className="mt-5 text-sm leading-relaxed text-zinc-500">
+            Nearby conversations contain speech that closely resembles the wearer&apos;s own voice
+            — one of the most challenging noise sources to suppress. IPHIPI&apos;s dual-microphone
+            fusion engine uses the distinct acoustic relationship of the wearer&apos;s voice across
+            the talk and feedback microphones to separate it from nearby talkers, allowing the
+            primary speaker&apos;s voice to pass through clearly.
+          </p>
+        </div>
+
         <div
           className="rounded-2xl p-6 sm:p-8"
           style={{ background: `linear-gradient(160deg, ${ACTIVE_THEME.secondary} 0%, ${theme.gradDark2} 100%)` }}
         >
           <p className="text-xs font-semibold uppercase tracking-wide text-white/60">High-Wind Voice Capture</p>
+          <p className="mt-1 text-sm font-medium text-white/90">
+            Effortless calls for cyclists, motorbike riders, and tuk-tuk travellers
+          </p>
           <p className="mt-2 text-4xl font-semibold tabular-nums text-white">
             80<span style={{ color: ACTIVE_THEME.accent }} className="ml-1 text-lg">km/h</span>
           </p>
-          <p className="mt-1 text-sm text-white/50">Wind speeds up to 80 km/h. Still clear.</p>
 
           <div className="mt-6 space-y-2.5">
             <div className="flex items-center gap-3">
@@ -178,33 +222,12 @@ function TwoMicSolution() {
               </div>
             </div>
           </div>
-          <p className="mt-5 text-xs leading-relaxed text-white/50">
-            Sensor fusion across talk and feedback mics distinguishes voice from wind
-            turbulence — effortless calls for cyclists, motorbike riders, and tuk-tuk travellers.
-          </p>
-        </div>
-
-        <div className="rounded-2xl border border-zinc-200 p-6 sm:p-8">
-          <p className="text-xs font-semibold uppercase tracking-wide text-zinc-400">Built for Real Life</p>
-          <div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2 text-sm text-zinc-600">
-            {["Strong Wind", "Traffic & Honks", "Construction Sites", "Metro & Streets", "Cafes", "Offices", "Meetings", "Gig Work"].map((tag) => (
-              <div key={tag} className="flex items-center gap-2">
-                <svg viewBox="0 0 24 24" fill="none" stroke={ACTIVE_THEME.accent} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 shrink-0" aria-hidden="true">
-                  <path d="M20 6 9 17l-5-5" />
-                </svg>
-                {tag}
-              </div>
-            ))}
-          </div>
-          <p className="mt-5 text-xs font-semibold uppercase tracking-wide" style={{ color: ACTIVE_THEME.primary }}>
-            Interfering-Talker Suppression
-          </p>
-          <p className="mt-1.5 text-sm leading-relaxed text-zinc-500">
-            Nearby conversations contain speech that closely resembles the wearer&apos;s own voice
-            — one of the hardest noise sources to reject. Our dual-mic fusion engine uses the
-            distinct acoustic relationship of the wearer&apos;s voice across the talk and feedback
-            mics to preserve the wearer and reject surrounding conversations, in offices, cafés,
-            and contact centres.
+          <p className="mt-5 text-sm leading-relaxed text-white/50">
+            Calls made while travelling are often disrupted by strong wind, traffic, and
+            continuously changing road noise. IPHIPI&apos;s two-microphone ENC combines signals
+            from the talk and feedback microphones using sensor fusion to distinguish the
+            wearer&apos;s voice from wind turbulence, maintaining clear, natural speech at wind
+            speeds of up to 80 km/h.
           </p>
         </div>
       </div>
@@ -235,9 +258,9 @@ function FarFieldSolution() {
   return (
     <div className="mt-16">
       <SectionHeading
-        eyebrow="Far-Field Voice Solution"
-        title="Order Food from Your Car. Clearly. Even in Highway Noise."
-        tagline="Captures voice from up to 2 meters away, then removes highway-grade noise before a single word reaches the system."
+        eyebrow="Far-Field Speech Enhancement"
+        title="Clear speech capture from a distance"
+        tagline="Business voice interfaces often operate in acoustically challenging environments where the speaker is not close to the microphone. IPHIPI's far-field speech enhancement isolates speech from surrounding noise and enhances the quality of the desired signal — delivering cleaner input for both human listening and machine understanding (ASR, event prediction)."
       />
 
       <div className="mt-8 grid gap-4 lg:grid-cols-[1.1fr_1fr]">
@@ -304,22 +327,24 @@ function FarFieldSolution() {
           </p>
           <p className="mt-1 text-sm font-medium text-zinc-700">Clearer orders. Faster service. Less listening fatigue.</p>
           <p className="mt-3 text-sm leading-relaxed text-zinc-500">
-            Isolates the customer&apos;s voice from continuously changing lane noise —
-            engines, traffic, wind, fans, music — before it reaches the crew headset,
-            reducing listening effort and providing cleaner speech for ASR and
-            AI-assisted ordering.
+            Drive-thru communication takes place amid engines, traffic, wind, fans, music,
+            and overlapping conversations. IPHIPI&apos;s far-field ENC isolates the customer&apos;s
+            voice from continuously changing lane noise before it reaches the crew headset —
+            reducing listening effort and fatigue, and providing cleaner speech for ASR and
+            AI-assisted ordering systems.
           </p>
         </div>
         <div className="rounded-2xl border border-zinc-200 p-6 sm:p-8">
           <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: ACTIVE_THEME.primary }}>
-            IoT &amp; Self-Service Systems
+            Far-Field Speech for IoT and Self-Service Systems
           </p>
           <p className="mt-1 text-sm font-medium text-zinc-700">Better speech capture. More reliable machine understanding.</p>
           <p className="mt-3 text-sm leading-relaxed text-zinc-500">
-            Smart home devices, voice kiosks, and connected appliances capture speech from
-            a distance around TVs, kitchen equipment, and crowd chatter — improving clarity
-            before it reaches ASR, wake-word, or intent-recognition models, for fewer false
-            triggers and faster interactions.
+            Smart home devices, voice kiosks, and connected appliances must capture speech
+            from a distance while operating around televisions, kitchen equipment, crowd
+            chatter, and room reverberation. IPHIPI&apos;s far-field noise suppression isolates
+            the intended speaker before the signal reaches ASR, wake-word, or
+            intent-recognition models — for fewer false triggers and faster interactions.
           </p>
         </div>
       </div>
@@ -333,9 +358,9 @@ function KeywordSpottingSolution() {
   return (
     <div className="mt-16">
       <SectionHeading
-        eyebrow="Keyword Spotting"
-        title="Always Listening. Instantly Ready."
-        tagline="Ultra-low-power wake-word and custom-command detection — running entirely on-device, always ready."
+        eyebrow="The Intelligence Anchor"
+        title="Always-on voice control with minimal power consumption"
+        tagline="Continuously running a complete speech-recognition or AI-agent pipeline consumes significant power and is often unnecessary when the device only needs to detect a wake phrase or a limited set of commands. IPHIPI's keyword-spotting technology provides an always-on, low-power listening layer that recognizes predefined words and commands directly on the device — immediately triggering a device function or activating a higher-level voice assistant and agentic AI system."
       />
 
       <div className="mt-8 flex flex-col items-stretch gap-3 lg:flex-row lg:items-center">
@@ -389,31 +414,37 @@ function KeywordSpottingSolution() {
         </div>
       </div>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-3">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2">
         <div className="rounded-2xl border border-zinc-200 p-6">
-          <p className="text-2xl font-semibold tracking-tight" style={{ color: ACTIVE_THEME.primary }}>
-            ~2 mW
-          </p>
-          <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-zinc-500">The Intelligence Anchor</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-zinc-400">Custom Voice Commands</p>
+          <p className="mt-1 text-sm font-semibold text-zinc-700">Immediate control without cloud processing</p>
           <p className="mt-2 text-sm leading-relaxed text-zinc-500">
-            An always-on, low-power listening layer that recognizes wake words and commands
-            directly on-device — no streaming to the cloud, no full ASR pipeline running.
-          </p>
-        </div>
-        <div className="rounded-2xl border border-zinc-200 p-6">
-          <p className="text-sm font-semibold text-zinc-700">Wake the agent only when it&apos;s needed</p>
-          <p className="mt-2 text-sm leading-relaxed text-zinc-500">
-            The full agentic AI stack — speech enhancement, ASR, intent recognition — stays
-            asleep in a low-power state until KWS detects the wake word, then activates the
-            downstream chain instantly.
+            Keyword spotting enables commonly used actions to be triggered through short,
+            natural voice commands. The model continuously listens only for the configured
+            command set, allowing devices to respond quickly without streaming audio to the
+            cloud or running a complete ASR pipeline.
           </p>
         </div>
         <div className="rounded-2xl border border-zinc-200 p-6">
-          <p className="text-sm font-semibold text-zinc-700">Brand-customizable wake words</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-zinc-400">Wake-Word Detection for Agentic AI</p>
+          <p className="mt-1 text-sm font-semibold text-zinc-700">Wake the agent only when it is needed</p>
           <p className="mt-2 text-sm leading-relaxed text-zinc-500">
-            One platform, tailored to every brand. Using a brand&apos;s preferred wake phrase and
-            speech data, the KWS model fine-tunes to recognize custom wake words — &ldquo;Hey
-            Mivi,&rdquo; &ldquo;Hey Boat&rdquo; — while staying low-power and on-device.
+            In agentic AI systems, continuously operating the full voice-processing and
+            reasoning pipeline can consume significant power. A lightweight keyword-spotting
+            model stays active in the background, listening for a designated wake word while
+            the main AI agent stays in a low-power state — activating the downstream chain
+            (speech enhancement, ASR, intent recognition, the AI agent) only when needed.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-zinc-200 p-6 sm:col-span-2">
+          <p className="text-xs font-semibold uppercase tracking-wide text-zinc-400">Brand-Customizable KWS</p>
+          <p className="mt-1 text-sm font-semibold text-zinc-700">One platform, tailored to every brand</p>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-500">
+            IPHIPI&apos;s keyword-spotting technology can be adapted to different products and
+            brand identities. Using the brand&apos;s preferred wake phrase and representative
+            speech data — &ldquo;Hey Mivi,&rdquo; &ldquo;Hey Boat&rdquo; — the KWS model can be
+            fine-tuned to recognize custom wake words and commands while maintaining
+            low-power, on-device operation.
           </p>
         </div>
       </div>

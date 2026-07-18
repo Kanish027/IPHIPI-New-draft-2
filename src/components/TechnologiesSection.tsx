@@ -16,6 +16,8 @@ const ACTIVE_THEME = {
 type Tech = {
   label: string;
   spec: string;
+  heading: string;
+  body: string;
   image: string;
   video?: string;
   /** Tailwind aspect ratio — mixes tall & wide tiles for a masonry rhythm. */
@@ -23,10 +25,38 @@ type Tech = {
 };
 
 const TECHS: Tech[] = [
-  { label: "Single Mic", spec: "70 dB noise suppression", image: "/tech/single-mic.png", aspect: "aspect-[4/5]" },
-  { label: "Dual Mic", spec: "85 dB · multi-speaker", image: "/tech/dual-mic.png", aspect: "aspect-[3/2]" },
-  { label: "Keyword Spotting", spec: "5 mW · fully on-device", image: "/tech/kws.png", aspect: "aspect-[3/2]" },
-  { label: "Far-Field", spec: "5 m+ capture range", image: "/tech/far-field.png", aspect: "aspect-[4/5]" },
+  {
+    label: "Single Mic",
+    spec: "70 dB noise suppression",
+    heading: "Clear Through Noise",
+    body: "Experience uninterrupted conversations, even in noisy environments.",
+    image: "/tech/single-mic.png",
+    aspect: "aspect-[4/5]",
+  },
+  {
+    label: "Dual Mic",
+    spec: "85 dB · multi-speaker",
+    heading: "Clear Through Conversations",
+    body: "Clear conversations, even in noisy, conversation-heavy environments.",
+    image: "/tech/dual-mic.png",
+    aspect: "aspect-[3/2]",
+  },
+  {
+    label: "Always-On Voice Control",
+    spec: "5 mW · fully on-device",
+    heading: "Hands-Free Control",
+    body: "Control your device hands-free with IPHIPI's Keyword Spotting, so you stay focused while your phone stays untouched.",
+    image: "/tech/kws.png",
+    aspect: "aspect-[3/2]",
+  },
+  {
+    label: "Far-Field",
+    spec: "5 m+ capture range",
+    heading: "Hears You From Afar",
+    body: "Whether you're speaking to a smart speaker at home or a self-service kiosk, you shouldn't have to move closer or repeat your commands. IPHIPI's Far-Field Speech Enhancement enables brands to capture clear speech from a distance.",
+    image: "/tech/far-field.png",
+    aspect: "aspect-[4/5]",
+  },
 ];
 
 // --- One video tile — fixed size, always fully visible ------------------
@@ -109,6 +139,16 @@ function TechTile({ tech, index }: { tech: Tech; index: number }) {
           </div>
           <p className="mt-2.5 text-xs font-medium uppercase tracking-[0.18em] text-white/60">{tech.spec}</p>
         </div>
+      </div>
+
+      {/* Caption — heading + body, per the doc's Small Text / Heading / Body format */}
+      <div className="mt-5 px-1">
+        <h3 className="text-lg font-semibold tracking-tight" style={{ color: ACTIVE_THEME.secondary }}>
+          {tech.heading}
+        </h3>
+        <p className="mt-1.5 max-w-md leading-relaxed" style={{ color: ACTIVE_THEME.bodyText }}>
+          {tech.body}
+        </p>
       </div>
     </motion.div>
   );

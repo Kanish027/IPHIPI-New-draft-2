@@ -20,7 +20,8 @@ const PILLARS = [
   {
     id: "work-intelligence",
     title: "Work Intelligence",
-    body: "An always-on work companion. Manages conversations, notifications, and workflows — reducing cognitive load.",
+    heading: "Stay focused. Let intelligence handle the rest.",
+    body: "Professionals constantly switch between listening, taking notes, scheduling follow-ups, and presenting ideas. IPHIPI Intelligence quietly manages these routine tasks, allowing users to stay fully engaged in the conversation.",
     images: [
       "https://picsum.photos/seed/work-intelligence-a/700/900",
       "https://picsum.photos/seed/work-intelligence-b/700/900",
@@ -40,7 +41,8 @@ const PILLARS = [
   {
     id: "living-intelligence",
     title: "Living Intelligence",
-    body: "Transforms living spaces into intelligent environments. Anticipates needs, simplifies routines, automates homes.",
+    heading: "Live Safely. Stay Connected.",
+    body: "You can't always keep an eye on every corner of your home or every loved one's wellbeing. IPHIPI Intelligence keeps you aware of your home and the people who matter most.",
     images: [
       "https://picsum.photos/seed/living-intelligence-a/700/900",
       "https://picsum.photos/seed/living-intelligence-b/700/900",
@@ -60,7 +62,8 @@ const PILLARS = [
   {
     id: "personal-intelligence",
     title: "Personal Intelligence",
-    body: "Beyond health tracking. Understands physical, emotional, and environmental context for healthier decisions.",
+    heading: "Train Smarter. Stay Focused.",
+    body: "During workouts, it's easy to lose track of reps, rest, hydration, and what's next. IPHIPI keeps your workout on track with real-time guidance, motivation, and intelligent coaching.",
     images: [
       "https://picsum.photos/seed/personal-intelligence-a/700/900",
       "https://picsum.photos/seed/personal-intelligence-b/700/900",
@@ -79,7 +82,8 @@ const PILLARS = [
   {
     id: "spatial-intelligence",
     title: "Spatial Intelligence",
-    body: "Vision that sees and understands. Analyzes scenes in real time, giving AI the context edge in the visual era.",
+    heading: "Understand the World Around You.",
+    body: "Exploring unfamiliar places often means switching between maps, translation apps, and searching for the stories behind every place. IPHIPI Intelligence sees what you see, listens to you, and brings navigation, translation, art, history, and architecture into one natural conversation.",
     images: [
       "https://picsum.photos/seed/spatial-intelligence-a/700/900",
       "https://picsum.photos/seed/spatial-intelligence-b/700/900",
@@ -252,8 +256,14 @@ export default function PillarsSection() {
                 {pillar.icon}
               </div>
 
-              <h3 className="mt-6 text-subhead font-semibold leading-tight tracking-tight sm:text-headline" style={{ color: ACTIVE_THEME.textHeading }}>
+              <p
+                className="mt-6 text-xs font-semibold uppercase tracking-[0.2em]"
+                style={{ color: ACTIVE_THEME.accent }}
+              >
                 {pillar.title}
+              </p>
+              <h3 className="mt-3 text-subhead font-semibold leading-tight tracking-tight sm:text-headline" style={{ color: ACTIVE_THEME.textHeading }}>
+                {pillar.heading}
               </h3>
               <p className="mt-4 max-w-md leading-relaxed" style={{ color: ACTIVE_THEME.textBody }}>
                 {pillar.body}
