@@ -25,10 +25,10 @@ const RESEARCH_AREAS = [
 ];
 
 const AI_TECHNOLOGIES = [
-  { label: "Single Mic", href: "/ai-technologies#single-mic" },
-  { label: "Dual Mic", href: "/ai-technologies#dual-mic" },
-  { label: "Keyword Spotting", href: "/ai-technologies#keyword-spotting" },
-  { label: "Far-Field", href: "/ai-technologies#far-field" },
+  { label: "Single Mic", href: "/ai-technologies/single-mic" },
+  { label: "Dual Mic", href: "/ai-technologies/dual-mic" },
+  { label: "Keyword Spotting", href: "/ai-technologies/keyword-spotting" },
+  { label: "Far-Field", href: "/ai-technologies/far-field" },
 ];
 
 const SOCIALS = [

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import AiTechHero from "@/components/AiTechHero";
 import MicTechShowcase from "@/components/MicTechShowcase";
-import TechDeepDive from "@/components/TechDeepDive";
 import FormFactorsShowcase from "@/components/FormFactorsShowcase";
 import { theme, withAlpha } from "@/lib/theme";
 
@@ -21,6 +21,33 @@ const ACTIVE_THEME = {
   pageBg: theme.pageBg,
   cardHoverBg: theme.cardHover,
 };
+
+const TECH_CARDS = [
+  {
+    eyebrow: "Single Mic Speech Enhancement",
+    title: "Single Mic Enhancement",
+    desc: "Built for the noises of everyday life — exceptional voice clarity through edge-optimized, real-time audio processing.",
+    href: "/ai-technologies/single-mic",
+  },
+  {
+    eyebrow: "Dual Mic Speech Enhancement",
+    title: "Dual Mic Enhancement",
+    desc: "Clear voice through dual-microphone intelligence — natural tone preserved even in heavy traffic and strong wind.",
+    href: "/ai-technologies/dual-mic",
+  },
+  {
+    eyebrow: "Far-Field Speech Enhancement",
+    title: "Far-Field Enhancement",
+    desc: "Clear speech capture from a distance — for drive-thrus, kiosks, and smart home devices.",
+    href: "/ai-technologies/far-field",
+  },
+  {
+    eyebrow: "The Intelligence Anchor",
+    title: "Keyword Spotting",
+    desc: "Always-on voice control with minimal power consumption — wake words and commands recognized directly on-device.",
+    href: "/ai-technologies/keyword-spotting",
+  },
+];
 
 const STAGES = [
   {
@@ -134,9 +161,46 @@ export default function AiTechnologiesPage() {
       {/* Mic technology enhancements — sticky-scroll showcase */}
       <MicTechShowcase />
 
-      {/* Technical deep dive — benchmarks and sub-use-cases per technology */}
+      {/* Explore each technology — cards linking out to a dedicated page per tech */}
       <div className="mx-auto max-w-6xl px-4 lg:px-6">
-        <TechDeepDive />
+        <section id="explore-tech" className="mt-28 scroll-mt-24">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400">Explore</p>
+          <h2 className="mt-3 max-w-2xl text-subhead font-semibold tracking-tight" style={{ color: ACTIVE_THEME.secondary }}>
+            One Platform. Four Microphone Configurations.
+          </h2>
+          <p className="mt-4 max-w-2xl leading-relaxed text-zinc-500">
+            From a single microphone to far-field capture across a room, the same
+            adaptive AI core powers every one — select a configuration to see how it works.
+          </p>
+
+          <div className="mt-10 grid gap-5 sm:grid-cols-2">
+            {TECH_CARDS.map((card) => (
+              <Link
+                key={card.title}
+                href={card.href}
+                className="group flex flex-col rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-0.5"
+                style={{ borderColor: withAlpha(ACTIVE_THEME.secondary, 0.12), backgroundColor: theme.cardWarm }}
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.15em]" style={{ color: ACTIVE_THEME.accent }}>
+                  {card.eyebrow}
+                </p>
+                <h3 className="mt-2 text-lg font-semibold" style={{ color: ACTIVE_THEME.secondary }}>
+                  {card.title}
+                </h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-500">{card.desc}</p>
+                <span
+                  className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold transition-transform duration-300 group-hover:translate-x-1"
+                  style={{ color: ACTIVE_THEME.accent }}
+                >
+                  More about {card.title}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
       </div>
 
       {/* NDP 115 — audio processing flow (full-bleed, like the Partners band) */}

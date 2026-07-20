@@ -26,7 +26,7 @@ type Tech = {
 
 const TECHS: Tech[] = [
   {
-    label: "Single Mic",
+    label: "Single Mic Solution",
     spec: "70 dB noise suppression",
     heading: "Clear Through Noise",
     body: "Experience uninterrupted conversations, even in noisy environments.",
@@ -34,7 +34,7 @@ const TECHS: Tech[] = [
     aspect: "aspect-[4/5]",
   },
   {
-    label: "Dual Mic",
+    label: "Dual Mic Enhancement",
     spec: "85 dB · multi-speaker",
     heading: "Clear Through Conversations",
     body: "Clear conversations, even in noisy, conversation-heavy environments.",
@@ -50,7 +50,7 @@ const TECHS: Tech[] = [
     aspect: "aspect-[3/2]",
   },
   {
-    label: "Far-Field",
+    label: "Far-Field Speech Enhancement",
     spec: "5 m+ capture range",
     heading: "Hears You From Afar",
     body: "Whether you're speaking to a smart speaker at home or a self-service kiosk, you shouldn't have to move closer or repeat your commands. IPHIPI's Far-Field Speech Enhancement enables brands to capture clear speech from a distance.",
