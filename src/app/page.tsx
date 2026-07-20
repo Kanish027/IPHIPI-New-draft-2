@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className="flex flex-1 flex-col bg-white text-zinc-950">
       <Hero />
-      <MissionSection />
+      {/* <MissionSection /> */}
       <PillarsSection />
       <TechnologiesSection />
       <PartnersSection />
