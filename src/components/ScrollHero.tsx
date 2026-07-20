@@ -36,9 +36,11 @@ function HeroText({
   title,
   titleClassName,
   extra,
-}: ScrollHeroProps & { variant: HeroVariant }) {
+  wrapperRef,
+}: ScrollHeroProps & { variant: HeroVariant; wrapperRef?: React.Ref<HTMLDivElement> }) {
   return (
     <div
+      ref={wrapperRef}
       className="absolute inset-x-0 top-[18vh] flex flex-col items-center gap-10 px-4 text-center transition-colors duration-500"
       style={{
         color: variant === "dark" ? theme.secondary : theme.textLight,
@@ -70,7 +72,13 @@ export default function ScrollHero(props: ScrollHeroProps) {
   
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
+  // Rest-state top offset for the video, in px — normally TOP_START vh, but
+  // widened on short/wide viewports where the heading text (which scales
+  // with vw, not vh) would otherwise grow taller than the reserved gap and
+  // collide with the video.
+  const [restTopPx, setRestTopPx] = useState<number | null>(null);
 
   // Construct dynamic fallback gradient if one is not explicitly provided
   const activeGradient = gradient || `radial-gradient(circle at 25% 15%, ${withAlpha(theme.accent, 0.22)}, transparent 55%), linear-gradient(160deg, ${theme.gradDark1} 0%, ${theme.gradDark2} 60%)`;
@@ -94,6 +102,28 @@ export default function ScrollHero(props: ScrollHeroProps) {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  // Keep the video's rest position below the heading, even when the heading
+  // grows taller than TOP_START vh (wide-but-short windows, since the
+  // heading's font-size scales with vw while TOP_START scales with vh).
+  useEffect(() => {
+    const el = textRef.current;
+    if (!el) return;
+    const GAP = 40; // px breathing room between heading and video
+    const recompute = () => {
+      const minTop = (TOP_START / 100) * window.innerHeight;
+      const textBottom = el.getBoundingClientRect().height + el.offsetTop;
+      setRestTopPx(Math.max(minTop, textBottom + GAP));
+    };
+    recompute();
+    const ro = new ResizeObserver(recompute);
+    ro.observe(el);
+    window.addEventListener("resize", recompute);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", recompute);
     };
   }, []);
 
@@ -121,21 +151,24 @@ export default function ScrollHero(props: ScrollHeroProps) {
   // fullscreen for the rest — like the reference site.
   const expand = Math.min(1, progress / 0.55);
   const remaining = 1 - expand;
-  const topVh = TOP_START * remaining;
+  // Before the text has been measured (server render + initial hydration),
+  // fall back to a plain vh value — identical on server and client, so no
+  // hydration mismatch. Switch to the measured px value only after mount.
+  const topValue = restTopPx !== null ? `${restTopPx * remaining}px` : `${TOP_START * remaining}vh`;
   const side = SIDE_MARGIN * remaining;
   const radius = RADIUS * remaining;
 
   return (
     <section ref={sectionRef} className="relative h-[350vh]">
       <div className="sticky top-0 h-screen overflow-hidden">
-        <HeroText {...props} titleClassName={titleClassName} variant="dark" />
+        <HeroText {...props} titleClassName={titleClassName} variant="dark" wrapperRef={textRef} />
 
         {/* Banner, expanding from an inset band to full-bleed. Video on the
             homepage; a static image on subpages (no videoSrc). */}
         <div
           className="absolute bottom-0 overflow-hidden transition-colors duration-500"
           style={{
-            top: `${topVh}vh`,
+            top: topValue,
             left: side,
             right: side,
             borderRadius: radius,
@@ -165,7 +198,7 @@ export default function ScrollHero(props: ScrollHeroProps) {
         <div
           className="pointer-events-none absolute inset-0 z-10"
           style={{
-            clipPath: `inset(${topVh}vh ${side}px 0 ${side}px round ${radius}px)`,
+            clipPath: `inset(${topValue} ${side}px 0 ${side}px round ${radius}px)`,
           }}
         >
           {/* <HeroText {...props} titleClassName={titleClassName} variant="light" /> */}

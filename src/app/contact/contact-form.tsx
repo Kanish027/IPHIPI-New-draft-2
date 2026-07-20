@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { theme, withAlpha } from "@/lib/theme";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -21,6 +22,53 @@ const PRODUCT_CATEGORIES = ["TWS", "OWS", "Smart Glasses", "Other Wearables"];
 
 function toggleValue(list: string[], value: string) {
   return list.includes(value) ? list.filter((v) => v !== value) : [...list, value];
+}
+
+const CheckIcon = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3" aria-hidden="true">
+    <path d="M20 6 9 17l-5-5" />
+  </svg>
+);
+
+function Chip({
+  label,
+  checked,
+  onChange,
+}: {
+  label: string;
+  checked: boolean;
+  onChange: () => void;
+}) {
+  return (
+    <label
+      className="flex cursor-pointer items-center gap-2.5 rounded-xl border px-3.5 py-3 text-sm transition-all duration-200"
+      style={{
+        borderColor: checked ? theme.accent : "rgb(228 228 231)",
+        backgroundColor: checked ? withAlpha(theme.accent, 0.08) : "#fff",
+        color: checked ? theme.primary : "rgb(63 63 70)",
+      }}
+    >
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        className="sr-only"
+      />
+      <span
+        className="flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-md border transition-colors duration-200"
+        style={{
+          width: 18,
+          height: 18,
+          borderColor: checked ? theme.accent : "rgb(212 212 216)",
+          backgroundColor: checked ? theme.accent : "transparent",
+          color: "#fff",
+        }}
+      >
+        {checked && CheckIcon}
+      </span>
+      <span className="font-medium">{label}</span>
+    </label>
+  );
 }
 
 export function ContactForm() {
@@ -71,9 +119,19 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-xl bg-zinc-50 p-8">
-        <p className="text-lg font-medium">Thank You</p>
-        <p className="mt-2 text-sm text-zinc-500">
+      <div className="rounded-2xl p-8 text-center" style={{ backgroundColor: withAlpha(theme.accent, 0.06) }}>
+        <div
+          className="mx-auto flex h-12 w-12 items-center justify-center rounded-full"
+          style={{ backgroundColor: theme.accent, color: "#fff" }}
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true">
+            <path d="M20 6 9 17l-5-5" />
+          </svg>
+        </div>
+        <p className="mt-4 text-lg font-semibold" style={{ color: theme.primary }}>
+          Thank You
+        </p>
+        <p className="mx-auto mt-2 max-w-sm text-sm text-zinc-500">
           Your request has been received. Our engineering team will connect with you to
           explore the right IPHIPI audio intelligence solution for your product.
         </p>
@@ -86,6 +144,7 @@ export function ContactForm() {
             setInterestArea(null);
           }}
           className="mt-6 text-sm font-medium underline-offset-4 hover:underline"
+          style={{ color: theme.primary }}
         >
           Send another request
         </button>
@@ -100,27 +159,29 @@ export function ContactForm() {
           I am interested in integrating IPHIPI into
         </p>
         <div className="mt-3 grid gap-3 sm:grid-cols-3">
-          {INTEREST_AREAS.map((area) => (
-            <button
-              key={area.value}
-              type="button"
-              onClick={() => setInterestArea(area.value)}
-              className={`rounded-lg border px-4 py-3 text-left text-sm transition-colors ${
-                interestArea === area.value
-                  ? "border-zinc-950 bg-zinc-950 text-white"
-                  : "border-zinc-200 hover:border-zinc-400"
-              }`}
-            >
-              <span className="block font-medium">{area.label}</span>
-              <span
-                className={`mt-0.5 block text-xs ${
-                  interestArea === area.value ? "text-zinc-300" : "text-zinc-400"
-                }`}
+          {INTEREST_AREAS.map((area) => {
+            const selected = interestArea === area.value;
+            return (
+              <button
+                key={area.value}
+                type="button"
+                onClick={() => setInterestArea(area.value)}
+                className="rounded-xl border px-4 py-3 text-left text-sm transition-all duration-200"
+                style={{
+                  borderColor: selected ? theme.accent : "rgb(228 228 231)",
+                  backgroundColor: selected ? theme.primary : "#fff",
+                  boxShadow: selected ? `0 0 0 1px ${theme.accent}` : "none",
+                }}
               >
-                {area.hint}
-              </span>
-            </button>
-          ))}
+                <span className="block font-semibold" style={{ color: selected ? "#fff" : theme.primary }}>
+                  {area.label}
+                </span>
+                <span className="mt-0.5 block text-xs" style={{ color: selected ? withAlpha("#ffffff", 0.65) : "rgb(161 161 170)" }}>
+                  {area.hint}
+                </span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -136,7 +197,8 @@ export function ContactForm() {
                 name="companyName"
                 type="text"
                 required
-                className="mt-2 w-full rounded-lg border border-zinc-200 px-4 py-3 text-sm outline-none focus:border-zinc-950"
+                className="mt-2 w-full rounded-xl border border-zinc-200 px-4 py-3 text-sm outline-none transition-colors focus:border-current"
+                style={{ color: theme.primary }}
                 placeholder="e.g. Mivi, boAt, OnePlus"
               />
             </div>
@@ -149,7 +211,8 @@ export function ContactForm() {
                 name="companyEmail"
                 type="email"
                 required
-                className="mt-2 w-full rounded-lg border border-zinc-200 px-4 py-3 text-sm outline-none focus:border-zinc-950"
+                className="mt-2 w-full rounded-xl border border-zinc-200 px-4 py-3 text-sm outline-none transition-colors focus:border-current"
+                style={{ color: theme.primary }}
                 placeholder="jane@company.com"
               />
             </div>
@@ -164,47 +227,36 @@ export function ContactForm() {
               name="name"
               type="text"
               required
-              className="mt-2 w-full rounded-lg border border-zinc-200 px-4 py-3 text-sm outline-none focus:border-zinc-950"
+              className="mt-2 w-full rounded-xl border border-zinc-200 px-4 py-3 text-sm outline-none transition-colors focus:border-current"
+              style={{ color: theme.primary }}
               placeholder="Jane Doe"
             />
           </div>
 
           <div>
             <p className="text-sm font-medium text-zinc-700">Select Technology Requirement</p>
-            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
               {TECHNOLOGIES.map((tech) => (
-                <label
+                <Chip
                   key={tech}
-                  className="flex items-center gap-2 rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-700"
-                >
-                  <input
-                    type="checkbox"
-                    checked={technologies.includes(tech)}
-                    onChange={() => setTechnologies((prev) => toggleValue(prev, tech))}
-                    className="h-4 w-4 rounded border-zinc-300"
-                  />
-                  {tech}
-                </label>
+                  label={tech}
+                  checked={technologies.includes(tech)}
+                  onChange={() => setTechnologies((prev) => toggleValue(prev, tech))}
+                />
               ))}
             </div>
           </div>
 
           <div>
             <p className="text-sm font-medium text-zinc-700">Expected Product Category</p>
-            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
               {PRODUCT_CATEGORIES.map((cat) => (
-                <label
+                <Chip
                   key={cat}
-                  className="flex items-center gap-2 rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-700"
-                >
-                  <input
-                    type="checkbox"
-                    checked={productCategories.includes(cat)}
-                    onChange={() => setProductCategories((prev) => toggleValue(prev, cat))}
-                    className="h-4 w-4 rounded border-zinc-300"
-                  />
-                  {cat}
-                </label>
+                  label={cat}
+                  checked={productCategories.includes(cat)}
+                  onChange={() => setProductCategories((prev) => toggleValue(prev, cat))}
+                />
               ))}
             </div>
           </div>
@@ -214,7 +266,8 @@ export function ContactForm() {
           <button
             type="submit"
             disabled={status === "submitting"}
-            className="rounded-lg bg-zinc-950 px-6 py-3 text-sm font-medium text-white transition hover:bg-zinc-800 disabled:opacity-50"
+            className="rounded-full px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:hover:translate-y-0"
+            style={{ backgroundColor: theme.primary }}
           >
             {status === "submitting" ? "Sending..." : "Request Demo"}
           </button>

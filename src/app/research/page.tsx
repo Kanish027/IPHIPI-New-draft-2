@@ -24,6 +24,86 @@ const ACTIVE_THEME = {
 const SIGNAL = ACTIVE_THEME.accent;
 
 /* ------------------------------------------------------------------ */
+/*  Roadmap — Today / Next / Tomorrow                                */
+/* ------------------------------------------------------------------ */
+
+const RoadmapIcons = {
+  ear: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+      <path d="M8 14c-2-1-3-3-3-5a5 5 0 0 1 10 0c0 2 1.5 2.5 1.5 4.5A3.5 3.5 0 0 1 13 17c-1 0-1.5-.5-1.5-1.5" />
+    </svg>
+  ),
+  chat: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+      <path d="M21 12a8 8 0 1 1-3.5-6.6L21 4l-1 4.2" />
+      <path d="M9 10h.01M12 10h.01M15 10h.01" />
+    </svg>
+  ),
+  assistant: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+      <rect x="5" y="7" width="14" height="12" rx="3" />
+      <path d="M9 3v4M15 3v4M9 13h.01M15 13h.01" />
+    </svg>
+  ),
+  eye: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  ),
+  sensor: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+      <path d="M4 12a8 8 0 0 1 16 0M7 12a5 5 0 0 1 10 0" />
+      <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none" />
+    </svg>
+  ),
+  spark: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+      <path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8" />
+    </svg>
+  ),
+};
+
+const ROADMAP_STEPS = [
+  {
+    stage: "Today",
+    icon: RoadmapIcons.ear,
+    title: "It Begins with Hearing",
+    desc: "IPHIPI Intelligence transforms ordinary TWS into intelligent hearables with exceptional voice clarity.",
+  },
+  {
+    stage: "Today",
+    icon: RoadmapIcons.chat,
+    title: "It Understands Spoken Intent",
+    desc: "Makes work required, natural interactions — it listens, it understands, it responds.",
+  },
+  {
+    stage: "Next",
+    icon: RoadmapIcons.assistant,
+    title: "It Becomes Your AI Assistant",
+    desc: "Always available, always ready — meeting notes, summaries, reminders, and context-aware suggestions.",
+  },
+  {
+    stage: "Next",
+    icon: RoadmapIcons.eye,
+    title: "It Expands Beyond Hearing",
+    desc: "Gains context beyond hearing — navigation, live translation, notes and summaries, silent pitch-coach timing.",
+  },
+  {
+    stage: "Tomorrow",
+    icon: RoadmapIcons.sensor,
+    title: "It Grows with New Sensors",
+    desc: "More context, more intelligence — health and activity sensors, fall detection, intruder detection.",
+  },
+  {
+    stage: "Tomorrow",
+    icon: RoadmapIcons.spark,
+    title: "It Becomes Proactive & Context-Aware",
+    desc: "One intelligence, many forms, seamless assistance — always acting, always a moment ahead.",
+  },
+];
+
+/* ------------------------------------------------------------------ */
 /*  Shared bits                                                       */
 /* ------------------------------------------------------------------ */
 
@@ -641,61 +721,46 @@ export default function ResearchPage() {
             user goes.
           </p>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                stage: "Today",
-                title: "It Begins with Hearing",
-                desc: "IPHIPI Intelligence transforms ordinary TWS into intelligent hearables with exceptional voice clarity.",
-              },
-              {
-                stage: "Today",
-                title: "It Understands Spoken Intent",
-                desc: "Makes work required, natural interactions — it listens, it understands, it responds.",
-              },
-              {
-                stage: "Next",
-                title: "It Becomes Your AI Assistant",
-                desc: "Always available, always ready — meeting notes, summaries, reminders, and context-aware suggestions.",
-              },
-              {
-                stage: "Next",
-                title: "It Expands Beyond Hearing",
-                desc: "Gains context beyond hearing — navigation, live translation, notes and summaries, silent pitch-coach timing.",
-              },
-              {
-                stage: "Tomorrow",
-                title: "It Grows with New Sensors",
-                desc: "More context, more intelligence — health and activity sensors, fall detection, intruder detection.",
-              },
-              {
-                stage: "Tomorrow",
-                title: "It Becomes Proactive & Context-Aware",
-                desc: "One intelligence, many forms, seamless assistance — always acting, always a moment ahead.",
-              },
-            ].map((step, i) => (
-              <div
-                key={step.title}
-                className="rounded-xl border border-zinc-200/70 p-5 transition-colors duration-500"
-                style={{ backgroundColor: ACTIVE_THEME.cardBg }}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-geometric text-xs font-semibold" style={{ color: ACTIVE_THEME.accent }}>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span
-                    className="rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.15em]"
-                    style={{ backgroundColor: ACTIVE_THEME.accentBgMuted, color: ACTIVE_THEME.primary }}
-                  >
-                    {step.stage}
-                  </span>
+          {/* Cards — one accent color only, reserved for "Today"; Next and
+              Tomorrow stay neutral so the set reads as a single clean system,
+              not a multi-color traffic light. */}
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {ROADMAP_STEPS.map((step, i) => {
+              const isToday = step.stage === "Today";
+              return (
+                <div
+                  key={step.title}
+                  className="group flex h-full flex-col rounded-2xl border bg-white p-6 transition-all duration-300 hover:-translate-y-0.5"
+                  style={{ borderColor: isToday ? withAlpha(ACTIVE_THEME.accent, 0.35) : "rgb(228 228 231)" }}
+                >
+                  <div className="flex items-center justify-between">
+                    <div
+                      className="flex h-10 w-10 items-center justify-center rounded-full"
+                      style={{ backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.1), color: ACTIVE_THEME.accent }}
+                    >
+                      {step.icon}
+                    </div>
+                    <span
+                      className="rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.15em]"
+                      style={{
+                        backgroundColor: isToday ? ACTIVE_THEME.accent : "rgb(244 244 245)",
+                        color: isToday ? "#fff" : theme.textMuted,
+                      }}
+                    >
+                      {step.stage}
+                    </span>
+                  </div>
+
+                  <p className="mt-5 font-geometric text-xs font-semibold tabular-nums" style={{ color: theme.textMuted }}>
+                    {String(i + 1).padStart(2, "0")} / 06
+                  </p>
+                  <h3 className="mt-1 text-base font-semibold" style={{ color: ACTIVE_THEME.secondary }}>
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-500">{step.desc}</p>
                 </div>
-                <p className="mt-3 text-sm font-semibold" style={{ color: ACTIVE_THEME.secondary }}>
-                  {step.title}
-                </p>
-                <p className="mt-1.5 text-sm leading-relaxed text-zinc-500">{step.desc}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
       </div>

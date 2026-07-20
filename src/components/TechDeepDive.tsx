@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { theme, withAlpha } from "@/lib/theme";
 
 const ACTIVE_THEME = {
@@ -23,6 +24,63 @@ function SectionHeading({ eyebrow, title, tagline }: { eyebrow: string; title: s
     </div>
   );
 }
+
+// A standalone technical-explanation block — icon + eyebrow + heading + body,
+// framed as its own card so back-to-back sections read as distinct panels
+// rather than an undifferentiated wall of text.
+function InfoCard({
+  icon,
+  eyebrow,
+  title,
+  tagline,
+}: {
+  icon: ReactNode;
+  eyebrow: string;
+  title: string;
+  tagline: string;
+}) {
+  return (
+    <div
+      className="rounded-2xl border p-6 sm:p-8"
+      style={{ borderColor: withAlpha(ACTIVE_THEME.accent, 0.15), backgroundColor: ACTIVE_THEME.cardBg }}
+    >
+      <div
+        className="flex h-11 w-11 items-center justify-center rounded-xl"
+        style={{ backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12), color: ACTIVE_THEME.accent }}
+      >
+        {icon}
+      </div>
+      <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: ACTIVE_THEME.accent }}>
+        {eyebrow}
+      </p>
+      <h3 className="mt-2 text-lg font-semibold tracking-tight sm:text-xl" style={{ color: ACTIVE_THEME.secondary }}>
+        {title}
+      </h3>
+      <p className="mt-3 max-w-2xl leading-relaxed text-zinc-500">{tagline}</p>
+    </div>
+  );
+}
+
+const DspIcon = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+    <path d="M3 12h3l2-6 4 12 2-9 2 5h5" />
+  </svg>
+);
+
+const ShieldIcon = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+    <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z" />
+    <path d="m9 12 2 2 4-4" />
+  </svg>
+);
+
+const FusionIcon = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+    <circle cx="6" cy="12" r="3" />
+    <circle cx="18" cy="12" r="3" />
+    <path d="M9 12h6" />
+  </svg>
+);
 
 function MiniWave({ bars, color, className = "" }: { bars: number[]; color: string; className?: string }) {
   return (
@@ -133,21 +191,19 @@ function OneMicSolution() {
         ))}
       </div>
 
-      {/* DSP-Driven Voice Enhancement */}
-      <div className="mt-10">
-        <SectionHeading
+      {/* Technical explanations — DSP + AI noise suppression, side by side as cards */}
+      <div className="mt-10 grid gap-4 lg:grid-cols-2">
+        <InfoCard
+          icon={DspIcon}
           eyebrow="DSP-Driven Voice Enhancement"
           title="Natural speech, even in extreme noise"
-          tagline="Effective voice enhancement requires more than suppressing background noise. IPHIPI's single-microphone ENC combines AI noise suppression with DSP-based post-processing to refine the enhanced signal and preserve the natural characteristics of the speaker's voice. The result is clearer and more intelligible speech without making it sound heavily processed."
+          tagline="Effective voice enhancement requires more than suppressing background noise. IPHIPI's single-microphone ENC combines AI noise suppression with DSP-based post-processing to refine the enhanced signal and preserve the natural characteristics of the speaker's voice — clearer, more intelligible speech without sounding heavily processed."
         />
-      </div>
-
-      {/* AI-Based Noise Suppression */}
-      <div className="mt-10">
-        <SectionHeading
+        <InfoCard
+          icon={ShieldIcon}
           eyebrow="AI-Based Noise Suppression That Defines Clarity"
           title="Adaptive Noise Suppression for Real-World Chaos"
-          tagline="IPHIPI's single-microphone ENC is engineered to maintain clear speech even in the most challenging acoustic environments. It effectively suppresses complex, dynamic noise such as overlapping café chatter, heavy traffic, and construction activity, where sound patterns are constantly shifting. The AI-based separation engine continuously adapts in real time, isolating the speaker's voice from rapidly changing background noise. The result is a conversation that sounds as though it is taking place in a quiet environment, even when it is not."
+          tagline="Engineered to maintain clear speech in the most challenging acoustic environments — overlapping café chatter, heavy traffic, construction activity. The AI-based separation engine continuously adapts in real time, isolating the speaker's voice so the conversation sounds as though it's in a quiet room, even when it's not."
         />
       </div>
     </div>
@@ -166,10 +222,11 @@ function TwoMicSolution() {
       />
 
       <div className="mt-8">
-        <SectionHeading
+        <InfoCard
+          icon={FusionIcon}
           eyebrow="Clean, Natural Speech"
           title="Natural Voice Clarity, Powered by Dual-Microphone AI"
-          tagline="Through dual-microphone sensor fusion, AI-based speech separation, and DSP post-processing, the system suppresses severe environmental noise without over-processing the speech. It preserves the speaker's natural tone, clarity, and vocal characteristics, delivering intelligible and comfortable voice transmission in heavy traffic, strong wind, café babble, subway environments, and the presence of nearby interfering talkers."
+          tagline="Through dual-microphone sensor fusion, AI-based speech separation, and DSP post-processing, the system suppresses severe environmental noise without over-processing the speech — preserving natural tone and clarity in heavy traffic, strong wind, café babble, subway environments, and the presence of nearby interfering talkers."
         />
       </div>
 
@@ -475,8 +532,11 @@ export default function TechDeepDive() {
       </p>
 
       <OneMicSolution />
+      <hr className="my-16 border-t" style={{ borderColor: withAlpha(ACTIVE_THEME.secondary, 0.08) }} />
       <TwoMicSolution />
+      <hr className="my-16 border-t" style={{ borderColor: withAlpha(ACTIVE_THEME.secondary, 0.08) }} />
       <FarFieldSolution />
+      <hr className="my-16 border-t" style={{ borderColor: withAlpha(ACTIVE_THEME.secondary, 0.08) }} />
       <KeywordSpottingSolution />
     </section>
   );
