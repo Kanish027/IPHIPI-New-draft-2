@@ -37,6 +37,8 @@ function InfoCard({
   tagline,
   image,
   imageSide = "right",
+  layout = "split",
+  stackOrder = "text-first",
 }: {
   icon: ReactNode;
   eyebrow: string;
@@ -44,6 +46,11 @@ function InfoCard({
   tagline: string;
   image?: string;
   imageSide?: "left" | "right";
+  /** "split": side-by-side (imageSide controls which column). "stacked":
+      full-width, one on top of the other (stackOrder controls which). */
+  layout?: "split" | "stacked";
+  /** Only used when layout="stacked". */
+  stackOrder?: "text-first" | "image-first";
 }) {
   const textBlock = (
     <div className="flex flex-col justify-center p-6 sm:p-8 md:p-10">
@@ -75,19 +82,35 @@ function InfoCard({
       style={{ backgroundColor: ACTIVE_THEME.cardBg }}
     >
       {image ? (
-        <div className="grid md:grid-cols-2">
-          {imageSide === "left" ? (
-            <>
-              {imageBlock}
-              {textBlock}
-            </>
-          ) : (
-            <>
-              {textBlock}
-              {imageBlock}
-            </>
-          )}
-        </div>
+        layout === "stacked" ? (
+          <div className="flex flex-col">
+            {stackOrder === "image-first" ? (
+              <>
+                {imageBlock}
+                {textBlock}
+              </>
+            ) : (
+              <>
+                {textBlock}
+                {imageBlock}
+              </>
+            )}
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2">
+            {imageSide === "left" ? (
+              <>
+                {imageBlock}
+                {textBlock}
+              </>
+            ) : (
+              <>
+                {textBlock}
+                {imageBlock}
+              </>
+            )}
+          </div>
+        )
       ) : (
         textBlock
       )}
@@ -127,27 +150,28 @@ export function OneMicSolution() {
         tagline="Conversations compete with unpredictable background noise—from TVs and kitchen sounds to cafés, traffic, construction noises. IPHIPI's AI-powered Single Mic Speech Enhancement delivers exceptional voice clarity through edge-optimized, real-time audio processing."
       /> */}
 
-      <AudioProcessingFlow />
-
-
-      {/* <div className="relative mt-8 aspect-[1462/543] w-full overflow-hidden rounded-2xl" style={{ backgroundColor: theme.primary }}>
-        <Image src="/tech/single-mic/benchmarks.png" alt="Trained across 100+ real-world noise profiles; optimized for dynamic acoustic environments; real-time dereverberation; environment-adaptive processing" fill className="object-contain p-2" />
-      </div> */}
-
-      {/* Technical explanations — DSP + AI noise suppression, full-width alternating panels */}
+      {/* Order: the noise-profile image stands alone (independent, no text
+          attached), then the DSP-Driven text paired with the pipeline flow
+          as its visual, then the AI-suppression card (text + its own image). */}
       <div className="mt-10 flex flex-col gap-6">
+        <div className="relative aspect-[1462/543] w-full overflow-hidden rounded-2xl" style={{ backgroundColor: theme.primary }}>
+          <Image src="/tech/single-mic/dsp-flow.png" alt="Trained across 100+ real-world noise profiles" fill className="object-contain p-2" />
+        </div>
+
         <InfoCard
           icon={DspIcon}
           eyebrow="DSP-Driven Voice Enhancement"
           title="Natural speech, even in extreme noise"
           tagline="Effective voice enhancement requires more than suppressing background noise. IPHIPI's single-microphone ENC combines AI noise suppression with DSP-based post-processing to refine the enhanced signal and preserve the natural characteristics of the speaker's voice. The result is clearer and more intelligible speech without making it sound heavily processed."
-          image="/tech/single-mic/dsp-flow.png"
         />
+
+        <AudioProcessingFlow />
+
         <InfoCard
           icon={ShieldIcon}
           eyebrow="AI-Based Noise Suppression That Defines Clarity"
           title="Adaptive Noise Suppression for Real-World Chaos"
-          imageSide="left"
+          layout="stacked"
           tagline="IPHIPI's single-microphone ENC is engineered to maintain clear speech even in the most challenging acoustic environments. It effectively suppresses complex, dynamic noise such as overlapping café chatter, heavy traffic, and construction activity, where sound patterns are constantly shifting. The AI-based separation engine continuously adapts in real time, isolating the speaker's voice from rapidly changing background noise. The result is a conversation that sounds as though it is taking place in a quiet environment, even when it is not."
           image="/tech/single-mic/ai-noise-suppression-flow.png"
         />
