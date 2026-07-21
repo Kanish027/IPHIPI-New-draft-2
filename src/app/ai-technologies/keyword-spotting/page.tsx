@@ -16,7 +16,7 @@ export default function KeywordSpottingPage() {
       style={{ backgroundColor: theme.pageBg }}
     >
       <TechSubpageHero
-        eyebrow="The Intelligence Anchor"
+        eyebrow="Wake Word Detection"
         title="Always-on voice control. Ultra-low power."
         tagline="Voice-enabled devices must remain ready to detect wake words and short commands, but continuously running full speech-recognition or AI-agent pipelines consumes unnecessary power.
 

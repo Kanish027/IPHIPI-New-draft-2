@@ -21,9 +21,9 @@ const PILLARS = [
     id: "work-intelligence",
     title: "Work Intelligence",
     heading: "Stay focused. Let intelligence handle the rest.",
-    body: "Professionals constantly switch between listening, taking notes, scheduling follow-ups, and presenting ideas. IPHIPI Intelligence quietly manages these routine tasks, allowing users to stay fully engaged in the conversation.",
+    body: "Meetings create more than conversations—they create tasks. IPHIPI Work Intelligence manages notes, translations, reminders, follow-ups, and presentations, so professionals stay focused on the conversation during every meeting.",
     images: [
-      "/samples/work intelligence.png",
+      "/samples/Work Intelligence_New.png",
       "https://picsum.photos/seed/work-intelligence-b/700/900",
       "https://picsum.photos/seed/work-intelligence-c/700/900",
     ],

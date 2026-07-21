@@ -418,13 +418,27 @@ const ACTIVE_THEME = {
   cardBg: theme.cardWarm,
 };
 
-function SectionHeading({ eyebrow, title, tagline }: { eyebrow: string; title: string; tagline: string }) {
+function SectionHeading({
+  eyebrow,
+  title,
+  tagline,
+}: {
+  eyebrow: string;
+  title: string;
+  tagline: string;
+}) {
   return (
     <div className="max-w-2xl">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: ACTIVE_THEME.accent }}>
+      <p
+        className="text-xs font-semibold uppercase tracking-[0.2em]"
+        style={{ color: ACTIVE_THEME.accent }}
+      >
         {eyebrow}
       </p>
-      <h3 className="mt-3 text-subhead font-semibold tracking-tight" style={{ color: ACTIVE_THEME.secondary }}>
+      <h3
+        className="mt-3 text-subhead font-semibold tracking-tight"
+        style={{ color: ACTIVE_THEME.secondary }}
+      >
         {title}
       </h3>
       <p className="mt-3 leading-relaxed text-zinc-500">{tagline}</p>
@@ -455,14 +469,23 @@ function InfoCard({
     <div className="flex flex-col justify-center p-6 sm:p-8 md:p-10">
       <div
         className="flex h-11 w-11 items-center justify-center rounded-xl"
-        style={{ backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12), color: ACTIVE_THEME.accent }}
+        style={{
+          backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12),
+          color: ACTIVE_THEME.accent,
+        }}
       >
         {icon}
       </div>
-      <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: ACTIVE_THEME.accent }}>
+      <p
+        className="mt-4 text-xs font-semibold uppercase tracking-[0.2em]"
+        style={{ color: ACTIVE_THEME.accent }}
+      >
         {eyebrow}
       </p>
-      <h3 className="mt-2 text-lg font-semibold tracking-tight sm:text-xl" style={{ color: ACTIVE_THEME.secondary }}>
+      <h3
+        className="mt-2 text-lg font-semibold tracking-tight sm:text-xl"
+        style={{ color: ACTIVE_THEME.secondary }}
+      >
         {title}
       </h3>
       <p className="mt-3 leading-relaxed text-zinc-500">{tagline}</p>
@@ -470,7 +493,10 @@ function InfoCard({
   );
 
   const imageBlock = image && (
-    <div className="relative min-h-[360px] md:min-h-[420px]" style={{ backgroundColor: theme.primary }}>
+    <div
+      className="relative min-h-[360px] md:min-h-[420px]"
+      style={{ backgroundColor: theme.primary }}
+    >
       <Image src={image} alt={title} fill className="object-contain p-4" />
     </div>
   );
@@ -518,20 +544,47 @@ function InfoCard({
 }
 
 const DspIcon = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-5 w-5"
+    aria-hidden="true"
+  >
     <path d="M3 12h3l2-6 4 12 2-9 2 5h5" />
   </svg>
 );
 
 const ShieldIcon = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-5 w-5"
+    aria-hidden="true"
+  >
     <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z" />
     <path d="m9 12 2 2 4-4" />
   </svg>
 );
 
 const FusionIcon = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-5 w-5"
+    aria-hidden="true"
+  >
     <circle cx="6" cy="12" r="3" />
     <circle cx="18" cy="12" r="3" />
     <path d="M9 12h6" />
@@ -540,7 +593,16 @@ const FusionIcon = (
 
 // Network Nodes Icon - circular array of interconnected nodes
 const NetworkNodesIcon = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-5 w-5"
+    aria-hidden="true"
+  >
     <circle cx="6" cy="6" r="2" />
     <circle cx="18" cy="6" r="2" />
     <circle cx="12" cy="12" r="2" />
@@ -557,7 +619,16 @@ const NetworkNodesIcon = (
 
 // Waveform with Person Icon
 const WaveformPersonIcon = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-5 w-5"
+    aria-hidden="true"
+  >
     <path d="M2 12h2l2-4 4 8 4-6 2 4 4-6 2 4h2" />
     <circle cx="12" cy="20" r="1.5" />
     <path d="M10 20h4" />
@@ -591,10 +662,16 @@ export function IphipiFeatures() {
       {/* Header — same eyebrow/heading typography as the rest of the page,
           instead of a pill badge that introduced a different visual language. */}
       <div className="max-w-2xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: ACTIVE_THEME.accent }}>
+        <p
+          className="text-xs font-semibold uppercase tracking-[0.2em]"
+          style={{ color: ACTIVE_THEME.accent }}
+        >
           IPHIPI Technology
         </p>
-        <h3 className="mt-3 text-subhead font-semibold tracking-tight" style={{ color: ACTIVE_THEME.secondary }}>
+        <h3
+          className="mt-3 text-subhead font-semibold tracking-tight"
+          style={{ color: ACTIVE_THEME.secondary }}
+        >
           Next-Generation Speech Enhancement
         </h3>
         <p className="mt-3 leading-relaxed text-zinc-500">
@@ -614,11 +691,17 @@ export function IphipiFeatures() {
           >
             <div
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
-              style={{ backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12), color: ACTIVE_THEME.accent }}
+              style={{
+                backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12),
+                color: ACTIVE_THEME.accent,
+              }}
             >
               {item.icon}
             </div>
-            <p className="flex-1 text-sm font-medium leading-snug" style={{ color: ACTIVE_THEME.secondary }}>
+            <p
+              className="flex-1 text-sm font-medium leading-snug"
+              style={{ color: ACTIVE_THEME.secondary }}
+            >
               {item.title}
             </p>
           </div>
@@ -638,14 +721,14 @@ export function OneMicSolution() {
 
       <div className="mt-10 flex flex-col gap-6">
         {/* IMAGE MOVED HERE: Directly below IphipiFeatures */}
-        <div 
-          className="relative aspect-[1462/543] w-full overflow-hidden rounded-2xl" 
+        <div
+          className="relative aspect-[1462/543] w-full overflow-hidden rounded-2xl"
           style={{ backgroundColor: theme.primary }}
         >
-          <Image 
-            src="/tech/single-mic/single_mic_flow_v1.png" 
-            alt="AI Noise Suppression Flow diagram" 
-            fill 
+          <Image
+            src="/tech/single-mic/single_mic_flow_v1.png"
+            alt="AI Noise Suppression Flow diagram"
+            fill
             className="object-contain p-2"
           />
         </div>
@@ -657,7 +740,7 @@ export function OneMicSolution() {
           layout="stacked"
           tagline="Effective voice enhancement requires more than suppressing background noise. IPHIPI's single-microphone ENC combines AI noise suppression with DSP-based post-processing to refine the enhanced signal and preserve the natural characteristics of the speaker's voice. The result is clearer and more intelligible speech without making it sound heavily processed."
           image="/tech/single-mic/ai-noise-suppression-flow.png"
-          // Removed the duplicate image prop here so it doesn't render twice, 
+          // Removed the duplicate image prop here so it doesn't render twice,
           // unless you explicitly want it inside the card as well!
         />
 
@@ -736,73 +819,170 @@ export function TwoMicSolution() {
               className="relative min-h-[360px] md:min-h-[420px] order-2 md:order-1"
               style={{ backgroundColor: theme.primary }}
             >
-              <Image src="/tech/dual-mic/high-wind-capture.png" alt="High-wind voice capture" fill className="object-contain p-4" />
+              <Image
+                src="/tech/dual-mic/high-wind-capture.png"
+                alt="High-wind voice capture"
+                fill
+                className="object-contain p-4"
+              />
             </div>
             <div
               className="order-1 flex flex-col justify-center p-6 sm:p-8 md:order-2 md:p-10"
-              style={{ background: `linear-gradient(160deg, ${ACTIVE_THEME.secondary} 0%, ${theme.gradDark2} 100%)` }}
+              style={{
+                background: `linear-gradient(160deg, ${ACTIVE_THEME.secondary} 0%, ${theme.gradDark2} 100%)`,
+              }}
             >
               <div
                 className="flex h-11 w-11 items-center justify-center rounded-xl"
-                style={{ backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.15), color: ACTIVE_THEME.accent }}
+                style={{
+                  backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.15),
+                  color: ACTIVE_THEME.accent,
+                }}
               >
                 {FusionIcon}
               </div>
-              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-white/60">High-Wind Voice Capture</p>
+              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-white/60">
+                High-Wind Voice Capture
+              </p>
               <h3 className="mt-2 text-lg font-semibold tracking-tight text-white sm:text-xl">
-                Effortless calls for cyclists, motorbike riders, and tuk-tuk travellers
+                Effortless calls for cyclists, motorbike riders, and tuk-tuk
+                travellers
               </h3>
               <p className="mt-3 text-4xl font-semibold tabular-nums text-white">
-                80<span style={{ color: ACTIVE_THEME.accent }} className="ml-1 text-lg">km/h</span>
+                80
+                <span
+                  style={{ color: ACTIVE_THEME.accent }}
+                  className="ml-1 text-lg"
+                >
+                  km/h
+                </span>
               </p>
               <p className="mt-5 leading-relaxed text-white/50">
-                Calls made while travelling are often disrupted by strong wind, traffic, and
-                continuously changing road noise. These conditions can overwhelm exposed microphones
-                and make the wearer difficult to hear. IPHIPI&apos;s two-microphone ENC combines
-                signals from the talk and feedback microphones using sensor fusion to distinguish the
-                wearer&apos;s voice from wind turbulence. Its AI and DSP processing maintains clear,
-                natural speech at wind speeds of up to 80 km/h, helping cyclists, motorbike riders,
-                and tuk-tuk travellers take calls effortlessly while on move.
+                Calls made while travelling are often disrupted by strong wind,
+                traffic, and continuously changing road noise. These conditions
+                can overwhelm exposed microphones and make the wearer difficult
+                to hear. IPHIPI&apos;s two-microphone ENC combines signals from
+                the talk and feedback microphones using sensor fusion to
+                distinguish the wearer&apos;s voice from wind turbulence. Its AI
+                and DSP processing maintains clear, natural speech at wind
+                speeds of up to 80 km/h, helping cyclists, motorbike riders, and
+                tuk-tuk travellers take calls effortlessly while on move.
               </p>
             </div>
           </div>
-
-          
         </div>
 
-         <div className="overflow-hidden rounded-2xl" style={{ backgroundColor: ACTIVE_THEME.cardBg }}>
+        <div
+          className="overflow-hidden rounded-2xl"
+          style={{ backgroundColor: ACTIVE_THEME.cardBg }}
+        >
           <div className="grid md:grid-cols-2">
             <div className="flex flex-col justify-center p-6 sm:p-8 md:p-10">
               <div
                 className="flex h-11 w-11 items-center justify-center rounded-xl"
-                style={{ backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12), color: ACTIVE_THEME.accent }}
+                style={{
+                  backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12),
+                  color: ACTIVE_THEME.accent,
+                }}
               >
                 {ShieldIcon}
               </div>
-              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: ACTIVE_THEME.accent }}>
+              <p
+                className="mt-4 text-xs font-semibold uppercase tracking-[0.2em]"
+                style={{ color: ACTIVE_THEME.accent }}
+              >
                 Interfering-Talker Suppression
               </p>
-              <h3 className="mt-2 text-lg font-semibold tracking-tight sm:text-xl" style={{ color: ACTIVE_THEME.secondary }}>
+              <h3
+                className="mt-2 text-lg font-semibold tracking-tight sm:text-xl"
+                style={{ color: ACTIVE_THEME.secondary }}
+              >
                 Preserve the wearer. Reject surrounding conversations.
               </h3>
               <p className="mt-3 leading-relaxed text-zinc-500">
-                Unlike traffic, wind, or machinery noise, nearby conversations contain speech that
-                closely resembles the wearer&apos;s voice, making them one of the most challenging
-                noise sources to suppress. In offices, homes, cafés, contact centres, and shared
-                workspaces, multiple people often speak simultaneously. IPHIPI&apos;s dual-microphone
-                fusion engine uses the distinct acoustic relationship of the wearer&apos;s voice across
-                the talk and feedback microphones to separate it from nearby talkers. This allows the
-                primary speaker&apos;s voice to pass through clearly while removing conversations and
-                competing voices in the surrounding environment.
+                Unlike traffic, wind, or machinery noise, nearby conversations
+                contain speech that closely resembles the wearer&apos;s voice,
+                making them one of the most challenging noise sources to
+                suppress. In offices, homes, cafés, contact centres, and shared
+                workspaces, multiple people often speak simultaneously.
+                IPHIPI&apos;s dual-microphone fusion engine uses the distinct
+                acoustic relationship of the wearer&apos;s voice across the talk
+                and feedback microphones to separate it from nearby talkers.
+                This allows the primary speaker&apos;s voice to pass through
+                clearly while removing conversations and competing voices in the
+                surrounding environment.
               </p>
             </div>
-            <div className="relative min-h-[360px] md:min-h-[420px]" style={{ backgroundColor: theme.primary }}>
-              <Image src="/tech/dual-mic/interfering-talker.png" alt="Interfering-talker suppression" fill className="object-contain p-4" />
+            <div
+              className="relative min-h-[360px] md:min-h-[420px]"
+              style={{ backgroundColor: theme.primary }}
+            >
+              <Image
+                src="/tech/dual-mic/interfering-talker.png"
+                alt="Interfering-talker suppression"
+                fill
+                className="object-contain p-4"
+              />
             </div>
           </div>
         </div>
 
-
+        <div className="overflow-hidden rounded-2xl">
+          <div className="grid md:grid-cols-2">
+            <div
+              className="relative min-h-[360px] md:min-h-[420px] order-2 md:order-1"
+              style={{ backgroundColor: theme.primary }}
+            >
+              <Image
+                src="/samples/Whisper Talk.jpeg"
+                alt="High-wind voice capture"
+                fill
+                className="object-contain p-4"
+              />
+            </div>
+            <div
+              className="order-1 flex flex-col justify-center p-6 sm:p-8 md:order-2 md:p-10"
+              style={{
+                background: `linear-gradient(160deg, ${ACTIVE_THEME.secondary} 0%, ${theme.gradDark2} 100%)`,
+              }}
+            >
+              <div
+                className="flex h-11 w-11 items-center justify-center rounded-xl"
+                style={{
+                  backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.15),
+                  color: ACTIVE_THEME.accent,
+                }}
+              >
+                {FusionIcon}
+              </div>
+              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-white/60">
+                Whisper-Talk Enhancement
+              </p>
+              <h3 className="mt-2 text-lg font-semibold tracking-tight text-white sm:text-xl">
+                Speak quietly. Be heard clearly.
+              </h3>
+              {/* <p className="mt-3 text-4xl font-semibold tabular-nums text-white">
+                80
+                <span
+                  style={{ color: ACTIVE_THEME.accent }}
+                  className="ml-1 text-lg"
+                >
+                  km/h
+                </span>
+              </p> */}
+              <p className="mt-5 leading-relaxed text-white/50">
+                In public spaces, users may speak softly for privacy or to avoid
+                disturbing others. However, whispered speech has lower energy
+                than normal speech, making it difficult for conventional systems
+                to capture clearly. IPHIPI’s dual-microphone speech enhancement
+                engine preserves and amplifies low-level speech while
+                suppressing surrounding noise. This allows the listener to hear
+                clearly even when the wearer whispers in cafés, offices, public
+                transport, or other shared spaces.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -820,69 +1000,113 @@ export function FarFieldSolution() {
       /> */}
 
       <div className="mt-8 flex flex-col gap-6">
-        <div className="overflow-hidden rounded-2xl" style={{ backgroundColor: ACTIVE_THEME.cardBg }}>
+        <div
+          className="overflow-hidden rounded-2xl"
+          style={{ backgroundColor: ACTIVE_THEME.cardBg }}
+        >
           <div className="grid md:grid-cols-2">
             <div className="flex flex-col justify-center p-6 sm:p-8 md:p-10">
               <div
                 className="flex h-11 w-11 items-center justify-center rounded-xl"
-                style={{ backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12), color: ACTIVE_THEME.accent }}
+                style={{
+                  backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12),
+                  color: ACTIVE_THEME.accent,
+                }}
               >
                 {FusionIcon}
               </div>
-              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: ACTIVE_THEME.accent }}>
+              <p
+                className="mt-4 text-xs font-semibold uppercase tracking-[0.2em]"
+                style={{ color: ACTIVE_THEME.accent }}
+              >
                 Drive-Thru Speech Enhancement
               </p>
-              <h3 className="mt-2 text-lg font-semibold tracking-tight sm:text-xl" style={{ color: ACTIVE_THEME.secondary }}>
+              <h3
+                className="mt-2 text-lg font-semibold tracking-tight sm:text-xl"
+                style={{ color: ACTIVE_THEME.secondary }}
+              >
                 Clearer orders. Faster service. Less listening fatigue.
               </h3>
               <p className="mt-3 leading-relaxed text-zinc-500">
-                Drive-thru communication takes place amid engines, traffic, wind, fans, music,
-                and overlapping conversations—conditions that directly affect order accuracy, speed
-                of service, and crew confidence. IPHIPI&apos;s far-field ENC and speech enhancement
-                isolates the customer&apos;s voice from continuously changing lane noise and improves
-                speech clarity before it reaches the crew headset. This reduces listening effort and
-                fatigue, helps staff understand orders quickly and accurately, and provides cleaner
-                speech for ASR and AI-assisted ordering systems.
+                Drive-thru communication takes place amid engines, traffic,
+                wind, fans, music, and overlapping conversations—conditions that
+                directly affect order accuracy, speed of service, and crew
+                confidence. IPHIPI&apos;s far-field ENC and speech enhancement
+                isolates the customer&apos;s voice from continuously changing
+                lane noise and improves speech clarity before it reaches the
+                crew headset. This reduces listening effort and fatigue, helps
+                staff understand orders quickly and accurately, and provides
+                cleaner speech for ASR and AI-assisted ordering systems.
               </p>
             </div>
             {/* This source image is only 283×227px — displaying it at full
                 column width would upscale it ~2x and look soft/pixelated.
                 Capping it to a smaller centered frame keeps the blow-up
                 modest until a higher-resolution asset replaces it. */}
-            <div className="flex items-center justify-center p-6" style={{ backgroundColor: theme.primary }}>
+            <div
+              className="flex items-center justify-center p-6"
+              style={{ backgroundColor: theme.primary }}
+            >
               <div className="relative aspect-[283/227] w-full max-w-sm">
-                <Image src="/tech/far-field/drive-thru-action.png" alt="Far-field voice solution in action at a drive-thru" fill className="rounded-lg object-contain" />
+                <Image
+                  src="/tech/far-field/drive-thru-action.png"
+                  alt="Far-field voice solution in action at a drive-thru"
+                  fill
+                  className="rounded-lg object-contain"
+                />
               </div>
             </div>
           </div>
         </div>
-        <div className="overflow-hidden rounded-2xl" style={{ backgroundColor: ACTIVE_THEME.cardBg }}>
+        <div
+          className="overflow-hidden rounded-2xl"
+          style={{ backgroundColor: ACTIVE_THEME.cardBg }}
+        >
           <div className="grid md:grid-cols-2">
-            <div className="relative min-h-[360px] md:min-h-[420px] order-2 md:order-1" style={{ backgroundColor: theme.primary }}>
-              <Image src="/tech/far-field/iot-self-service.png" alt="Far-field speech enhancement for smart home and self-service kiosks" fill className="object-contain p-4" />
+            <div
+              className="relative min-h-[360px] md:min-h-[420px] order-2 md:order-1"
+              style={{ backgroundColor: theme.primary }}
+            >
+              <Image
+                src="/tech/far-field/iot-self-service.png"
+                alt="Far-field speech enhancement for smart home and self-service kiosks"
+                fill
+                className="object-contain p-4"
+              />
             </div>
             <div className="order-1 flex flex-col justify-center p-6 sm:p-8 md:order-2 md:p-10">
               <div
                 className="flex h-11 w-11 items-center justify-center rounded-xl"
-                style={{ backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12), color: ACTIVE_THEME.accent }}
+                style={{
+                  backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12),
+                  color: ACTIVE_THEME.accent,
+                }}
               >
                 {WaveformPersonIcon}
               </div>
-              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: ACTIVE_THEME.accent }}>
+              <p
+                className="mt-4 text-xs font-semibold uppercase tracking-[0.2em]"
+                style={{ color: ACTIVE_THEME.accent }}
+              >
                 Far-Field Speech for IoT and Self-Service Systems
               </p>
-              <h3 className="mt-2 text-lg font-semibold tracking-tight sm:text-xl" style={{ color: ACTIVE_THEME.secondary }}>
+              <h3
+                className="mt-2 text-lg font-semibold tracking-tight sm:text-xl"
+                style={{ color: ACTIVE_THEME.secondary }}
+              >
                 Better speech capture. More reliable machine understanding.
               </h3>
               <p className="mt-3 leading-relaxed text-zinc-500">
-                Smart home devices, voice-enabled kiosks, restaurant ordering terminals, and connected
-                appliances must capture speech from a distance while operating around televisions,
-                kitchen equipment, crowd chatter, room reverberation, and competing voices.
-                IPHIPI&apos;s far-field noise suppression and speech enhancement isolates the intended
-                speaker and improves speech clarity before the signal reaches ASR, wake-word,
-                intent-recognition, or event-detection models. This enables more accurate commands,
-                fewer false triggers and repeated requests, and faster, more dependable interactions
-                between users and intelligent systems.
+                Smart home devices, voice-enabled kiosks, restaurant ordering
+                terminals, and connected appliances must capture speech from a
+                distance while operating around televisions, kitchen equipment,
+                crowd chatter, room reverberation, and competing voices.
+                IPHIPI&apos;s far-field noise suppression and speech enhancement
+                isolates the intended speaker and improves speech clarity before
+                the signal reaches ASR, wake-word, intent-recognition, or
+                event-detection models. This enables more accurate commands,
+                fewer false triggers and repeated requests, and faster, more
+                dependable interactions between users and intelligent systems.
               </p>
             </div>
           </div>
@@ -903,89 +1127,153 @@ export function KeywordSpottingSolution() {
         tagline="Voice interaction is becoming a key feature across earbuds, wearables, smart devices, and connected products, enabling users to control functions hands-free through wake words and short spoken commands. For these experiences to feel natural, the device must remain ready to respond at any moment. However, continuously running a complete speech-recognition or AI-agent pipeline consumes significant power and is often unnecessary when the device only needs to detect a wake phrase or a limited set of commands. IPHIPI's keyword-spotting technology provides an always-on, low-power listening layer that recognizes predefined words and commands directly on the device. Once the required keyword is detected, it can immediately trigger a device function or activate a higher-level voice assistant and agentic AI system."
       /> */}
 
-      <div className="relative mt-8 aspect-[602/338] w-full overflow-hidden rounded-2xl" style={{ backgroundColor: theme.primary }}>
-        <Image src="/tech/keyword-spotting/wake-word-flow.png" alt="Always-on wake-word detection for low-power voice activation" fill className="object-contain p-2" />
+      <div
+        className="relative mt-8 aspect-[602/338] w-full overflow-hidden rounded-2xl"
+        style={{ backgroundColor: theme.primary }}
+      >
+        <Image
+          src="/tech/keyword-spotting/wake-word-flow.png"
+          alt="Always-on wake-word detection for low-power voice activation"
+          fill
+          className="object-contain p-2"
+        />
       </div>
 
       <div className="mt-8 flex flex-col gap-6">
-        <div className="overflow-hidden rounded-2xl" style={{ backgroundColor: ACTIVE_THEME.cardBg }}>
+        <div
+          className="overflow-hidden rounded-2xl"
+          style={{ backgroundColor: ACTIVE_THEME.cardBg }}
+        >
           <div className="grid md:grid-cols-2">
             <div className="flex flex-col justify-center p-6 sm:p-8 md:p-10">
               <div
                 className="flex h-11 w-11 items-center justify-center rounded-xl"
-                style={{ backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12), color: ACTIVE_THEME.accent }}
+                style={{
+                  backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12),
+                  color: ACTIVE_THEME.accent,
+                }}
               >
                 {DspIcon}
               </div>
-              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: ACTIVE_THEME.accent }}>
+              <p
+                className="mt-4 text-xs font-semibold uppercase tracking-[0.2em]"
+                style={{ color: ACTIVE_THEME.accent }}
+              >
                 Custom Voice Commands
               </p>
-              <h3 className="mt-2 text-lg font-semibold tracking-tight sm:text-xl" style={{ color: ACTIVE_THEME.secondary }}>
+              <h3
+                className="mt-2 text-lg font-semibold tracking-tight sm:text-xl"
+                style={{ color: ACTIVE_THEME.secondary }}
+              >
                 Immediate control without cloud processing
               </h3>
               <p className="mt-3 leading-relaxed text-zinc-500">
-                Keyword spotting enables commonly used actions to be triggered through short,
-                natural voice commands. The model continuously listens only for the configured
-                command set, allowing devices to respond quickly without streaming audio to the
-                cloud or running a complete ASR pipeline.
+                Keyword spotting enables commonly used actions to be triggered
+                through short, natural voice commands. The model continuously
+                listens only for the configured command set, allowing devices to
+                respond quickly without streaming audio to the cloud or running
+                a complete ASR pipeline.
               </p>
             </div>
-            <div className="relative min-h-[360px] md:min-h-[420px]" style={{ backgroundColor: theme.primary }}>
-              <Image src="/tech/keyword-spotting/voice-command-examples.png" alt="Voice command examples" fill className="object-contain p-4" />
+            <div
+              className="relative min-h-[360px] md:min-h-[420px]"
+              style={{ backgroundColor: theme.primary }}
+            >
+              <Image
+                src="/tech/keyword-spotting/voice-command-examples.png"
+                alt="Voice command examples"
+                fill
+                className="object-contain p-4"
+              />
             </div>
           </div>
         </div>
-        <div className="overflow-hidden rounded-2xl" style={{ backgroundColor: ACTIVE_THEME.cardBg }}>
+        <div
+          className="overflow-hidden rounded-2xl"
+          style={{ backgroundColor: ACTIVE_THEME.cardBg }}
+        >
           <div className="grid md:grid-cols-2">
-            <div className="relative min-h-[360px] md:min-h-[420px] order-2 md:order-1" style={{ backgroundColor: theme.primary }}>
-              <Image src="/tech/keyword-spotting/wake-word-agentic-ai.png" alt="Wake-word detection for agentic AI" fill className="object-contain p-4" />
+            <div
+              className="relative min-h-[360px] md:min-h-[420px] order-2 md:order-1"
+              style={{ backgroundColor: theme.primary }}
+            >
+              <Image
+                src="/tech/keyword-spotting/wake-word-agentic-ai.png"
+                alt="Wake-word detection for agentic AI"
+                fill
+                className="object-contain p-4"
+              />
             </div>
             <div className="order-1 flex flex-col justify-center p-6 sm:p-8 md:order-2 md:p-10">
               <div
                 className="flex h-11 w-11 items-center justify-center rounded-xl"
-                style={{ backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12), color: ACTIVE_THEME.accent }}
+                style={{
+                  backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12),
+                  color: ACTIVE_THEME.accent,
+                }}
               >
                 {ShieldIcon}
               </div>
-              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: ACTIVE_THEME.accent }}>
+              <p
+                className="mt-4 text-xs font-semibold uppercase tracking-[0.2em]"
+                style={{ color: ACTIVE_THEME.accent }}
+              >
                 Wake-Word Detection for Agentic AI
               </p>
-              <h3 className="mt-2 text-lg font-semibold tracking-tight sm:text-xl" style={{ color: ACTIVE_THEME.secondary }}>
+              <h3
+                className="mt-2 text-lg font-semibold tracking-tight sm:text-xl"
+                style={{ color: ACTIVE_THEME.secondary }}
+              >
                 Wake the agent only when it is needed
               </h3>
               <p className="mt-3 leading-relaxed text-zinc-500">
-                In agentic AI systems, continuously operating the full voice-processing and
-                reasoning pipeline can consume significant power. A lightweight keyword-spotting
-                model can remain active in the background and listen for a designated wake word
-                while the main AI agent stays in a low-power or inactive state. When the wake word
-                is detected, the KWS engine activates the downstream chain—such as speech
-                enhancement, ASR, intent recognition, and the AI agent. This enables responsive
-                interaction without requiring the complete system to listen and process audio
+                In agentic AI systems, continuously operating the full
+                voice-processing and reasoning pipeline can consume significant
+                power. A lightweight keyword-spotting model can remain active in
+                the background and listen for a designated wake word while the
+                main AI agent stays in a low-power or inactive state. When the
+                wake word is detected, the KWS engine activates the downstream
+                chain—such as speech enhancement, ASR, intent recognition, and
+                the AI agent. This enables responsive interaction without
+                requiring the complete system to listen and process audio
                 continuously.
               </p>
             </div>
           </div>
         </div>
-        <div className="rounded-2xl p-6 sm:p-8" style={{ backgroundColor: ACTIVE_THEME.cardBg }}>
+        <div
+          className="rounded-2xl p-6 sm:p-8"
+          style={{ backgroundColor: ACTIVE_THEME.cardBg }}
+        >
           <div
             className="flex h-11 w-11 items-center justify-center rounded-xl"
-            style={{ backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12), color: ACTIVE_THEME.accent }}
+            style={{
+              backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12),
+              color: ACTIVE_THEME.accent,
+            }}
           >
             {FusionIcon}
           </div>
-          <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: ACTIVE_THEME.accent }}>
+          <p
+            className="mt-4 text-xs font-semibold uppercase tracking-[0.2em]"
+            style={{ color: ACTIVE_THEME.accent }}
+          >
             Brand-Customizable KWS
           </p>
-          <h3 className="mt-2 text-lg font-semibold tracking-tight sm:text-xl" style={{ color: ACTIVE_THEME.secondary }}>
-            One platform, tailored to every brand
+          <h3
+            className="mt-2 text-lg font-semibold tracking-tight sm:text-xl"
+            style={{ color: ACTIVE_THEME.secondary }}
+          >
+            One Technology, tailored to every brand
           </h3>
           <p className="mt-3 max-w-2xl leading-relaxed text-zinc-500">
-            IPHIPI&apos;s keyword-spotting technology can be adapted to different products and
-            brand identities. Using the brand&apos;s preferred wake phrase and representative
-            speech data, the KWS model can be fine-tuned to recognize custom wake words and
-            commands while maintaining low-power, on-device operation. This enables brands to
-            create a distinctive voice experience without developing the complete KWS pipeline
-            from scratch.
+            IPHIPI&apos;s keyword-spotting technology can be adapted to
+            different products and brand identities. Using the brand&apos;s
+            preferred wake phrase and representative speech data, the KWS model
+            can be fine-tuned to recognize custom wake words and commands while
+            maintaining low-power, on-device operation. This enables brands to
+            create a distinctive voice experience without developing the
+            complete KWS pipeline from scratch.
           </p>
         </div>
       </div>

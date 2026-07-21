@@ -1,158 +1,3 @@
-// "use client";
-
-// import { useRef } from "react";
-// import { motion } from "framer-motion";
-// import { theme, withAlpha } from "@/lib/theme";
-// import PartnersSection from "./PartnersSection";
-
-// const ACTIVE_THEME = {
-//   primary: theme.primary,
-//   secondary: theme.secondary,
-//   accent: theme.accent,
-//   bodyText: theme.bodyText,
-//   pageBg: theme.pageBg,
-// };
-
-// type Tech = {
-//   label: string;
-//   image: string;
-// };
-
-// const TECHS: Tech[] = [
-//   { label: "Single Mic Solution", image: "/samples/Single Mic.png" },
-//   { label: "Dual Mic Enhancement", image: "samples/Dual Mic.png" },
-//   { label: "Always-On Voice Control", image: "/samples/Voice Control.png" },
-//   { label: "Far-Field Speech Enhancement", image: "/samples/Far Field.png" },
-//   { label: "On-Device Intelligence", image: "/samples/On Device.png" },
-// ];
-
-// // --- One photo tile — flat, quiet presentation like Subtle: no border, no
-// // shadow, no hover lift. Just the photo with a small flat caption tag. ---
-
-// function TechTile({
-//   tech,
-//   className = "",
-// }: {
-//   tech: Tech;
-//   className?: string;
-// }) {
-//   return (
-//     <motion.div
-//       initial={{ opacity: 0, y: 20 }}
-//       whileInView={{ opacity: 1, y: 0 }}
-//       viewport={{ once: true, amount: 0.25 }}
-//       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-//       className={className}
-//     >
-//       <div className="relative h-full w-full overflow-hidden rounded-lg bg-zinc-100">
-//         {/* eslint-disable-next-line @next/next/no-img-element */}
-//         <img
-//           src={tech.image}
-//           alt=""
-//           aria-hidden="true"
-//           className="absolute inset-0 h-full w-full object-cover"
-//         />
-
-//         {/* Minimal top-left caption tag — Subtle-style: flat, no border, no blur */}
-//         <div
-//           className="absolute left-3 top-3 rounded px-2 py-1"
-//           style={{ backgroundColor: "rgba(0,0,0,0.55)" }}
-//         >
-//           <span className="whitespace-nowrap text-[10px] font-medium tracking-[0.02em] text-white/90">
-//             {tech.label}
-//           </span>
-//         </div>
-//       </div>
-//     </motion.div>
-//   );
-// }
-
-// // --- Section ------------------------------------------------------------
-
-// export default function TechnologiesSection() {
-//   const containerRef = useRef<HTMLElement>(null);
-
-//   return (
-//     <section
-//       ref={containerRef}
-//       id="technologies"
-//       className="relative overflow-hidden py-28 transition-colors duration-500 md:pt-36 lg:pt-48"
-//       style={{ backgroundColor: ACTIVE_THEME.pageBg }}
-//     >
-//       <div
-//         className="pointer-events-none absolute inset-0"
-//         style={{
-//           backgroundImage: `radial-gradient(circle at top, ${ACTIVE_THEME.primary}14, transparent 35%), radial-gradient(circle at bottom, ${ACTIVE_THEME.accent}0D, transparent 42%)`,
-//         }}
-//       />
-
-//       <div className="relative mx-auto max-w-[1400px] px-6 md:px-12">
-//         <div
-//           className="border-b pb-16 lg:pb-24"
-//           style={{ borderColor: withAlpha(ACTIVE_THEME.secondary, 0.1) }}
-//         >
-//           <div className="mb-4 flex items-center gap-2">
-//             <span
-//               className="text-xs font-semibold uppercase tracking-[0.28em]"
-//               style={{ color: ACTIVE_THEME.secondary }}
-//             >
-//               IPHIPI Technologies
-//             </span>
-//           </div>
-//           <h2
-//             className="max-w-xl text-headline font-medium tracking-tight leading-[1.2] lg:text-display"
-//             style={{ color: ACTIVE_THEME.secondary }}
-//           >
-//             Adaptive Audio Intelligence.
-//           </h2>
-
-//           <p
-//             className="mt-6 max-w-md text-lg leading-relaxed lg:text-xl"
-//             style={{ color: ACTIVE_THEME.bodyText }}
-//           >
-//             Proprietary environmental noise suppression and speech enhancement —
-//             engineered for every wearable category.
-//           </p>
-//         </div>
-
-//         {/* Subtle-style single-column masonry feed: one large tile, a 2-up
-//             row, then a closing large tile — clean photography with only a
-//             minimal top-left tag on each, no on-image or below-image copy. */}
-//         <div className="mx-auto mt-16 flex max-w-4xl flex-col gap-3 lg:mt-24">
-//           {/* Hero: narrower and right-aligned, so the wider row below breaks
-//               out to the left while sharing the same right edge — like Subtle. */}
-//           <TechTile
-//             tech={TECHS[0]}
-//             className="aspect-[4/5] w-full sm:ml-auto sm:w-2/3"
-//           />
-
-//           {/* Row 1: wide tile left, small tile right — the small tile sticks
-//               to the top of the viewport as the taller tile scrolls past. */}
-//           <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-3">
-//             <TechTile tech={TECHS[1]} className="aspect-[3/2] sm:col-span-2" />
-//             <TechTile
-//               tech={TECHS[2]}
-//               className="aspect-square sm:col-span-1 sm:sticky sm:top-28 sm:self-start"
-//             />
-//           </div>
-
-//           {/* Row 2: proportions flipped — small tile left (sticky), large right. */}
-//           {/* <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-3">
-//             <TechTile tech={TECHS[4]} className="aspect-square sm:col-span-1 sm:sticky sm:top-28 sm:self-start" />
-//             <TechTile tech={TECHS[3]} className="aspect-[4/3] sm:col-span-2" />
-//           </div> */}
-//           <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-3">
-//             <div className="hidden sm:block aspect-square" />
-
-//             <TechTile tech={TECHS[3]} className="aspect-[4/3] sm:col-span-2" />
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
-
-
 "use client";
 
 import { useRef } from "react";
@@ -184,7 +29,7 @@ const TECHS: Tech[] = [
   },
   {
     label: "Dual Mic Enhancement",
-    image: "/samples/Dual Mic.png",
+    image: "/samples/Two Mic_Sol.png",
     heading: "Clear Through Conversations",
     body: "Clear conversations, even in noisy, conversation-heavy environments.",
   },
@@ -341,9 +186,6 @@ export default function TechnologiesSection() {
           </div>
         </div>
 
-        {/* Pinned-hero layout: one large image stays fixed on the left while
-            the other three scroll past beside it on the right — the sticky
-            element IS the anchor this time, not a small accent tile. */}
         <div className="mt-16 grid grid-cols-1 gap-6 lg:mt-24 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-5">
             <TechTile tech={TECHS[0]} className="h-full" aspectClass="aspect-[3/4]" size="large" sticky />
