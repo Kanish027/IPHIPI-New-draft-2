@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import StoryLightbox from "@/components/StoryLightbox";
 import { theme, withAlpha } from "@/lib/theme";
 
@@ -45,10 +46,14 @@ const TECH_STORIES: TechStory[] = [
   },
 ];
 
-function TechStoryCard({ story }: { story: TechStory }) {
+// Each card is its own scroll-triggered reveal — they only animate in once
+// they individually enter the viewport, so the reader sees them arrive one
+// at a time in sequence while scrolling, not all four at once on load.
+function TechStoryCard({ story, index }: { story: TechStory; index: number }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [visible, setVisible] = useState(false);
   const [open, setOpen] = useState(false);
+  const flip = index % 2 === 1;
 
   useEffect(() => {
     const v = videoRef.current;
@@ -64,15 +69,35 @@ function TechStoryCard({ story }: { story: TechStory }) {
 
   return (
     <>
-      <div
-        className="flex flex-col overflow-hidden rounded-xl border bg-white"
-        style={{ borderColor: theme.borderInactive }}
+      <motion.div
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="grid items-center gap-8 py-14 md:grid-cols-2 md:gap-14"
       >
+        <div className={flip ? "md:order-2" : "md:order-1"}>
+          <span
+            className="font-geometric text-sm font-semibold tabular-nums"
+            style={{ color: theme.accent }}
+          >
+            {String(index + 1).padStart(2, "0")} / {String(TECH_STORIES.length).padStart(2, "0")}
+          </span>
+          <h3 className="mt-3 text-2xl font-medium tracking-tight lg:text-3xl" style={{ color: theme.secondary }}>
+            {story.label}
+          </h3>
+          <p className="mt-3 max-w-md text-base leading-relaxed" style={{ color: theme.textMuted }}>
+            {story.body}
+          </p>
+        </div>
+
         <button
           type="button"
           aria-label={`Watch: ${story.label}`}
           onClick={() => setOpen(true)}
-          className="group relative flex aspect-video w-full cursor-pointer items-center justify-center overflow-hidden bg-black"
+          className={`group relative flex aspect-video w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-black ${
+            flip ? "md:order-1" : "md:order-2"
+          }`}
         >
           <video
             ref={videoRef}
@@ -82,30 +107,18 @@ function TechStoryCard({ story }: { story: TechStory }) {
             loop
             playsInline
             preload={visible ? "auto" : "none"}
-            className="absolute inset-0 h-full w-full object-cover opacity-90"
+            className="absolute inset-0 h-full w-full object-cover opacity-90 transition-transform duration-700 ease-out group-hover:scale-[1.03]"
           />
-          <span className="absolute z-10 inline-flex items-center gap-1.5 rounded-full border border-transparent bg-white/20 py-2 pl-2 pr-3 text-xs font-medium leading-none text-white backdrop-blur-xl transition-colors group-hover:bg-white group-hover:text-black">
-            <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-white/20 p-1 backdrop-blur-xl transition-colors group-hover:bg-black">
-              <svg viewBox="0 0 12 12" className="ml-0.5 h-2.5 w-2.5 fill-white" aria-hidden="true">
+          <span className="absolute z-10 inline-flex items-center gap-1.5 rounded-full border border-transparent bg-white/20 py-2.5 pl-2.5 pr-3.5 text-sm font-medium leading-none text-white backdrop-blur-xl transition-colors group-hover:bg-white group-hover:text-black">
+            <span className="flex h-4 w-4 items-center justify-center rounded-full bg-white/20 p-1 backdrop-blur-xl transition-colors group-hover:bg-black">
+              <svg viewBox="0 0 12 12" className="ml-0.5 h-3 w-3 fill-white" aria-hidden="true">
                 <path d="M2 1.5v9l8-4.5z" />
               </svg>
             </span>
             Watch
           </span>
         </button>
-
-        <div className="flex flex-1 flex-col p-5">
-          <p
-            className="text-xs font-semibold uppercase tracking-[0.14em]"
-            style={{ color: theme.accent }}
-          >
-            {story.label}
-          </p>
-          <p className="mt-2 text-sm leading-relaxed" style={{ color: theme.textMuted }}>
-            {story.body}
-          </p>
-        </div>
-      </div>
+      </motion.div>
 
       <StoryLightbox open={open} onClose={() => setOpen(false)} src={story.video} poster={story.poster} />
     </>
@@ -161,18 +174,20 @@ export default function TechStoriesSection() {
         ))}
       </p>
 
-      <div className="mb-3 mt-20">
+      <div className="mx-auto mt-20 max-w-5xl">
         <p className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: withAlpha(theme.secondary, 0.5) }}>
           Explore the technology
         </p>
-      </div>
 
-      {/* One card per technology, in a clean 2×2 grid instead of four
-          stacked duplicates of the same card. */}
-      <div className="grid gap-6 sm:grid-cols-2">
-        {TECH_STORIES.map((story) => (
-          <TechStoryCard key={story.label} story={story} />
-        ))}
+        {/* One technology at a time, each animating into view as you reach
+            it — not a static grid dropped in all at once. */}
+        <div>
+          {TECH_STORIES.map((story, i) => (
+            <div key={story.label} style={{ borderColor: theme.borderInactive }} className={i > 0 ? "border-t" : ""}>
+              <TechStoryCard story={story} index={i} />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

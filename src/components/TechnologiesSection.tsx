@@ -178,25 +178,25 @@ type Tech = {
 const TECHS: Tech[] = [
   {
     label: "Single Mic Solution",
-    image: "/samples/Single Mic-crop.png",
+    image: "/samples/Single Mic.png",
     heading: "Clear Through Noise",
     body: "Experience uninterrupted conversations, even in noisy environments.",
   },
   {
     label: "Dual Mic Enhancement",
-    image: "/samples/Dual Mic-crop.png",
+    image: "/samples/Dual Mic.png",
     heading: "Clear Through Conversations",
     body: "Clear conversations, even in noisy, conversation-heavy environments.",
   },
   {
     label: "Always-On Voice Control",
-    image: "/samples/Voice Control-crop.png",
+    image: "/samples/Voice Control.png",
     heading: "Hands-Free Control",
     body: "Control your device hands-free with IPHIPI's Keyword Spotting, so you stay focused while your phone stays untouched.",
   },
   {
     label: "Far-Field Speech Enhancement",
-    image: "/samples/Far Field-crop.png",
+    image: "/samples/Far Field.png",
     heading: "Hears You From Afar",
     body: "Whether you're speaking to a smart speaker at home or a self-service kiosk, you shouldn't have to move closer or repeat your commands. IPHIPI's Far-Field Speech Enhancement enables brands to capture clear speech from a distance.",
   },
@@ -219,58 +219,47 @@ function TechTile({
   sticky?: boolean;
 }) {
   const card = (
-    <div className={`group relative w-full overflow-hidden rounded-lg bg-zinc-100 ${aspectClass}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={tech.image}
-        alt={tech.label}
-        aria-hidden="true"
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-      />
-
-      {/* Bottom-anchored gradient — only darkens the lower portion so the
-          photo itself stays visible, not washed out edge-to-edge. */}
-      {(tech.heading || tech.body) && (
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
-      )}
-
-      {/* Minimal top-left caption tag — Subtle-style: flat, no border, no blur */}
-      <div
-        className="absolute left-4 top-4 rounded px-2 py-1"
-        style={{ backgroundColor: "rgba(0,0,0,0.55)" }}
-      >
-        <span className="whitespace-nowrap text-[10px] font-medium tracking-[0.02em] text-white/90">
+    <div className="group flex h-full w-full flex-col overflow-hidden rounded-lg border" style={{ borderColor: theme.borderInactive }}>
+      {/* Caption block sits entirely above the photo — nothing is ever
+          overlaid on top of the image itself. */}
+      <div className={size === "small" ? "p-4 md:p-5" : "p-6 md:p-8"}>
+        <p
+          className="text-[10px] font-semibold uppercase tracking-[0.14em]"
+          style={{ color: theme.accent }}
+        >
           {tech.label}
-        </span>
+        </p>
+        {tech.heading && (
+          <h3
+            className={`mt-1.5 font-medium tracking-tight ${
+              size === "small" ? "text-lg md:text-xl" : "text-2xl md:text-3xl"
+            }`}
+            style={{ color: theme.secondary }}
+          >
+            {tech.heading}
+          </h3>
+        )}
+        {tech.body && (
+          <p
+            className={`mt-1.5 max-w-md leading-relaxed ${
+              size === "small" ? "text-xs md:text-sm line-clamp-2" : "text-sm md:text-base"
+            }`}
+            style={{ color: theme.textMuted }}
+          >
+            {tech.body}
+          </p>
+        )}
       </div>
 
-      {/* Bottom text overlay */}
-      {(tech.heading || tech.body) && (
-        <div
-          className={`absolute bottom-0 left-0 flex w-full flex-col justify-end ${
-            size === "small" ? "p-4 md:p-5" : "p-6 md:p-8"
-          }`}
-        >
-          {tech.heading && (
-            <h3
-              className={`font-medium tracking-tight text-white drop-shadow-sm ${
-                size === "small" ? "text-lg md:text-xl" : "text-2xl md:text-3xl"
-              }`}
-            >
-              {tech.heading}
-            </h3>
-          )}
-          {tech.body && (
-            <p
-              className={`mt-1.5 max-w-md leading-relaxed text-white/85 ${
-                size === "small" ? "text-xs md:text-sm line-clamp-2" : "text-sm md:text-base"
-              }`}
-            >
-              {tech.body}
-            </p>
-          )}
-        </div>
-      )}
+      <div className={`relative w-full flex-1 ${aspectClass}`} style={{ backgroundColor: theme.primary }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={tech.image}
+          alt={tech.label}
+          aria-hidden="true"
+          className="absolute inset-0 h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+        />
+      </div>
     </div>
   );
 
