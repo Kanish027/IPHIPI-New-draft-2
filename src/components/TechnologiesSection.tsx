@@ -316,27 +316,29 @@ export default function TechnologiesSection() {
           className="border-b pb-16 lg:pb-24"
           style={{ borderColor: withAlpha(ACTIVE_THEME.secondary, 0.1) }}
         >
-          <div className="mb-4 flex items-center gap-2">
-            <span
-              className="text-xs font-semibold uppercase tracking-[0.28em]"
+          <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
+            <div className="mb-4 flex items-center gap-2">
+              <span
+                className="text-xs font-semibold uppercase tracking-[0.28em]"
+                style={{ color: ACTIVE_THEME.secondary }}
+              >
+                IPHIPI Technologies
+              </span>
+            </div>
+            <h2
+              className="text-headline font-medium tracking-tight leading-[1.2] lg:text-display"
               style={{ color: ACTIVE_THEME.secondary }}
             >
-              IPHIPI Technologies
-            </span>
+              Adaptive Audio Intelligence.
+            </h2>
+            <p
+              className="mt-6 text-lg leading-relaxed lg:text-xl"
+              style={{ color: ACTIVE_THEME.bodyText }}
+            >
+              Proprietary environmental noise suppression and speech enhancement —
+              engineered for every wearable category.
+            </p>
           </div>
-          <h2
-            className="max-w-xl text-headline font-medium tracking-tight leading-[1.2] lg:text-display"
-            style={{ color: ACTIVE_THEME.secondary }}
-          >
-            Adaptive Audio Intelligence.
-          </h2>
-          <p
-            className="mt-6 max-w-md text-lg leading-relaxed lg:text-xl"
-            style={{ color: ACTIVE_THEME.bodyText }}
-          >
-            Proprietary environmental noise suppression and speech enhancement —
-            engineered for every wearable category.
-          </p>
         </div>
 
         {/* Pinned-hero layout: one large image stays fixed on the left while

@@ -121,11 +121,11 @@ const FusionIcon = (
 export function OneMicSolution() {
   return (
     <div className="mt-10">
-      <SectionHeading
+      {/* <SectionHeading
         eyebrow="Single Mic Speech Enhancement"
         title="Built for the Noises of Everyday Life"
         tagline="Conversations compete with unpredictable background noise—from TVs and kitchen sounds to cafés, traffic, construction noises. IPHIPI's AI-powered Single Mic Speech Enhancement delivers exceptional voice clarity through edge-optimized, real-time audio processing."
-      />
+      /> */}
 
       <AudioProcessingFlow />
 
