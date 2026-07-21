@@ -56,12 +56,24 @@ export default function PageBanner({
           {title}
         </h1>
 
-        <p
-          className="mx-auto mt-6 max-w-xl text-lg leading-relaxed transition-colors duration-500"
-          style={{ color: theme.textMuted }}
-        >
-          {tagline}
-        </p>
+        {/* Long taglines read as a dense wall of centered text in one <p>.
+            Splitting on sentence boundaries into separate paragraphs (with
+            gaps between them) keeps short taglines unchanged but gives long
+            ones real visual rhythm. */}
+        <div className="mx-auto mt-6 max-w-xl space-y-3">
+          {tagline
+            .split(/(?<=[.!?])\s+(?=[A-Z])/)
+            .filter(Boolean)
+            .map((sentence, i) => (
+              <p
+                key={i}
+                className="text-lg leading-relaxed transition-colors duration-500"
+                style={{ color: theme.textMuted }}
+              >
+                {sentence}
+              </p>
+            ))}
+        </div>
 
         {children && <div className="mt-9">{children}</div>}
       </div>

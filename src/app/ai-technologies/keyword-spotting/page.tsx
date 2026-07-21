@@ -11,11 +11,16 @@ export const metadata: Metadata = {
 
 export default function KeywordSpottingPage() {
   return (
-    <main className="flex-1 pb-28 transition-colors duration-500" style={{ backgroundColor: theme.pageBg }}>
+    <main
+      className="flex-1 pb-28 transition-colors duration-500"
+      style={{ backgroundColor: theme.pageBg }}
+    >
       <TechSubpageHero
         eyebrow="The Intelligence Anchor"
-        title="Always-On Voice Control With Minimal Power Consumption"
-        tagline="IPHIPI's keyword-spotting technology provides an always-on, low-power listening layer that recognizes predefined words and commands directly on the device."
+        title="Always-on voice control. Ultra-low power."
+        tagline="Voice-enabled devices must remain ready to detect wake words and short commands, but continuously running full speech-recognition or AI-agent pipelines consumes unnecessary power.
+
+IPHIPI’s low-power, always-on keyword spotting runs directly on-device, recognizing predefined commands to trigger device functions or activate higher-level voice assistants and agentic AI systems."
         current="Keyword Spotting"
       />
       <div className="mx-auto max-w-6xl px-4 lg:px-6">

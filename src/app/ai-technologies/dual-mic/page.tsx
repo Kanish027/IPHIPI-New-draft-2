@@ -15,7 +15,7 @@ export default function DualMicPage() {
       <TechSubpageHero
         eyebrow="Dual Mic Speech Enhancement"
         title="Clear Voice Through Dual-Microphone Intelligence"
-        tagline="Harsh noise conditions require more than a single view of the acoustic environment. IPHIPI's two-microphone ENC combines signals from the talk and feedback microphones for complementary speech capture."
+        tagline="Harsh noise conditions require more than a single view of the acoustic environment. IPHIPI's two-microphone ENC combines signals from the talk microphone and feedback microphone to improve voice capture and provide the AI engine with complementary information about the wearer's speech."
         current="Dual Mic"
       />
       <div className="mx-auto max-w-6xl px-4 lg:px-6">
