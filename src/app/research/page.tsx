@@ -3,6 +3,7 @@ import ResearchHero from "@/components/ResearchHero";
 import TeamSection from "@/components/TeamSection";
 import React from "react";
 import { theme, withAlpha } from "@/lib/theme";
+import TechStoriesSection from "@/components/TechStoriesSection";
 
 export const metadata: Metadata = {
   title: "R&D — IPHIPI",
@@ -764,6 +765,9 @@ export default function ResearchPage() {
           </div>
         </section>
       </div>
+
+      <TechStoriesSection />
+
 
       <TeamSection />
     </main>

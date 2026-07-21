@@ -11,7 +11,7 @@ const ACTIVE_THEME = {
 
 const EXPLORE = [
   { label: "Home", href: "/" },
-  { label: "AI Technologies", href: "/ai-technologies" },
+  { label: "AI Technologies", href: "/ai-technologies/single-mic" },
   { label: "R&D", href: "/research" },
   { label: "Events", href: "/events" },
   { label: "Contact", href: "/contact" },
@@ -220,7 +220,7 @@ export default function Footer() {
                   style={{ backgroundColor: ACTIVE_THEME.accent }}
                 />
               </span>
-              Launching 2026
+              Agentic AI Launching 2027
             </p>
           </div>
         </div>

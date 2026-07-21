@@ -120,13 +120,19 @@ export default function PartnersSection() {
     <section className="py-16 sm:py-20" style={{ backgroundColor: theme.pageBg }}>
       <div className="mx-auto max-w-7xl px-4 md:px-8">
         {/* Header — line passes through the text, like a labeled divider */}
-        <div className="relative flex items-center justify-center">
+        <div className="relative flex flex-col items-center justify-center">
           <span
             className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2"
             style={{ backgroundColor: withAlpha(theme.secondary, 0.1) }}
           />
+          <p
+            className="relative px-4 text-xs font-semibold uppercase tracking-[0.2em]"
+            style={{ color: theme.accent, backgroundColor: theme.pageBg }}
+          >
+            Trusted Across Industries
+          </p>
           <h2
-            className="relative max-w-2xl px-4 text-center text-base"
+            className="relative mt-3 max-w-2xl px-4 text-center text-base"
             style={{ color: theme.textMuted, backgroundColor: theme.pageBg }}
           >
             Powering voice experiences for consumer audio, mobile devices,

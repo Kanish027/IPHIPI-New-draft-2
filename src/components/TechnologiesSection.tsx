@@ -1,7 +1,162 @@
+// "use client";
+
+// import { useRef } from "react";
+// import { motion } from "framer-motion";
+// import { theme, withAlpha } from "@/lib/theme";
+// import PartnersSection from "./PartnersSection";
+
+// const ACTIVE_THEME = {
+//   primary: theme.primary,
+//   secondary: theme.secondary,
+//   accent: theme.accent,
+//   bodyText: theme.bodyText,
+//   pageBg: theme.pageBg,
+// };
+
+// type Tech = {
+//   label: string;
+//   image: string;
+// };
+
+// const TECHS: Tech[] = [
+//   { label: "Single Mic Solution", image: "/samples/Single Mic.png" },
+//   { label: "Dual Mic Enhancement", image: "samples/Dual Mic.png" },
+//   { label: "Always-On Voice Control", image: "/samples/Voice Control.png" },
+//   { label: "Far-Field Speech Enhancement", image: "/samples/Far Field.png" },
+//   { label: "On-Device Intelligence", image: "/samples/On Device.png" },
+// ];
+
+// // --- One photo tile — flat, quiet presentation like Subtle: no border, no
+// // shadow, no hover lift. Just the photo with a small flat caption tag. ---
+
+// function TechTile({
+//   tech,
+//   className = "",
+// }: {
+//   tech: Tech;
+//   className?: string;
+// }) {
+//   return (
+//     <motion.div
+//       initial={{ opacity: 0, y: 20 }}
+//       whileInView={{ opacity: 1, y: 0 }}
+//       viewport={{ once: true, amount: 0.25 }}
+//       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+//       className={className}
+//     >
+//       <div className="relative h-full w-full overflow-hidden rounded-lg bg-zinc-100">
+//         {/* eslint-disable-next-line @next/next/no-img-element */}
+//         <img
+//           src={tech.image}
+//           alt=""
+//           aria-hidden="true"
+//           className="absolute inset-0 h-full w-full object-cover"
+//         />
+
+//         {/* Minimal top-left caption tag — Subtle-style: flat, no border, no blur */}
+//         <div
+//           className="absolute left-3 top-3 rounded px-2 py-1"
+//           style={{ backgroundColor: "rgba(0,0,0,0.55)" }}
+//         >
+//           <span className="whitespace-nowrap text-[10px] font-medium tracking-[0.02em] text-white/90">
+//             {tech.label}
+//           </span>
+//         </div>
+//       </div>
+//     </motion.div>
+//   );
+// }
+
+// // --- Section ------------------------------------------------------------
+
+// export default function TechnologiesSection() {
+//   const containerRef = useRef<HTMLElement>(null);
+
+//   return (
+//     <section
+//       ref={containerRef}
+//       id="technologies"
+//       className="relative overflow-hidden py-28 transition-colors duration-500 md:pt-36 lg:pt-48"
+//       style={{ backgroundColor: ACTIVE_THEME.pageBg }}
+//     >
+//       <div
+//         className="pointer-events-none absolute inset-0"
+//         style={{
+//           backgroundImage: `radial-gradient(circle at top, ${ACTIVE_THEME.primary}14, transparent 35%), radial-gradient(circle at bottom, ${ACTIVE_THEME.accent}0D, transparent 42%)`,
+//         }}
+//       />
+
+//       <div className="relative mx-auto max-w-[1400px] px-6 md:px-12">
+//         <div
+//           className="border-b pb-16 lg:pb-24"
+//           style={{ borderColor: withAlpha(ACTIVE_THEME.secondary, 0.1) }}
+//         >
+//           <div className="mb-4 flex items-center gap-2">
+//             <span
+//               className="text-xs font-semibold uppercase tracking-[0.28em]"
+//               style={{ color: ACTIVE_THEME.secondary }}
+//             >
+//               IPHIPI Technologies
+//             </span>
+//           </div>
+//           <h2
+//             className="max-w-xl text-headline font-medium tracking-tight leading-[1.2] lg:text-display"
+//             style={{ color: ACTIVE_THEME.secondary }}
+//           >
+//             Adaptive Audio Intelligence.
+//           </h2>
+
+//           <p
+//             className="mt-6 max-w-md text-lg leading-relaxed lg:text-xl"
+//             style={{ color: ACTIVE_THEME.bodyText }}
+//           >
+//             Proprietary environmental noise suppression and speech enhancement —
+//             engineered for every wearable category.
+//           </p>
+//         </div>
+
+//         {/* Subtle-style single-column masonry feed: one large tile, a 2-up
+//             row, then a closing large tile — clean photography with only a
+//             minimal top-left tag on each, no on-image or below-image copy. */}
+//         <div className="mx-auto mt-16 flex max-w-4xl flex-col gap-3 lg:mt-24">
+//           {/* Hero: narrower and right-aligned, so the wider row below breaks
+//               out to the left while sharing the same right edge — like Subtle. */}
+//           <TechTile
+//             tech={TECHS[0]}
+//             className="aspect-[4/5] w-full sm:ml-auto sm:w-2/3"
+//           />
+
+//           {/* Row 1: wide tile left, small tile right — the small tile sticks
+//               to the top of the viewport as the taller tile scrolls past. */}
+//           <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-3">
+//             <TechTile tech={TECHS[1]} className="aspect-[3/2] sm:col-span-2" />
+//             <TechTile
+//               tech={TECHS[2]}
+//               className="aspect-square sm:col-span-1 sm:sticky sm:top-28 sm:self-start"
+//             />
+//           </div>
+
+//           {/* Row 2: proportions flipped — small tile left (sticky), large right. */}
+//           {/* <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-3">
+//             <TechTile tech={TECHS[4]} className="aspect-square sm:col-span-1 sm:sticky sm:top-28 sm:self-start" />
+//             <TechTile tech={TECHS[3]} className="aspect-[4/3] sm:col-span-2" />
+//           </div> */}
+//           <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-3">
+//             <div className="hidden sm:block aspect-square" />
+
+//             <TechTile tech={TECHS[3]} className="aspect-[4/3] sm:col-span-2" />
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
+
+
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 import { theme, withAlpha } from "@/lib/theme";
 import PartnersSection from "./PartnersSection";
 
@@ -15,163 +170,150 @@ const ACTIVE_THEME = {
 
 type Tech = {
   label: string;
-  spec: string;
-  heading: string;
-  body: string;
   image: string;
-  video?: string;
-  /** Tailwind aspect ratio — mixes tall & wide tiles for a masonry rhythm. */
-  aspect: string;
+  heading?: string;
+  body?: string;
 };
 
 const TECHS: Tech[] = [
   {
     label: "Single Mic Solution",
-    spec: "70 dB noise suppression",
+    image: "/samples/Single Mic-crop.png",
     heading: "Clear Through Noise",
     body: "Experience uninterrupted conversations, even in noisy environments.",
-    image: "/tech/single-mic.png",
-    aspect: "aspect-[4/5]",
   },
   {
     label: "Dual Mic Enhancement",
-    spec: "85 dB · multi-speaker",
+    image: "/samples/Dual Mic-crop.png",
     heading: "Clear Through Conversations",
     body: "Clear conversations, even in noisy, conversation-heavy environments.",
-    image: "/tech/dual-mic.png",
-    aspect: "aspect-[3/2]",
   },
   {
     label: "Always-On Voice Control",
-    spec: "5 mW · fully on-device",
+    image: "/samples/Voice Control-crop.png",
     heading: "Hands-Free Control",
     body: "Control your device hands-free with IPHIPI's Keyword Spotting, so you stay focused while your phone stays untouched.",
-    image: "/tech/kws.png",
-    aspect: "aspect-[3/2]",
   },
   {
     label: "Far-Field Speech Enhancement",
-    spec: "5 m+ capture range",
+    image: "/samples/Far Field-crop.png",
     heading: "Hears You From Afar",
     body: "Whether you're speaking to a smart speaker at home or a self-service kiosk, you shouldn't have to move closer or repeat your commands. IPHIPI's Far-Field Speech Enhancement enables brands to capture clear speech from a distance.",
-    image: "/tech/far-field.png",
-    aspect: "aspect-[4/5]",
   },
 ];
 
-// --- One video tile — fixed size, always fully visible ------------------
+// --- One photo tile — flat, quiet presentation like Subtle: no border, no
+// shadow, no hover lift. Just the photo with a small flat caption tag,
+// and optional text overlays at the bottom. ---
+function TechTile({
+  tech,
+  className = "",
+  aspectClass,
+  size = "large",
+  sticky = false,
+}: {
+  tech: Tech;
+  className?: string;
+  aspectClass: string;
+  size?: "large" | "small";
+  sticky?: boolean;
+}) {
+  const card = (
+    <div className={`group relative w-full overflow-hidden rounded-lg bg-zinc-100 ${aspectClass}`}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={tech.image}
+        alt={tech.label}
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+      />
 
-function TechTile({ tech, index }: { tech: Tech; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
+      {/* Bottom-anchored gradient — only darkens the lower portion so the
+          photo itself stays visible, not washed out edge-to-edge. */}
+      {(tech.heading || tech.body) && (
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
+      )}
 
-  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = ref.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
-    el.style.setProperty("--my", `${e.clientY - rect.top}px`);
-  };
+      {/* Minimal top-left caption tag — Subtle-style: flat, no border, no blur */}
+      <div
+        className="absolute left-4 top-4 rounded px-2 py-1"
+        style={{ backgroundColor: "rgba(0,0,0,0.55)" }}
+      >
+        <span className="whitespace-nowrap text-[10px] font-medium tracking-[0.02em] text-white/90">
+          {tech.label}
+        </span>
+      </div>
 
+      {/* Bottom text overlay */}
+      {(tech.heading || tech.body) && (
+        <div
+          className={`absolute bottom-0 left-0 flex w-full flex-col justify-end ${
+            size === "small" ? "p-4 md:p-5" : "p-6 md:p-8"
+          }`}
+        >
+          {tech.heading && (
+            <h3
+              className={`font-medium tracking-tight text-white drop-shadow-sm ${
+                size === "small" ? "text-lg md:text-xl" : "text-2xl md:text-3xl"
+              }`}
+            >
+              {tech.heading}
+            </h3>
+          )}
+          {tech.body && (
+            <p
+              className={`mt-1.5 max-w-md leading-relaxed text-white/85 ${
+                size === "small" ? "text-xs md:text-sm line-clamp-2" : "text-sm md:text-base"
+              }`}
+            >
+              {tech.body}
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+
+  // A transform-based entrance animation (the y offset) leaves an inline
+  // `transform` on this wrapper even at rest, and a transformed ancestor
+  // breaks `position: sticky` in the browser. So sticky tiles fade in on
+  // opacity only — the `y` motion value is entirely omitted, not just set
+  // to 0, so Framer Motion never writes a transform here at all.
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={sticky ? { opacity: 0 } : { opacity: 0, y: 20 }}
+      whileInView={sticky ? { opacity: 1 } : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className={className}
     >
-      <div
-        ref={ref}
-        onMouseMove={onMouseMove}
-        className={`group relative ${tech.aspect} w-full overflow-hidden rounded-[26px] border border-white/10 bg-black shadow-[0_24px_70px_rgba(0,0,0,0.28)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_36px_90px_rgba(0,0,0,0.4)]`}
-      >
-        {tech.video ? (
-          <video
-            src={tech.video}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-        ) : (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={tech.image}
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-        )}
-
-        {/* Bottom scrim keeps the label readable without hiding the video */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent" />
-
-        {/* Cursor-tracked spotlight */}
-        <div
-          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-          style={{
-            background: `radial-gradient(460px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.12), transparent 60%)`,
-          }}
-        />
-
-        {/* Index numeral */}
-        <span
-          className="pointer-events-none absolute right-5 top-4 select-none font-semibold leading-none text-transparent md:right-6 md:top-5"
-          style={{
-            fontSize: "clamp(2rem, 3vw, 3rem)",
-            WebkitTextStroke: `1.25px ${withAlpha(theme.accent, 0.55)}`,
-          }}
-        >
-          {String(index + 1).padStart(2, "0")}
-        </span>
-
-        {/* Keyword + spec */}
-        <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
-          <div
-            className="inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1.5 text-white backdrop-blur-md"
-            style={{
-              borderColor: withAlpha(theme.accent, 0.3),
-              backgroundColor: "rgba(0,0,0,0.35)",
-            }}
-          >
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full" style={{ backgroundColor: ACTIVE_THEME.accent }} />
-            <span className="whitespace-nowrap text-[11px] font-semibold tracking-[0.18em]">{tech.label}</span>
-          </div>
-          <p className="mt-2.5 text-xs font-medium uppercase tracking-[0.18em] text-white/60">{tech.spec}</p>
+      {/* When sticky, the outer box stretches to fill the (taller) grid row,
+          giving the inner card room to travel before it sticks and releases
+          at the row's edges — a plain aspect box has no such room to move. */}
+      {sticky ? (
+        <div className="h-full">
+          <div className="sticky top-0">{card}</div>
         </div>
-      </div>
-
-      {/* Caption — heading + body, per the doc's Small Text / Heading / Body format */}
-      <div className="mt-5 px-1">
-        <h3 className="text-lg font-semibold tracking-tight" style={{ color: ACTIVE_THEME.secondary }}>
-          {tech.heading}
-        </h3>
-        <p className="mt-1.5 max-w-md leading-relaxed" style={{ color: ACTIVE_THEME.bodyText }}>
-          {tech.body}
-        </p>
-      </div>
+      ) : (
+        card
+      )}
     </motion.div>
   );
 }
 
 // --- Section ------------------------------------------------------------
-
 export default function TechnologiesSection() {
   const containerRef = useRef<HTMLElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-  const smooth = useSpring(scrollYProgress, { stiffness: 80, damping: 25, mass: 0.5 });
-  // Right column drifts slightly, deepening the staggered rhythm on scroll.
-  const rightY = useTransform(smooth, [0, 1], [40, -40]);
 
   return (
     <section
       ref={containerRef}
       id="technologies"
-      className="relative overflow-hidden py-28 transition-colors duration-500 md:pt-36 lg:pt-48"
+      // No overflow-hidden here: it would become the nearest "scrolling
+      // ancestor" for position:sticky descendants (the small tiles below)
+      // and break their stick/release behavior. Each tile already clips
+      // its own hover-zoom internally, so nothing needs section-level clipping.
+      className="relative py-28 transition-colors duration-500 md:pt-36 lg:pt-48"
       style={{ backgroundColor: ACTIVE_THEME.pageBg }}
     >
       <div
@@ -180,49 +322,47 @@ export default function TechnologiesSection() {
           backgroundImage: `radial-gradient(circle at top, ${ACTIVE_THEME.primary}14, transparent 35%), radial-gradient(circle at bottom, ${ACTIVE_THEME.accent}0D, transparent 42%)`,
         }}
       />
-
       <div className="relative mx-auto max-w-[1400px] px-6 md:px-12">
         <div
-          className="grid grid-cols-1 gap-8 border-b pb-16 md:grid-cols-12 lg:pb-24"
+          className="border-b pb-16 lg:pb-24"
           style={{ borderColor: withAlpha(ACTIVE_THEME.secondary, 0.1) }}
         >
-          <div className="col-span-6 md:col-span-7">
-            <div className="mb-4 flex items-center gap-2">
-              <span
-                className="text-xs font-semibold uppercase tracking-[0.28em]"
-                style={{ color: ACTIVE_THEME.secondary }}
-              >
-                IPHIPI Technologies
-              </span>
-            </div>
-            <h2
-              className="max-w-xl text-headline font-medium tracking-tight leading-[1.2] lg:text-display"
+          <div className="mb-4 flex items-center gap-2">
+            <span
+              className="text-xs font-semibold uppercase tracking-[0.28em]"
               style={{ color: ACTIVE_THEME.secondary }}
             >
-              Adaptive Audio Intelligence.
-            </h2>
+              IPHIPI Technologies
+            </span>
           </div>
-
-          <div className="flex flex-col justify-end md:col-span-5 md:col-start-8">
-            <p className="max-w-md text-lg leading-relaxed lg:text-xl" style={{ color: ACTIVE_THEME.bodyText }}>
-              Proprietary environmental noise suppression and speech
-              enhancement — engineered for every wearable category.
-            </p>
-          </div>
+          <h2
+            className="max-w-xl text-headline font-medium tracking-tight leading-[1.2] lg:text-display"
+            style={{ color: ACTIVE_THEME.secondary }}
+          >
+            Adaptive Audio Intelligence.
+          </h2>
+          <p
+            className="mt-6 max-w-md text-lg leading-relaxed lg:text-xl"
+            style={{ color: ACTIVE_THEME.bodyText }}
+          >
+            Proprietary environmental noise suppression and speech enhancement —
+            engineered for every wearable category.
+          </p>
         </div>
 
-        {/* Staggered two-column layout: right column sits lower, so the four
-            videos read as an offset editorial flow rather than a flat grid.
-            Every tile is a fixed size and always fully visible. */}
-        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mt-24 lg:gap-8">
-          <div className="flex flex-col gap-6 lg:gap-8">
-            <TechTile tech={TECHS[0]} index={0} />
-            <TechTile tech={TECHS[2]} index={2} />
+        {/* Pinned-hero layout: one large image stays fixed on the left while
+            the other three scroll past beside it on the right — the sticky
+            element IS the anchor this time, not a small accent tile. */}
+        <div className="mt-16 grid grid-cols-1 gap-6 lg:mt-24 lg:grid-cols-12 lg:gap-8">
+          <div className="lg:col-span-5">
+            <TechTile tech={TECHS[0]} className="h-full" aspectClass="aspect-[3/4]" size="large" sticky />
           </div>
-          <motion.div style={{ y: rightY }} className="flex flex-col gap-6 md:mt-16 lg:gap-8">
-            <TechTile tech={TECHS[1]} index={1} />
-            <TechTile tech={TECHS[3]} index={3} />
-          </motion.div>
+
+          <div className="flex flex-col gap-6 lg:col-span-7">
+            <TechTile tech={TECHS[1]} aspectClass="aspect-[16/9]" size="large" />
+            <TechTile tech={TECHS[2]} aspectClass="aspect-[16/9]" size="large" />
+            <TechTile tech={TECHS[3]} aspectClass="aspect-[16/9]" size="large" />
+          </div>
         </div>
       </div>
     </section>

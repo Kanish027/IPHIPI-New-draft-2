@@ -187,7 +187,37 @@ export function ContactForm() {
 
       {interestArea && (
         <>
-          <div className="grid gap-6 sm:grid-cols-2">
+         
+
+           <div>
+            <p className="text-sm font-medium text-zinc-700">Select Technology Requirement</p>
+            <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
+              {TECHNOLOGIES.map((tech) => (
+                <Chip
+                  key={tech}
+                  label={tech}
+                  checked={technologies.includes(tech)}
+                  onChange={() => setTechnologies((prev) => toggleValue(prev, tech))}
+                />
+              ))}
+            </div>
+          </div>
+
+           <div>
+            <p className="text-sm font-medium text-zinc-700">Expected Product Category</p>
+            <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
+              {PRODUCT_CATEGORIES.map((cat) => (
+                <Chip
+                  key={cat}
+                  label={cat}
+                  checked={productCategories.includes(cat)}
+                  onChange={() => setProductCategories((prev) => toggleValue(prev, cat))}
+                />
+              ))}
+            </div>
+          </div>
+
+           <div className="grid gap-6 sm:grid-cols-2">
             <div>
               <label htmlFor="companyName" className="text-sm font-medium text-zinc-700">
                 Your Company Name
@@ -233,33 +263,9 @@ export function ContactForm() {
             />
           </div>
 
-          <div>
-            <p className="text-sm font-medium text-zinc-700">Select Technology Requirement</p>
-            <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
-              {TECHNOLOGIES.map((tech) => (
-                <Chip
-                  key={tech}
-                  label={tech}
-                  checked={technologies.includes(tech)}
-                  onChange={() => setTechnologies((prev) => toggleValue(prev, tech))}
-                />
-              ))}
-            </div>
-          </div>
+         
 
-          <div>
-            <p className="text-sm font-medium text-zinc-700">Expected Product Category</p>
-            <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
-              {PRODUCT_CATEGORIES.map((cat) => (
-                <Chip
-                  key={cat}
-                  label={cat}
-                  checked={productCategories.includes(cat)}
-                  onChange={() => setProductCategories((prev) => toggleValue(prev, cat))}
-                />
-              ))}
-            </div>
-          </div>
+         
 
           {status === "error" && <p className="text-sm text-red-600">{errorMessage}</p>}
 

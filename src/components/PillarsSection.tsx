@@ -23,7 +23,7 @@ const PILLARS = [
     heading: "Stay focused. Let intelligence handle the rest.",
     body: "Professionals constantly switch between listening, taking notes, scheduling follow-ups, and presenting ideas. IPHIPI Intelligence quietly manages these routine tasks, allowing users to stay fully engaged in the conversation.",
     images: [
-      "https://picsum.photos/seed/work-intelligence-a/700/900",
+      "/samples/work intelligence.png",
       "https://picsum.photos/seed/work-intelligence-b/700/900",
       "https://picsum.photos/seed/work-intelligence-c/700/900",
     ],
@@ -44,8 +44,8 @@ const PILLARS = [
     heading: "Live Safely. Stay Connected.",
     body: "You can't always keep an eye on every corner of your home or every loved one's wellbeing. IPHIPI Intelligence keeps you aware of your home and the people who matter most.",
     images: [
+      "samples/Living Intelligence.png",
       "https://picsum.photos/seed/living-intelligence-a/700/900",
-      "https://picsum.photos/seed/living-intelligence-b/700/900",
       "https://picsum.photos/seed/living-intelligence-c/700/900",
     ],
     stats: [
@@ -65,7 +65,7 @@ const PILLARS = [
     heading: "Train Smarter. Stay Focused.",
     body: "During workouts, it's easy to lose track of reps, rest, hydration, and what's next. IPHIPI keeps your workout on track with real-time guidance, motivation, and intelligent coaching.",
     images: [
-      "https://picsum.photos/seed/personal-intelligence-a/700/900",
+      "samples/Personal Intelligence.png",
       "https://picsum.photos/seed/personal-intelligence-b/700/900",
       "https://picsum.photos/seed/personal-intelligence-c/700/900",
     ],
@@ -85,7 +85,7 @@ const PILLARS = [
     heading: "Understand the World Around You.",
     body: "Exploring unfamiliar places often means switching between maps, translation apps, and searching for the stories behind every place. IPHIPI Intelligence sees what you see, listens to you, and brings navigation, translation, art, history, and architecture into one natural conversation.",
     images: [
-      "https://picsum.photos/seed/spatial-intelligence-a/700/900",
+      "/samples/On Device.png",
       "https://picsum.photos/seed/spatial-intelligence-b/700/900",
       "https://picsum.photos/seed/spatial-intelligence-c/700/900",
     ],
@@ -268,34 +268,6 @@ export default function PillarsSection() {
               <p className="mt-4 max-w-md leading-relaxed" style={{ color: ACTIVE_THEME.textBody }}>
                 {pillar.body}
               </p>
-
-              <div className="mt-8">
-                <p
-                  className="inline-block border-b-2 pb-1 text-xs font-semibold uppercase tracking-[0.18em]"
-                  style={{ borderColor: ACTIVE_THEME.accent, color: ACTIVE_THEME.textHeading }}
-                >
-                  What it delivers
-                </p>
-              </div>
-
-              <div className="mt-5 grid grid-cols-2 gap-4">
-                <div className="rounded-2xl p-5" style={{ backgroundColor: ACTIVE_THEME.accent }}>
-                  <p className="text-headline font-semibold tabular-nums" style={{ color: ACTIVE_THEME.sectionBg }}>
-                    {pillar.stats[0].value}
-                  </p>
-                  <p className="mt-1 text-xs font-medium" style={{ color: ACTIVE_THEME.sectionBg }}>
-                    {pillar.stats[0].label}
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-                  <p className="text-headline font-semibold tabular-nums" style={{ color: ACTIVE_THEME.textHeading }}>
-                    {pillar.stats[1].value}
-                  </p>
-                  <p className="mt-1 text-xs font-medium" style={{ color: ACTIVE_THEME.textBody }}>
-                    {pillar.stats[1].label}
-                  </p>
-                </div>
-              </div>
 
               <Link
                 href={`/research#${pillar.id}`}

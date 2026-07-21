@@ -14,7 +14,7 @@ const AI_TECH_SUBLINKS = [
 ];
 
 const NAV_LINKS = [
-  { label: "AI Technologies", href: "/ai-technologies", children: AI_TECH_SUBLINKS },
+  { label: "AI Technologies", href: "/ai-technologies/single-mic", children: AI_TECH_SUBLINKS },
   { label: "R&D", href: "/research" },
   { label: "Events", href: "/events" },
   { label: "Contact", href: "/contact" },
@@ -112,29 +112,46 @@ export default function Navbar() {
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-1 md:flex">
           {NAV_LINKS.map((link) => {
-            const isActive = pathname === link.href;
+            const isActive = link.children
+              ? pathname.startsWith("/ai-technologies")
+              : pathname === link.href;
             return (
               <div key={link.label} className="group relative">
-                <Link
-                  href={link.href}
-                  className="relative flex items-center gap-1 px-3.5 py-2 text-base font-medium transition-colors"
-                  style={{
-                    color: isActive ? theme.secondary : theme.textMuted,
-                  }}
-                >
-                  {link.label}
-                  {link.children && (
+                {link.children ? (
+                  // Parent label has no page of its own — it only toggles the
+                  // dropdown. Clicking it shouldn't navigate anywhere.
+                  <span
+                    className="relative flex cursor-default items-center gap-1 px-3.5 py-2 text-base font-medium transition-colors"
+                    style={{ color: isActive ? theme.secondary : theme.textMuted }}
+                  >
+                    {link.label}
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180" aria-hidden="true">
                       <path d="m6 9 6 6 6-6" />
                     </svg>
-                  )}
-                  <span
-                    className={`absolute inset-x-3 -bottom-0.5 h-[2px] origin-left transition-transform duration-300 ${
-                      isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                    }`}
-                    style={{ backgroundColor: theme.accent }}
-                  />
-                </Link>
+                    <span
+                      className={`absolute inset-x-3 -bottom-0.5 h-[2px] origin-left transition-transform duration-300 ${
+                        isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                      }`}
+                      style={{ backgroundColor: theme.accent }}
+                    />
+                  </span>
+                ) : (
+                  <Link
+                    href={link.href}
+                    className="relative flex items-center gap-1 px-3.5 py-2 text-base font-medium transition-colors"
+                    style={{
+                      color: isActive ? theme.secondary : theme.textMuted,
+                    }}
+                  >
+                    {link.label}
+                    <span
+                      className={`absolute inset-x-3 -bottom-0.5 h-[2px] origin-left transition-transform duration-300 ${
+                        isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                      }`}
+                      style={{ backgroundColor: theme.accent }}
+                    />
+                  </Link>
+                )}
 
                 {link.children && (
                   <div
@@ -215,22 +232,41 @@ export default function Navbar() {
         >
           <div className="flex flex-col space-y-1">
             {NAV_LINKS.map((link, i) => {
-              const isActive = pathname === link.href;
+              const isActive = link.children
+                ? pathname.startsWith("/ai-technologies")
+                : pathname === link.href;
               return (
                 <div key={link.label}>
                   <div className="flex items-center">
-                    <Link
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      style={{
-                        transitionDelay: isOpen ? `${i * 50}ms` : "0ms",
-                        backgroundColor: isActive ? withAlpha(theme.accent, 0.08) : "transparent",
-                        color: isActive ? theme.primary : theme.textMuted,
-                      }}
-                      className="flex-1 translate-y-0 rounded-lg px-3 py-2.5 text-base font-medium transition-all duration-300"
-                    >
-                      {link.label}
-                    </Link>
+                    {link.children ? (
+                      // Parent label has no page of its own — tapping it just
+                      // toggles the submenu below instead of navigating.
+                      <button
+                        type="button"
+                        onClick={() => setMobileSubOpen((v) => !v)}
+                        style={{
+                          transitionDelay: isOpen ? `${i * 50}ms` : "0ms",
+                          backgroundColor: isActive ? withAlpha(theme.accent, 0.08) : "transparent",
+                          color: isActive ? theme.primary : theme.textMuted,
+                        }}
+                        className="flex-1 translate-y-0 rounded-lg px-3 py-2.5 text-left text-base font-medium transition-all duration-300"
+                      >
+                        {link.label}
+                      </button>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        onClick={() => setIsOpen(false)}
+                        style={{
+                          transitionDelay: isOpen ? `${i * 50}ms` : "0ms",
+                          backgroundColor: isActive ? withAlpha(theme.accent, 0.08) : "transparent",
+                          color: isActive ? theme.primary : theme.textMuted,
+                        }}
+                        className="flex-1 translate-y-0 rounded-lg px-3 py-2.5 text-base font-medium transition-all duration-300"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                     {link.children && (
                       <button
                         type="button"

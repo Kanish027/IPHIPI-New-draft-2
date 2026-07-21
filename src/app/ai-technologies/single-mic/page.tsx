@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import TechSubpageHero from "@/components/TechSubpageHero";
 import { OneMicSolution } from "@/components/TechDeepDive";
+import AudioProcessingFlow from "@/components/AudioProcessingFlow";
 import { theme } from "@/lib/theme";
 
 export const metadata: Metadata = {
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function SingleMicPage() {
   return (
-    <main className="flex-1 pb-28 transition-colors duration-500" style={{ backgroundColor: theme.pageBg }}>
+    <main className="flex-1 overflow-x-hidden pb-28 transition-colors duration-500" style={{ backgroundColor: theme.pageBg }}>
       <TechSubpageHero
         eyebrow="Single Mic Speech Enhancement"
         title="Built for the Noises of Everyday Life"
@@ -21,6 +22,9 @@ export default function SingleMicPage() {
       <div className="mx-auto max-w-6xl px-4 lg:px-6">
         <OneMicSolution />
       </div>
+
+      {/* How the chip works — sits at the close of the deep-dive, as the
+          technical payoff after the DSP/AI-suppression breakdown above. */}
     </main>
   );
 }

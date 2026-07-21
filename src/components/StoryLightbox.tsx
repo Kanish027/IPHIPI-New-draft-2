@@ -8,9 +8,13 @@ import { useEffect, useRef, useState } from "react";
 export default function StoryLightbox({
   open,
   onClose,
+  src = "/our-story.mp4",
+  poster = "/our-story-poster.jpg",
 }: {
   open: boolean;
   onClose: () => void;
+  src?: string;
+  poster?: string;
 }) {
   useEffect(() => {
     if (!open) return;
@@ -40,7 +44,7 @@ export default function StoryLightbox({
         className="flex h-[calc(100%-3.5rem)] cursor-pointer items-center justify-center px-6 pb-14"
         onClick={(e) => e.target === e.currentTarget && onClose()}
       >
-        <StoryPlayer />
+        <StoryPlayer src={src} poster={poster} />
       </div>
     </div>
   );
@@ -52,7 +56,7 @@ function formatTime(seconds: number) {
   return `${m}:${s}`;
 }
 
-function StoryPlayer() {
+function StoryPlayer({ src, poster }: { src: string; poster: string }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(true);
@@ -104,8 +108,8 @@ function StoryPlayer() {
     >
       <video
         ref={videoRef}
-        src="/our-story.mp4"
-        poster="/our-story-poster.jpg"
+        src={src}
+        poster={poster}
         loop
         playsInline
         muted={muted}
