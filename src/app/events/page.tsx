@@ -541,7 +541,7 @@ export default function EventsPage() {
             Where you can find us next
           </h2>
 
-          <div className="mt-10 space-y-5">
+          <div className="mt-10  space-y-5">
             {UPCOMING.map((event) => (
               <div
                 key={event.name}
