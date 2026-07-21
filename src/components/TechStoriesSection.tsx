@@ -400,9 +400,9 @@ function GlimpseVideoBlock() {
 
 export default function TechStoriesSection() {
   return (
-    <section className="px-4 py-20 lg:px-6">
+    <section className="px-4 py-10 lg:px-6">
       <div className="mx-auto max-w-5xl">
-        
+{/*         
         <div className="mx-auto mb-16 flex max-w-4xl flex-col items-center text-center">
           <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5">
             <p className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: theme.accent }}>
@@ -422,7 +422,7 @@ export default function TechStoriesSection() {
             extends into multimodal intelligence, agentic systems, and connected ecosystems that
             will shape the next generation of human–AI interaction.
           </p>
-        </div>
+        </div> */}
 
         <div className="mt-12">
           {TECH_STORIES.map((story, i) => (

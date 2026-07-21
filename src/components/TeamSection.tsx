@@ -476,7 +476,7 @@ export default function TeamSection() {
             className="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
             style={{ color: theme.textHeading }}
           >
-            The minds behind<br className="hidden sm:block" /> the platform
+            The Minds Behind<br className="hidden sm:block" /> The Platform
           </h2>
           <p
             className="mx-auto mt-4 max-w-2xl text-base leading-relaxed"
