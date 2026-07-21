@@ -24,7 +24,7 @@ const CHANNELS = [
   },
   {
     title: "General",
-    email: "hello@iphipi.com",
+    email: "marketing@iphipi.com",
     description: "Press, careers, and everything else.",
   },
 ];
@@ -108,8 +108,7 @@ export default function ContactPage() {
               Send us a message
             </h2>
             <p className="mt-3 max-w-sm text-zinc-500">
-              Tell us a bit about what you&apos;re working on. We typically
-              reply within one to two business days.
+              Tell us a bit about what you&apos;re working on.
             </p>
 
             <div className="mt-10 space-y-8">

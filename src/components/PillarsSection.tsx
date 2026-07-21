@@ -23,9 +23,9 @@ const PILLARS = [
     heading: "Stay focused. Let intelligence handle the rest.",
     body: "Meetings create more than conversations—they create tasks. IPHIPI Work Intelligence manages notes, translations, reminders, follow-ups, and presentations, so professionals stay focused on the conversation during every meeting.",
     images: [
-      "/samples/Work Intelligence_New.png",
-      "https://picsum.photos/seed/work-intelligence-b/700/900",
-      "https://picsum.photos/seed/work-intelligence-c/700/900",
+      "/samples/Work Intelligence_1.png",
+      "/samples/Work Intelligence_2.png",
+      "/samples/Work Intelligence_3 copy.png",
     ],
     stats: [
       { value: "Metric", label: "Less context-switching" },

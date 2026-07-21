@@ -441,10 +441,7 @@ export default function ResearchPage() {
 
       <ResearchHero />
 
-      <div className="mx-auto max-w-6xl px-4 lg:px-6">
-        {/* ============================= */}
-        {/* Work Intelligence              */}
-        {/* ============================= */}
+      {/* <div className="mx-auto max-w-6xl px-4 lg:px-6">
         <section id="work-intelligence" className="mt-28 scroll-mt-24">
           <Eyebrow>Work Intelligence</Eyebrow>
           <h2 className="mt-3 max-w-2xl text-subhead font-semibold tracking-tight">
@@ -483,7 +480,6 @@ export default function ResearchPage() {
             </div>
           </div>
 
-          {/* Technology visualization cards — dynamically tracking Secondary theme color */}
           <div
             className="mt-10 rounded-xl p-6 text-white sm:p-8 transition-colors duration-500"
             style={{ backgroundColor: ACTIVE_THEME.secondary }}
@@ -541,12 +537,12 @@ export default function ResearchPage() {
             </div>
           </div>
         </section>
-      </div>
+      </div> */}
 
       {/* ============================= */}
       {/* Living Intelligence            */}
       {/* ============================= */}
-      <section
+      {/* <section
         id="living-intelligence"
         className="mt-28 scroll-mt-24 px-4 py-24 text-white transition-colors duration-500 lg:px-6"
         style={{ backgroundColor: ACTIVE_THEME.secondary }}
@@ -621,12 +617,9 @@ export default function ResearchPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <div className="mx-auto max-w-6xl px-4 lg:px-6">
-        {/* ============================= */}
-        {/* Personal Intelligence          */}
-        {/* ============================= */}
+      {/* <div className="mx-auto max-w-6xl px-4 lg:px-6">
         <section id="personal-intelligence" className="mt-28 scroll-mt-24">
           <Eyebrow>Personal Intelligence</Eyebrow>
           <h2 className="mt-3 max-w-2xl text-subhead font-semibold tracking-tight">
@@ -653,9 +646,6 @@ export default function ResearchPage() {
           </div>
         </section>
 
-        {/* ============================= */}
-        {/* Spatial Intelligence — contained box */}
-        {/* ============================= */}
         <section id="spatial-intelligence" className="relative mt-28 scroll-mt-24 overflow-hidden rounded-xl">
           <div
             className="relative min-h-[70vh] w-full"
@@ -704,9 +694,6 @@ export default function ResearchPage() {
           </div>
         </section>
 
-        {/* ============================= */}
-        {/* Roadmap — audio intelligence today, agentic AI tomorrow */}
-        {/* ============================= */}
         <section id="roadmap" className="mt-28 scroll-mt-24">
           <Eyebrow>Roadmap</Eyebrow>
           <h2 className="mt-3 max-w-2xl text-subhead font-semibold tracking-tight">
@@ -722,9 +709,6 @@ export default function ResearchPage() {
             user goes.
           </p>
 
-          {/* Cards — one accent color only, reserved for "Today"; Next and
-              Tomorrow stay neutral so the set reads as a single clean system,
-              not a multi-color traffic light. */}
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {ROADMAP_STEPS.map((step, i) => {
               const isToday = step.stage === "Today";
@@ -764,7 +748,7 @@ export default function ResearchPage() {
             })}
           </div>
         </section>
-      </div>
+      </div> */}
 
       <TechStoriesSection />
 
