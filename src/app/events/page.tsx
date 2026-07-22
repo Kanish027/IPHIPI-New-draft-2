@@ -413,13 +413,19 @@ export default function EventsPage() {
             Where we&apos;ve been
           </h2>
 
-          <div className="mt-10 space-y-8">
-            {PAST.map((event) =>
+          {/* One outer box for all past events — each event is a row inside
+              it (a "sub box" pair: text + video), divided by internal
+              borders, instead of separate cards with gaps between them. */}
+          <div
+            className="mt-10 overflow-hidden rounded-xl border"
+            style={{ borderColor: theme.borderInactive }}
+          >
+            {PAST.map((event, i) =>
               event.videos ? (
                 // --- GALLERY MODE (Multiple Videos) ---
                 <div
                   key={event.name}
-                  className="grid overflow-hidden rounded-xl border lg:grid-cols-2"
+                  className={`grid lg:grid-cols-2 ${i > 0 ? "border-t" : ""}`}
                   style={{ borderColor: theme.borderInactive }}
                 >
                   {/* Left Column: Text */}
@@ -441,14 +447,19 @@ export default function EventsPage() {
                     </p>
                   </div>
 
-                  {/* Right Column: Videos */}
-                  <div 
-                    className="flex flex-col gap-5 border-b p-6 sm:p-10 lg:order-2 lg:border-b-0 lg:border-l order-1" 
+                  {/* Right Column: Videos — centered in the column instead of
+                      pinned to the top, so a shorter video block doesn't
+                      leave an awkward empty gap below it. */}
+                  <div
+                    className="flex flex-col justify-center gap-5 border-b p-6 sm:p-10 lg:order-2 lg:border-b-0 lg:border-l order-1"
                     style={{ borderColor: theme.borderInactive, backgroundColor: "rgba(0, 0, 0, 0.02)" }}
                   >
                     {event.videos.map((clip) => (
                       <div key={clip.label}>
-                        <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black shadow-sm">
+                        <div
+                          className="relative aspect-video w-full overflow-hidden rounded-lg border bg-black shadow-sm"
+                          style={{ borderColor: theme.borderInactive }}
+                        >
                           <video
                             src={clip.src}
                             poster={clip.poster}
@@ -471,7 +482,7 @@ export default function EventsPage() {
                 // --- SINGLE MEDIA MODE (1 Image/Video) ---
                 <div
                   key={event.name}
-                  className="grid overflow-hidden rounded-xl border lg:grid-cols-2"
+                  className={`grid lg:grid-cols-2 ${i > 0 ? "border-t" : ""}`}
                   style={{ borderColor: theme.borderInactive }}
                 >
                   {/* Left Column: Text */}

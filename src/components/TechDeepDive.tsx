@@ -455,6 +455,7 @@ function InfoCard({
   imageSide = "right",
   layout = "split",
   stackOrder = "text-first",
+  bare = false,
 }: {
   icon: ReactNode;
   eyebrow: string;
@@ -464,6 +465,7 @@ function InfoCard({
   imageSide?: "left" | "right";
   layout?: "split" | "stacked";
   stackOrder?: "text-first" | "image-first";
+  bare?: boolean;
 }) {
   const textBlock = (
     <div className="flex flex-col justify-center p-6 sm:p-8 md:p-10">
@@ -501,44 +503,48 @@ function InfoCard({
     </div>
   );
 
+  const inner = image ? (
+    layout === "stacked" ? (
+      <div className="flex flex-col">
+        {stackOrder === "image-first" ? (
+          <>
+            {imageBlock}
+            {textBlock}
+          </>
+        ) : (
+          <>
+            {textBlock}
+            {imageBlock}
+          </>
+        )}
+      </div>
+    ) : (
+      <div className="grid md:grid-cols-2">
+        {imageSide === "left" ? (
+          <>
+            {imageBlock}
+            {textBlock}
+          </>
+        ) : (
+          <>
+            {textBlock}
+            {imageBlock}
+          </>
+        )}
+      </div>
+    )
+  ) : (
+    textBlock
+  );
+
+  if (bare) return inner;
+
   return (
     <div
       className="overflow-hidden rounded-2xl"
       style={{ backgroundColor: ACTIVE_THEME.cardBg }}
     >
-      {image ? (
-        layout === "stacked" ? (
-          <div className="flex flex-col">
-            {stackOrder === "image-first" ? (
-              <>
-                {imageBlock}
-                {textBlock}
-              </>
-            ) : (
-              <>
-                {textBlock}
-                {imageBlock}
-              </>
-            )}
-          </div>
-        ) : (
-          <div className="grid md:grid-cols-2">
-            {imageSide === "left" ? (
-              <>
-                {imageBlock}
-                {textBlock}
-              </>
-            ) : (
-              <>
-                {textBlock}
-                {imageBlock}
-              </>
-            )}
-          </div>
-        )
-      ) : (
-        textBlock
-      )}
+      {inner}
     </div>
   );
 }
@@ -733,27 +739,37 @@ export function OneMicSolution() {
           />
         </div>
 
-        <InfoCard
-          icon={DspIcon}
-          eyebrow="DSP-Driven Voice Enhancement"
-          title="Natural speech, even in extreme noise"
-          layout="stacked"
-          tagline="Effective voice enhancement requires more than suppressing background noise. IPHIPI's single-microphone ENC combines AI noise suppression with DSP-based post-processing to refine the enhanced signal and preserve the natural characteristics of the speaker's voice. The result is clearer and more intelligible speech without making it sound heavily processed."
-          image="/tech/single-mic/ai-noise-suppression-flow.png"
-          // Removed the duplicate image prop here so it doesn't render twice,
-          // unless you explicitly want it inside the card as well!
-        />
-
-        {/* <AudioProcessingFlow /> */}
-
-        <InfoCard
-          icon={ShieldIcon}
-          eyebrow="AI-Based Noise Suppression That Defines Clarity"
-          title="Adaptive Noise Suppression for Real-World Chaos"
-          layout="stacked"
-          tagline="IPHIPI's single-microphone ENC is engineered to maintain clear speech even in the most challenging acoustic environments. It effectively suppresses complex, dynamic noise such as overlapping café chatter, heavy traffic, and construction activity, where sound patterns are constantly shifting. The AI-based separation engine continuously adapts in real time, isolating the speaker's voice from rapidly changing background noise. The result is a conversation that sounds as though it is taking place in a quiet environment, even when it is not."
-          image="/tech/single-mic/Noise Suppression That Defines Clarity.png"
-        />
+        <div
+          className="overflow-hidden rounded-2xl border"
+          style={{
+            borderColor: theme.borderInactive,
+            backgroundColor: ACTIVE_THEME.cardBg,
+          }}
+        >
+          <InfoCard
+            bare
+            icon={DspIcon}
+            eyebrow="DSP-Driven Voice Enhancement"
+            title="Natural speech, even in extreme noise"
+            layout="stacked"
+            tagline="Effective voice enhancement requires more than suppressing background noise. IPHIPI's single-microphone ENC combines AI noise suppression with DSP-based post-processing to refine the enhanced signal and preserve the natural characteristics of the speaker's voice. The result is clearer and more intelligible speech without making it sound heavily processed."
+            image="/tech/single-mic/ai-noise-suppression-flow.png"
+          />
+          <div
+            className="border-t"
+            style={{ borderColor: theme.borderInactive }}
+          >
+            <InfoCard
+              bare
+              icon={ShieldIcon}
+              eyebrow="AI-Based Noise Suppression That Defines Clarity"
+              title="Adaptive Noise Suppression for Real-World Chaos"
+              layout="stacked"
+              tagline="IPHIPI's single-microphone ENC is engineered to maintain clear speech even in the most challenging acoustic environments. It effectively suppresses complex, dynamic noise such as overlapping café chatter, heavy traffic, and construction activity, where sound patterns are constantly shifting. The AI-based separation engine continuously adapts in real time, isolating the speaker's voice from rapidly changing background noise. The result is a conversation that sounds as though it is taking place in a quiet environment, even when it is not."
+              image="/tech/single-mic/Noise Suppression That Defines Clarity.png"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -770,50 +786,23 @@ export function TwoMicSolution() {
         tagline="Harsh noise conditions require more than a single view of the acoustic environment. IPHIPI's two-microphone ENC combines signals from the talk microphone and feedback microphone to improve voice capture and provide the AI engine with complementary information about the wearer's speech."
       /> */}
 
-      <div className="mt-8">
+      <div
+        className="mt-8 overflow-hidden rounded-2xl border"
+        style={{
+          borderColor: theme.borderInactive,
+          backgroundColor: ACTIVE_THEME.cardBg,
+        }}
+      >
         <InfoCard
+          bare
           icon={FusionIcon}
           eyebrow="Clean, Natural Speech"
           title="Natural Voice Clarity, Powered by Dual-Microphone AI"
           tagline="Through dual-microphone sensor fusion, AI-based speech separation, and DSP post-processing, the system suppresses severe environmental noise without over-processing the speech. It preserves the speaker's natural tone, clarity, and vocal characteristics, delivering intelligible and comfortable voice transmission in heavy traffic, strong wind, café babble, subway environments, and the presence of nearby interfering talkers."
           image="/tech/dual-mic/clean-natural-speech.png"
         />
-      </div>
 
-      <div className="mt-8 flex flex-col gap-6">
-        {/* <div className="overflow-hidden rounded-2xl" style={{ backgroundColor: ACTIVE_THEME.cardBg }}>
-          <div className="grid md:grid-cols-2">
-            <div className="flex flex-col justify-center p-6 sm:p-8 md:p-10">
-              <div
-                className="flex h-11 w-11 items-center justify-center rounded-xl"
-                style={{ backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12), color: ACTIVE_THEME.accent }}
-              >
-                {ShieldIcon}
-              </div>
-              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: ACTIVE_THEME.accent }}>
-                Interfering-Talker Suppression
-              </p>
-              <h3 className="mt-2 text-lg font-semibold tracking-tight sm:text-xl" style={{ color: ACTIVE_THEME.secondary }}>
-                Preserve the wearer. Reject surrounding conversations.
-              </h3>
-              <p className="mt-3 leading-relaxed text-zinc-500">
-                Unlike traffic, wind, or machinery noise, nearby conversations contain speech that
-                closely resembles the wearer&apos;s voice, making them one of the most challenging
-                noise sources to suppress. In offices, homes, cafés, contact centres, and shared
-                workspaces, multiple people often speak simultaneously. IPHIPI&apos;s dual-microphone
-                fusion engine uses the distinct acoustic relationship of the wearer&apos;s voice across
-                the talk and feedback microphones to separate it from nearby talkers. This allows the
-                primary speaker&apos;s voice to pass through clearly while removing conversations and
-                competing voices in the surrounding environment.
-              </p>
-            </div>
-            <div className="relative min-h-[360px] md:min-h-[420px]" style={{ backgroundColor: theme.primary }}>
-              <Image src="/tech/dual-mic/interfering-talker.png" alt="Interfering-talker suppression" fill className="object-contain p-4" />
-            </div>
-          </div>
-        </div> */}
-
-        <div className="overflow-hidden rounded-2xl">
+        <div className="border-t" style={{ borderColor: theme.borderInactive }}>
           <div className="grid md:grid-cols-2">
             <div
               className="relative min-h-[360px] md:min-h-[420px] order-2 md:order-1"
@@ -872,10 +861,7 @@ export function TwoMicSolution() {
           </div>
         </div>
 
-        <div
-          className="overflow-hidden rounded-2xl"
-          style={{ backgroundColor: ACTIVE_THEME.cardBg }}
-        >
+        <div className="border-t" style={{ borderColor: theme.borderInactive }}>
           <div className="grid md:grid-cols-2">
             <div className="flex flex-col justify-center p-6 sm:p-8 md:p-10">
               <div
@@ -927,7 +913,7 @@ export function TwoMicSolution() {
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-2xl">
+        <div className="border-t" style={{ borderColor: theme.borderInactive }}>
           <div className="grid md:grid-cols-2">
             <div
               className="relative min-h-[360px] md:min-h-[420px] order-2 md:order-1"
@@ -999,11 +985,14 @@ export function FarFieldSolution() {
         tagline="Business voice interfaces often operate in acoustically challenging environments where the speaker is not close to the microphone. In drive-thrus, kiosks, smart home devices, and other far-field systems, speech must be captured clearly despite distance, background noise, reverberation, and competing sounds. IPHIPI's far-field speech enhancement is designed to improve distant voice capture by isolating speech from surrounding noise and enhancing the quality of the desired signal. Through AI-based noise suppression and speech enhancement, the system makes human speech clearer for listeners while also delivering cleaner input for ASR and event prediction systems. IPHIPI's far-field pipeline enhances distant speech, suppresses environmental noise, and improves downstream performance for both human listening and machine understanding."
       /> */}
 
-      <div className="mt-8 flex flex-col gap-6">
-        <div
-          className="overflow-hidden rounded-2xl"
-          style={{ backgroundColor: ACTIVE_THEME.cardBg }}
-        >
+      <div
+        className="mt-8 overflow-hidden rounded-2xl border"
+        style={{
+          borderColor: theme.borderInactive,
+          backgroundColor: ACTIVE_THEME.cardBg,
+        }}
+      >
+        <div>
           <div className="grid md:grid-cols-2">
             <div className="flex flex-col justify-center p-6 sm:p-8 md:p-10">
               <div
@@ -1058,10 +1047,7 @@ export function FarFieldSolution() {
             </div>
           </div>
         </div>
-        <div
-          className="overflow-hidden rounded-2xl"
-          style={{ backgroundColor: ACTIVE_THEME.cardBg }}
-        >
+        <div className="border-t" style={{ borderColor: theme.borderInactive }}>
           <div className="grid md:grid-cols-2">
             <div
               className="relative min-h-[360px] md:min-h-[420px] order-2 md:order-1"
@@ -1139,11 +1125,14 @@ export function KeywordSpottingSolution() {
         />
       </div>
 
-      <div className="mt-8 flex flex-col gap-6">
-        <div
-          className="overflow-hidden rounded-2xl"
-          style={{ backgroundColor: ACTIVE_THEME.cardBg }}
-        >
+      {/* One outer box for all three cards — each is a row inside it,
+          divided by internal borders, instead of separate cards with gaps
+          between them. */}
+      <div
+        className="mt-8 overflow-hidden rounded-2xl border"
+        style={{ borderColor: theme.borderInactive, backgroundColor: ACTIVE_THEME.cardBg }}
+      >
+        <div>
           <div className="grid md:grid-cols-2">
             <div className="flex flex-col justify-center p-6 sm:p-8 md:p-10">
               <div
@@ -1188,10 +1177,7 @@ export function KeywordSpottingSolution() {
             </div>
           </div>
         </div>
-        <div
-          className="overflow-hidden rounded-2xl"
-          style={{ backgroundColor: ACTIVE_THEME.cardBg }}
-        >
+        <div className="border-t" style={{ borderColor: theme.borderInactive }}>
           <div className="grid md:grid-cols-2">
             <div
               className="relative min-h-[360px] md:min-h-[420px] order-2 md:order-1"
@@ -1241,40 +1227,52 @@ export function KeywordSpottingSolution() {
             </div>
           </div>
         </div>
-        <div
-          className="rounded-2xl p-6 sm:p-8"
-          style={{ backgroundColor: ACTIVE_THEME.cardBg }}
-        >
-          <div
-            className="flex h-11 w-11 items-center justify-center rounded-xl"
-            style={{
-              backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12),
-              color: ACTIVE_THEME.accent,
-            }}
-          >
-            {FusionIcon}
+        <div className="border-t" style={{ borderColor: theme.borderInactive }}>
+          <div className="grid md:grid-cols-2">
+            <div className="flex flex-col justify-center p-6 sm:p-8 md:p-10">
+              <div
+                className="flex h-11 w-11 items-center justify-center rounded-xl"
+                style={{
+                  backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12),
+                  color: ACTIVE_THEME.accent,
+                }}
+              >
+                {FusionIcon}
+              </div>
+              <p
+                className="mt-4 text-xs font-semibold uppercase tracking-[0.2em]"
+                style={{ color: ACTIVE_THEME.accent }}
+              >
+                Brand-Customizable KWS
+              </p>
+              <h3
+                className="mt-2 text-lg font-semibold tracking-tight sm:text-xl"
+                style={{ color: ACTIVE_THEME.secondary }}
+              >
+                One Technology, tailored to every brand
+              </h3>
+              <p className="mt-3 leading-relaxed text-zinc-500">
+                IPHIPI&apos;s keyword-spotting technology can be adapted to
+                different products and brand identities. Using the brand&apos;s
+                preferred wake phrase and representative speech data, the KWS model
+                can be fine-tuned to recognize custom wake words and commands while
+                maintaining low-power, on-device operation. This enables brands to
+                create a distinctive voice experience without developing the
+                complete KWS pipeline from scratch.
+              </p>
+            </div>
+            <div
+              className="relative min-h-[360px] md:min-h-[420px]"
+              style={{ backgroundColor: theme.primary }}
+            >
+              <Image
+                src="/tech/keyword-spotting/brand-customizable-kws.jpeg"
+                alt="Brand-customizable KWS — one platform, tailored to every brand"
+                fill
+                className="object-contain p-4"
+              />
+            </div>
           </div>
-          <p
-            className="mt-4 text-xs font-semibold uppercase tracking-[0.2em]"
-            style={{ color: ACTIVE_THEME.accent }}
-          >
-            Brand-Customizable KWS
-          </p>
-          <h3
-            className="mt-2 text-lg font-semibold tracking-tight sm:text-xl"
-            style={{ color: ACTIVE_THEME.secondary }}
-          >
-            One Technology, tailored to every brand
-          </h3>
-          <p className="mt-3 max-w-2xl leading-relaxed text-zinc-500">
-            IPHIPI&apos;s keyword-spotting technology can be adapted to
-            different products and brand identities. Using the brand&apos;s
-            preferred wake phrase and representative speech data, the KWS model
-            can be fine-tuned to recognize custom wake words and commands while
-            maintaining low-power, on-device operation. This enables brands to
-            create a distinctive voice experience without developing the
-            complete KWS pipeline from scratch.
-          </p>
         </div>
       </div>
     </div>

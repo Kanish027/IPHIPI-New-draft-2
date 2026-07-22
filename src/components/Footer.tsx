@@ -202,10 +202,10 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:hello@iphipi.com"
+                  href="mailto:marketing@iphipi.com"
                   className="theme-footer-link transition-colors duration-300"
                 >
-                  hello@iphipi.com
+                 marketing@iphipi.com
                 </a>
               </li>
             </ul>
