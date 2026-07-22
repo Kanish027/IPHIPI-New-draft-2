@@ -470,7 +470,7 @@ function InfoCard({
   const textBlock = (
     <div className="flex flex-col justify-center p-6 sm:p-8 md:p-10">
       <div
-        className="flex h-11 w-11 items-center justify-center rounded-xl"
+        className="flex h-12 w-12 items-center justify-center rounded-xl shadow-sm"
         style={{
           backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12),
           color: ACTIVE_THEME.accent,
@@ -479,13 +479,13 @@ function InfoCard({
         {icon}
       </div>
       <p
-        className="mt-4 text-xs font-semibold uppercase tracking-[0.2em]"
+        className="mt-5 text-xs font-semibold uppercase tracking-[0.2em]"
         style={{ color: ACTIVE_THEME.accent }}
       >
         {eyebrow}
       </p>
       <h3
-        className="mt-2 text-lg font-semibold tracking-tight sm:text-xl"
+        className="mt-2 text-xl font-semibold tracking-tight sm:text-2xl"
         style={{ color: ACTIVE_THEME.secondary }}
       >
         {title}
@@ -496,10 +496,15 @@ function InfoCard({
 
   const imageBlock = image && (
     <div
-      className="relative min-h-[360px] md:min-h-[420px]"
+      className="group relative min-h-[360px] overflow-hidden md:min-h-[420px]"
       style={{ backgroundColor: theme.primary }}
     >
-      <Image src={image} alt={title} fill className="object-contain p-4" />
+      <Image
+        src={image}
+        alt={title}
+        fill
+        className="object-contain p-4 transition-transform duration-500 group-hover:scale-[1.03]"
+      />
     </div>
   );
 
@@ -654,28 +659,33 @@ export function IphipiFeatures() {
       title: "Optimized for dynamic acoustic environments.",
     },
     {
-      icon: WaveformPersonIcon,
+      icon: ShieldIcon,
       title: "Real-Time Dereverberation",
     },
     {
-      icon: NetworkNodesIcon,
+      icon: DspIcon,
       title: "Environment-Adaptive Processing",
     },
   ];
 
   return (
     <div className="mt-10">
-      {/* Header — same eyebrow/heading typography as the rest of the page,
-          instead of a pill badge that introduced a different visual language. */}
+      {/* Header — eyebrow with a short accent rule, then heading/tagline. */}
       <div className="max-w-2xl">
-        <p
-          className="text-xs font-semibold uppercase tracking-[0.2em]"
-          style={{ color: ACTIVE_THEME.accent }}
-        >
-          IPHIPI Technology
-        </p>
+        <div className="flex items-center gap-3">
+          <span
+            className="h-px w-8"
+            style={{ backgroundColor: ACTIVE_THEME.accent }}
+          />
+          <p
+            className="text-xs font-semibold uppercase tracking-[0.2em]"
+            style={{ color: ACTIVE_THEME.accent }}
+          >
+            IPHIPI Technology
+          </p>
+        </div>
         <h3
-          className="mt-3 text-subhead font-semibold tracking-tight"
+          className="mt-4 text-subhead font-semibold tracking-tight"
           style={{ color: ACTIVE_THEME.secondary }}
         >
           Next-Generation Speech Enhancement
@@ -685,18 +695,26 @@ export function IphipiFeatures() {
         </p>
       </div>
 
-      {/* Feature grid — same light card language as the InfoCards below
-          (warm card background, accent-tinted icon chip) instead of a dark
-          block that broke the page's otherwise consistent light theme. */}
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+      {/* Feature grid — numbered stat cards with a lift-on-hover interaction
+          for a more modern, tactile feel than a flat static grid. */}
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {items.map((item, index) => (
           <div
             key={index}
-            className="flex items-center gap-4 rounded-xl p-4"
-            style={{ backgroundColor: ACTIVE_THEME.cardBg }}
+            className="group relative flex flex-col gap-4 rounded-2xl border p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+            style={{
+              backgroundColor: ACTIVE_THEME.cardBg,
+              borderColor: theme.borderInactive,
+            }}
           >
+            <span
+              className="absolute right-4 top-4 text-xs font-semibold tabular-nums"
+              style={{ color: withAlpha(ACTIVE_THEME.secondary, 0.2) }}
+            >
+              {String(index + 1).padStart(2, "0")}
+            </span>
             <div
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
+              className="flex h-11 w-11 items-center justify-center rounded-xl transition-colors duration-300 group-hover:text-white"
               style={{
                 backgroundColor: withAlpha(ACTIVE_THEME.accent, 0.12),
                 color: ACTIVE_THEME.accent,
@@ -705,7 +723,7 @@ export function IphipiFeatures() {
               {item.icon}
             </div>
             <p
-              className="flex-1 text-sm font-medium leading-snug"
+              className="text-sm font-medium leading-snug"
               style={{ color: ACTIVE_THEME.secondary }}
             >
               {item.title}
@@ -740,7 +758,7 @@ export function OneMicSolution() {
         </div>
 
         <div
-          className="overflow-hidden rounded-2xl border"
+          className="overflow-hidden rounded-3xl border shadow-sm"
           style={{
             borderColor: theme.borderInactive,
             backgroundColor: ACTIVE_THEME.cardBg,
@@ -751,7 +769,7 @@ export function OneMicSolution() {
             icon={DspIcon}
             eyebrow="DSP-Driven Voice Enhancement"
             title="Natural speech, even in extreme noise"
-            layout="stacked"
+            imageSide="right"
             tagline="Effective voice enhancement requires more than suppressing background noise. IPHIPI's single-microphone ENC combines AI noise suppression with DSP-based post-processing to refine the enhanced signal and preserve the natural characteristics of the speaker's voice. The result is clearer and more intelligible speech without making it sound heavily processed."
             image="/tech/single-mic/ai-noise-suppression-flow.png"
           />
@@ -764,7 +782,7 @@ export function OneMicSolution() {
               icon={ShieldIcon}
               eyebrow="AI-Based Noise Suppression That Defines Clarity"
               title="Adaptive Noise Suppression for Real-World Chaos"
-              layout="stacked"
+              imageSide="left"
               tagline="IPHIPI's single-microphone ENC is engineered to maintain clear speech even in the most challenging acoustic environments. It effectively suppresses complex, dynamic noise such as overlapping café chatter, heavy traffic, and construction activity, where sound patterns are constantly shifting. The AI-based separation engine continuously adapts in real time, isolating the speaker's voice from rapidly changing background noise. The result is a conversation that sounds as though it is taking place in a quiet environment, even when it is not."
               image="/tech/single-mic/Noise Suppression That Defines Clarity.png"
             />
@@ -787,7 +805,7 @@ export function TwoMicSolution() {
       /> */}
 
       <div
-        className="mt-8 overflow-hidden rounded-2xl border"
+        className="mt-8 overflow-hidden rounded-3xl border shadow-sm"
         style={{
           borderColor: theme.borderInactive,
           backgroundColor: ACTIVE_THEME.cardBg,
@@ -986,7 +1004,7 @@ export function FarFieldSolution() {
       /> */}
 
       <div
-        className="mt-8 overflow-hidden rounded-2xl border"
+        className="mt-8 overflow-hidden rounded-3xl border shadow-sm"
         style={{
           borderColor: theme.borderInactive,
           backgroundColor: ACTIVE_THEME.cardBg,
@@ -1129,7 +1147,7 @@ export function KeywordSpottingSolution() {
           divided by internal borders, instead of separate cards with gaps
           between them. */}
       <div
-        className="mt-8 overflow-hidden rounded-2xl border"
+        className="mt-8 overflow-hidden rounded-3xl border shadow-sm"
         style={{ borderColor: theme.borderInactive, backgroundColor: ACTIVE_THEME.cardBg }}
       >
         <div>
