@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import TechSubpageHero from "@/components/TechSubpageHero";
 import { OneMicSolution } from "@/components/TechDeepDive";
-import AudioProcessingFlow from "@/components/AudioProcessingFlow";
 import { theme } from "@/lib/theme";
 
 export const metadata: Metadata = {
@@ -22,9 +21,6 @@ export default function SingleMicPage() {
       <div className="mx-auto max-w-6xl px-4 lg:px-6">
         <OneMicSolution />
       </div>
-
-      {/* How the chip works — sits at the close of the deep-dive, as the
-          technical payoff after the DSP/AI-suppression breakdown above. */}
     </main>
   );
 }

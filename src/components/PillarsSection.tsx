@@ -210,13 +210,27 @@ export default function PillarsSection() {
     return () => window.removeEventListener("keydown", handleKey);
   }, [goPrev, goNext]);
 
+  // Auto-revolving carousel — the section should keep moving on its own so
+  // visitors can take in every scenario without having to click through, and
+  // pauses while the visitor is hovering/interacting with it.
+  const [isPaused, setIsPaused] = useState(false);
+  useEffect(() => {
+    if (isPaused) return;
+    const id = window.setInterval(() => {
+      goNext();
+    }, 6000);
+    return () => window.clearInterval(id);
+  }, [isPaused, goNext]);
+
   return (
     <section
-      className="relative overflow-hidden px-4 py-28 transition-colors duration-500 lg:px-6"
+      className="relative overflow-hidden px-4 py-20 transition-colors duration-500 lg:px-6"
       style={{ backgroundColor: ACTIVE_THEME.sectionBg }}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
     >
       <div className="relative mx-auto max-w-6xl">
-        <div className="max-w-3xl">
+        <div className="mx-auto max-w-3xl text-center">
           <p
             className="inline-flex items-center gap-3 rounded-full border border-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] backdrop-blur-sm transition-colors duration-500"
             style={{ backgroundColor: ACTIVE_THEME.accentMuted, color: ACTIVE_THEME.accent }}
@@ -229,10 +243,10 @@ export default function PillarsSection() {
             Go about your Life. Anywhere. With Ease.
           </h2>
 
-          <p className="mt-5 max-w-2xl transition-colors duration-500 sm:text-lg sm:leading-8" style={{ color: ACTIVE_THEME.textBody }}>
+          <p className="mx-auto mt-5 max-w-2xl transition-colors duration-500 sm:text-lg sm:leading-8" style={{ color: ACTIVE_THEME.textBody }}>
             From busy mornings to important meetings to travel, your devices
-            stay ready to listen. They understand your world, so you can focus
-            on living in it.
+            stay ready to listen. They understand your world. So you can focus
+            on living it.
           </p>
         </div>
 
@@ -270,11 +284,11 @@ export default function PillarsSection() {
               </p>
 
               <Link
-                href={`/research#${pillar.id}`}
+                href={`/experience#${pillar.id}`}
                 className="mt-8 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-transform hover:-translate-y-0.5"
                 style={{ backgroundColor: ACTIVE_THEME.textHeading, color: ACTIVE_THEME.sectionBg }}
               >
-                Explore the research
+                Explore More
                 <ArrowIcon direction="right" />
               </Link>
             </div>
@@ -307,27 +321,29 @@ export default function PillarsSection() {
           </div>
         </div>
 
-        {/* Position dots */}
-        <div className="mt-8 flex items-center justify-center gap-2">
-          {PILLARS.map((p, index) => (
-            <button
-              key={p.id}
-              type="button"
-              onClick={() => goTo(index, index >= activeIndex ? 1 : -1)}
-              aria-label={`Go to ${p.title}`}
-              className="h-1.5 w-10 overflow-hidden rounded-full transition-colors duration-300"
-              style={{ backgroundColor: withAlpha(theme.textLight, 0.15) }}
-            >
-              <span
-                className="block h-full rounded-full transition-transform duration-500 ease-out"
+        {/* Pillar tabs — labeled and gold-forward so the active scenario is
+            unmistakable at a glance, instead of a barely-visible dot row. */}
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5">
+          {PILLARS.map((p, index) => {
+            const isActive = index === activeIndex;
+            return (
+              <button
+                key={p.id}
+                type="button"
+                onClick={() => goTo(index, index >= activeIndex ? 1 : -1)}
+                aria-label={`Go to ${p.title}`}
+                aria-current={isActive}
+                className="relative overflow-hidden rounded-full border px-5 py-2 text-xs font-semibold uppercase tracking-[0.14em] transition-all duration-300"
                 style={{
-                  backgroundColor: ACTIVE_THEME.accent,
-                  transform: index === activeIndex ? "scaleX(1)" : "scaleX(0)",
-                  transformOrigin: "left",
+                  borderColor: isActive ? ACTIVE_THEME.accent : withAlpha(ACTIVE_THEME.accent, 0.35),
+                  backgroundColor: isActive ? ACTIVE_THEME.accent : withAlpha(ACTIVE_THEME.accent, 0.1),
+                  color: isActive ? ACTIVE_THEME.sectionBg : ACTIVE_THEME.accent,
                 }}
-              />
-            </button>
-          ))}
+              >
+                {p.title}
+              </button>
+            );
+          })}
         </div>
       </div>
     </section>

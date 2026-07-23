@@ -27,6 +27,15 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
+  // Close mobile menu on route change — adjusted during render (React's
+  // recommended pattern for "state that depends on a prop changing")
+  // instead of a useEffect, which would cause an extra cascading render.
+  const [lastPathname, setLastPathname] = useState(pathname);
+  if (pathname !== lastPathname) {
+    setLastPathname(pathname);
+    setIsOpen(false);
+  }
+
   // Hide navbar on scroll down, show on scroll up
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -67,11 +76,6 @@ export default function Navbar() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
-
-  // Close mobile menu on route change
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
 
   return (
     <header

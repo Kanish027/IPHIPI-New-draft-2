@@ -13,6 +13,7 @@ export default function PageBanner({
   titleClassName = "text-[clamp(var(--text-headline),5vw,var(--text-display))]",
   gradient,
   children,
+  compact = false,
 }: {
   eyebrow: string;
   title: string;
@@ -20,15 +21,21 @@ export default function PageBanner({
   titleClassName?: string;
   gradient?: string; // If passed, overrides the default dynamic theme gradient
   children?: ReactNode;
+  // When true, the banner sizes to its content instead of forcing a full
+  // viewport-height frame — for pages where this banner isn't the very
+  // first thing on the page (e.g. R&D, which opens with a Vision Statement
+  // above it), a full 100vh hero here would just be empty space.
+  compact?: boolean;
 }) {
-  
-  // Construct the default background using dynamic theme variables instead of hardcoded tailwind classes
-  const defaultBackground = `radial-gradient(circle at 25% 15%, ${withAlpha(theme.accent, 0.14)}, transparent 55%), linear-gradient(160deg, ${theme.cardWarm} 0%, ${theme.pageBg} 60%)`;
+
+  // Plain warm-white gradient — no gold tint, so every subpage hero reads
+  // as the same warm-white background instead of a muted-gold shade.
+  const defaultBackground = `linear-gradient(160deg, ${theme.cardWarm} 0%, ${theme.pageBg} 60%)`;
 
   return (
     <section
-      className={`relative flex items-center overflow-hidden px-4 pb-24 pt-32 transition-all duration-500 lg:px-6 ${
-        children ? "min-h-[100vh]" : "min-h-[100vh]"
+      className={`relative flex items-center overflow-hidden px-4 transition-all duration-500 lg:px-6 ${
+        compact ? "py-16" : "min-h-[100vh] pb-24 pt-32"
       } ${gradient ? gradient : ""}`}
       style={!gradient ? { background: defaultBackground } : undefined}
     >

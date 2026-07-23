@@ -131,6 +131,12 @@ export default function ScrollHero(props: ScrollHeroProps) {
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
+    // Slightly faster than real time — ambient background footage reads as
+    // more energetic/dynamic than real-time playback. Set directly (rather
+    // than relying on the loadedmetadata event) since the browser can start
+    // loading the video from server-rendered markup before React attaches
+    // its listeners, letting that event fire before we'd ever catch it.
+    v.playbackRate = 1.3;
     const io = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) v.play().catch(() => {});
       else v.pause();
@@ -184,6 +190,11 @@ export default function ScrollHero(props: ScrollHeroProps) {
               muted
               loop
               playsInline
+              // Slightly faster than real time — ambient background footage
+              // reads as more energetic/dynamic than real-time playback.
+              onLoadedMetadata={(e) => {
+                e.currentTarget.playbackRate = 1.3;
+              }}
               className="h-full w-full object-cover"
             />
           ) : image ? (

@@ -10,6 +10,8 @@ const AREA_LINKS = [
 export default function ResearchHero() {
   return (
     <PageBanner
+      compact
+      gradient="bg-white"
       eyebrow="R&D at IPHIPI"
       title="Engineering Intelligent Interactions"
       tagline=" Our engineering begins with the fundamentals of intelligent interaction. We have

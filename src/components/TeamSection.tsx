@@ -124,27 +124,120 @@ function ChipFrame({ photo, name, size }: { photo?: string; name: string; size: 
   );
 }
 
-function LeadershipCard({ member, onOpen }: { member: Member; onOpen: () => void }) {
-  const blurb = member.visible.split(". ")[0].trim().replace(/\.$/, "") + ".";
+function LeadershipCard({
+  member,
+  isOpen,
+  onToggle,
+}: {
+  member: Member;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  // CEO/CTO get a longer, more substantial preview (up to 5 lines of their
+  // full bio) instead of just the first sentence — they're the two people
+  // visitors are most likely to want to read about before clicking through.
+  const showFullPreview = member.name === "Pankaj Joshi" || member.name === "Ashrith Deshpande";
+  const blurb = showFullPreview
+    ? member.visible
+    : member.visible.split(". ")[0].trim().replace(/\.$/, "") + ".";
 
   return (
-    <button
-      type="button"
-      onClick={onOpen}
-      aria-label={`Read more about ${member.name}`}
-      className="group relative flex h-full w-full cursor-pointer flex-col items-start overflow-hidden rounded-xl p-7 text-left transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl"
+    <div
+      className="group relative flex w-full flex-col overflow-hidden rounded-2xl text-left shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
       style={{
-        background: theme.surfaceCard,
-        border: `1px solid ${withAlpha(theme.accent, 0.2)}`,
+        background: `linear-gradient(160deg, ${withAlpha(theme.accent, 0.05)} 0%, ${theme.surfaceCard} 30%)`,
+        border: `1px solid ${withAlpha(theme.accent, 0.25)}`,
       }}
     >
-      <span
-        className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
-        style={{ background: `linear-gradient(90deg, transparent, ${theme.accent}, transparent)` }}
-      />
-      <div className="flex items-center gap-4">
-        <ChipFrame photo={member.photo} name={member.name} size={64} />
-        <div>
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-label={`${isOpen ? "Collapse" : "Expand"} ${member.name}'s profile`}
+        className="flex w-full cursor-pointer flex-col items-start p-8 text-left"
+      >
+        <div className="flex w-full items-center gap-4">
+          <ChipFrame photo={member.photo} name={member.name} size={72} />
+          <div className="flex-1">
+            <p className="text-xl font-semibold tracking-tight" style={{ color: theme.textHeading }}>
+              {member.name}
+            </p>
+            <p
+              className="mt-1 text-xs font-medium uppercase tracking-[0.14em]"
+              style={{ color: theme.accent, fontFamily: "var(--font-mono, monospace)" }}
+            >
+              {member.title}
+            </p>
+          </div>
+          <span
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors duration-300"
+            style={{ backgroundColor: withAlpha(theme.accent, isOpen ? 0.9 : 0.12) }}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className={`h-4 w-4 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+              style={{ color: isOpen ? theme.surfaceDark : theme.accent }}
+              aria-hidden="true"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </span>
+        </div>
+        <p
+          className={`mt-5 text-sm leading-relaxed ${isOpen ? "" : showFullPreview ? "line-clamp-5" : "line-clamp-3"}`}
+          style={{ color: theme.textBody }}
+        >
+          {isOpen ? member.visible : blurb}
+        </p>
+        {!isOpen && (
+          <span
+            className="mt-5 text-xs font-semibold uppercase tracking-[0.14em] transition-colors duration-300 group-hover:opacity-100"
+            style={{ color: theme.accent }}
+          >
+            Read full profile →
+          </span>
+        )}
+      </button>
+
+      {/* Inline dropdown — expands in place on the same page instead of
+          navigating away or opening an overlay. */}
+      <div
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+          isOpen ? "max-h-[600px]" : "max-h-0"
+        }`}
+      >
+        <div
+          className="space-y-3 border-t px-8 pb-8 pt-5 text-sm leading-relaxed"
+          style={{ borderColor: withAlpha(theme.accent, 0.15), color: theme.textBody }}
+        >
+          {member.rest?.map((p, i) => <p key={i}>{p}</p>)}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// A distinct, full-width treatment for leaders whose bio is a single short
+// paragraph (e.g. the COO) — rather than force them into the same card
+// shape as the expandable CEO/CTO cards, where the height mismatch reads as
+// broken layout, this reads as an intentional "also on the team" row.
+function LeadershipSpotlight({ member }: { member: Member }) {
+  return (
+    <div
+      className="flex w-full flex-col items-start rounded-2xl p-8 text-left shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+      style={{
+        background: `linear-gradient(160deg, ${withAlpha(theme.accent, 0.05)} 0%, ${theme.surfaceCard} 30%)`,
+        border: `1px solid ${withAlpha(theme.accent, 0.25)}`,
+      }}
+    >
+      <div className="flex w-full items-center gap-4">
+        <ChipFrame photo={member.photo} name={member.name} size={72} />
+        <div className="flex-1">
           <p className="text-xl font-semibold tracking-tight" style={{ color: theme.textHeading }}>
             {member.name}
           </p>
@@ -156,106 +249,86 @@ function LeadershipCard({ member, onOpen }: { member: Member; onOpen: () => void
           </p>
         </div>
       </div>
-      <p className="mt-5 line-clamp-3 text-sm leading-relaxed" style={{ color: theme.textBody }}>
-        {blurb}
+      <p className="mt-5 max-w-2xl text-sm leading-relaxed" style={{ color: theme.textBody }}>
+        {member.visible}
       </p>
-      <span
-        className="mt-5 text-xs font-medium uppercase tracking-[0.14em] transition-colors duration-300"
-        style={{ color: theme.textMuted }}
-      >
-        Read full profile →
-      </span>
-    </button>
-  );
-}
-
-function EngineerCard({ member, onOpen }: { member: Member; onOpen: () => void }) {
-  const blurb = member.visible.split(". ")[0].trim().replace(/\.$/, "") + ".";
-
-  return (
-    <div className="relative flex flex-col items-center">
-      <span aria-hidden className="h-6 w-[1px]" style={{ background: theme.accent }} />
-      <button
-        type="button"
-        onClick={onOpen}
-        aria-label={`Read more about ${member.name}`}
-        className="flex h-full w-full cursor-pointer flex-col items-center gap-4 rounded-xl p-6 text-center transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl"
-        style={{
-          background: theme.surfaceCard,
-          border: `1px solid ${withAlpha(theme.accent, 0.2)}`,
-        }}
-      >
-        <ChipFrame photo={member.photo} name={member.name} size={56} />
-        <div>
-          <p className="text-base font-semibold tracking-tight" style={{ color: theme.textHeading }}>
-            {member.name}
-          </p>
-          <p
-            className="mt-1 text-[11px] font-medium uppercase tracking-[0.12em]"
-            style={{ color: theme.accent, fontFamily: "var(--font-mono, monospace)" }}
-          >
-            {member.title}
-          </p>
-        </div>
-        <p className="line-clamp-2 text-xs leading-relaxed" style={{ color: theme.textBody }}>
-          {blurb}
-        </p>
-      </button>
     </div>
   );
 }
 
-function TeamModal({ member, onClose }: { member: Member; onClose: () => void }) {
+function EngineerCard({
+  member,
+  isOpen,
+  onToggle,
+}: {
+  member: Member;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  const blurb = member.visible.split(". ")[0].trim().replace(/\.$/, "") + ".";
+
   return (
-    <div
-      className="fixed inset-0 z-50 flex cursor-pointer items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
-      onClick={onClose}
-    >
+    <div className="relative flex flex-col items-center">
+      <span aria-hidden className="h-6 w-[1px]" style={{ background: withAlpha(theme.accent, 0.4) }} />
       <div
-        className="relative w-full max-w-2xl cursor-default rounded-2xl p-6 shadow-2xl sm:grid sm:grid-cols-[160px_1fr] sm:p-8"
+        className="w-full overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
         style={{
-          background: theme.surfaceDark,
-          border: `1px solid ${theme.accent}`,
+          background: `linear-gradient(160deg, ${withAlpha(theme.accent, 0.05)} 0%, ${theme.surfaceCard} 30%)`,
+          border: `1px solid ${withAlpha(theme.accent, 0.25)}`,
         }}
-        onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
-          onClick={onClose}
-          aria-label="Close"
-          className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-white/10"
-          style={{ color: theme.textMuted }}
+          onClick={onToggle}
+          aria-expanded={isOpen}
+          aria-label={`${isOpen ? "Collapse" : "Expand"} ${member.name}'s profile`}
+          className="flex w-full cursor-pointer flex-col items-center gap-4 p-7 text-center"
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
-            <path d="M18 6 6 18M6 6l12 12" />
-          </svg>
+          <ChipFrame photo={member.photo} name={member.name} size={60} />
+          <div>
+            <p className="text-base font-semibold tracking-tight" style={{ color: theme.textHeading }}>
+              {member.name}
+            </p>
+            <p
+              className="mt-1 text-[11px] font-medium uppercase tracking-[0.12em]"
+              style={{ color: theme.accent, fontFamily: "var(--font-mono, monospace)" }}
+            >
+              {member.title}
+            </p>
+          </div>
+          <p className={`text-xs leading-relaxed ${isOpen ? "" : "line-clamp-2"}`} style={{ color: theme.textBody }}>
+            {isOpen ? member.visible : blurb}
+          </p>
+          <span
+            className="flex h-7 w-7 items-center justify-center rounded-full transition-colors duration-300"
+            style={{ backgroundColor: withAlpha(theme.accent, isOpen ? 0.9 : 0.12) }}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className={`h-3.5 w-3.5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+              style={{ color: isOpen ? theme.surfaceDark : theme.accent }}
+              aria-hidden="true"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </span>
         </button>
 
-        <div className="flex justify-center sm:block">
-          <ChipFrame photo={member.photo} name={member.name} size={128} />
-        </div>
-
-        <div className="mt-4 sm:mt-0">
-          <p
-            className="border-l-2 pl-3 text-lg font-semibold tracking-tight"
-            style={{ borderColor: theme.accent, color: theme.textHeading }}
-          >
-            {member.name}
-          </p>
-          <p
-            className="mt-1 pl-3.5 text-xs font-medium uppercase tracking-[0.14em]"
-            style={{ color: theme.accent, fontFamily: "var(--font-mono, monospace)" }}
-          >
-            {member.title}
-          </p>
+        <div
+          className={`overflow-hidden transition-all duration-300 ease-in-out ${
+            isOpen ? "max-h-[600px]" : "max-h-0"
+          }`}
+        >
           <div
-            className="mt-4 max-h-64 space-y-3 overflow-y-auto pl-3.5 pr-1 text-sm leading-relaxed"
-            style={{ color: theme.textBody }}
+            className="space-y-3 border-t px-6 pb-7 pt-4 text-left text-xs leading-relaxed"
+            style={{ borderColor: withAlpha(theme.accent, 0.15), color: theme.textBody }}
           >
-            <p>{member.visible}</p>
-            {member.rest?.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
+            {member.rest?.map((p, i) => <p key={i}>{p}</p>)}
           </div>
         </div>
       </div>
@@ -451,15 +524,17 @@ function NeuralNetworkCanvas() {
 }
 
 export default function TeamSection() {
-  const [openMember, setOpenMember] = useState<Member | null>(null);
+  // Tracks which single card is expanded (by name) — an inline dropdown,
+  // not a modal, so the profile reveals in place on the same page.
+  const [openName, setOpenName] = useState<string | null>(null);
+  const toggle = (name: string) => setOpenName((cur) => (cur === name ? null : name));
 
   return (
     <section
       id="team"
-      className="relative mt-28 scroll-mt-24 overflow-hidden px-4 py-24 lg:px-6"
+      className="relative mt-16 scroll-mt-24 overflow-hidden px-4 py-16 lg:px-6"
       style={{
         background: theme.primary,
-        minHeight: "100vh",
       }}
     >
       <NeuralNetworkCanvas />
@@ -489,10 +564,19 @@ export default function TeamSection() {
 
         <div className="relative mx-auto mt-12 h-8 w-[1px]" style={{ background: theme.accent }} aria-hidden />
 
-        <div className="mt-2 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8">
-          {LEADERSHIP.map((member) => (
-            <LeadershipCard key={member.name} member={member} onOpen={() => setOpenMember(member)} />
-          ))}
+        <div className="mt-2 grid grid-cols-1 items-start gap-6 sm:grid-cols-2 sm:gap-8">
+          {LEADERSHIP.map((member) =>
+            member.rest?.length ? (
+              <LeadershipCard
+                key={member.name}
+                member={member}
+                isOpen={openName === member.name}
+                onToggle={() => toggle(member.name)}
+              />
+            ) : (
+              <LeadershipSpotlight key={member.name} member={member} />
+            )
+          )}
         </div>
 
         <div className="mt-24">
@@ -510,15 +594,18 @@ export default function TeamSection() {
             <div className="absolute left-0 right-0 top-0 h-[1px]" style={{ background: withAlpha(theme.accent, 0.3) }} />
           </div>
 
-          <div className="mt-0 grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-8">
+          <div className="mt-0 grid grid-cols-1 items-start gap-6 sm:grid-cols-3 sm:gap-8">
             {ENGINEERING.map((member) => (
-              <EngineerCard key={member.name} member={member} onOpen={() => setOpenMember(member)} />
+              <EngineerCard
+                key={member.name}
+                member={member}
+                isOpen={openName === member.name}
+                onToggle={() => toggle(member.name)}
+              />
             ))}
           </div>
         </div>
       </div>
-
-      {openMember && <TeamModal member={openMember} onClose={() => setOpenMember(null)} />}
     </section>
   );
 }

@@ -439,10 +439,57 @@ export default function ResearchPage() {
         }
       `}</style>
 
+      {/* Vision Statement — plain text, no imagery or banner treatment.
+          First section on the page, so pt-28 clears the fixed navbar
+          (without it, "VISION" renders directly under/behind the nav bar).
+          Plain white, matching the plain-white page background — no gradient
+          tint, so it reads as one continuous white page rather than a
+          separate colored block. */}
+      <section
+        className="px-4 pb-10 pt-28 lg:px-6"
+        style={{ backgroundColor: theme.pageBg }}
+      >
+        <div className="mx-auto max-w-3xl text-center">
+          <p
+            className="text-xs font-semibold uppercase tracking-[0.2em]"
+            style={{ color: ACTIVE_THEME.accent }}
+          >
+            Vision
+          </p>
+          <div className="mt-4 space-y-3 text-base leading-relaxed sm:text-lg" style={{ color: theme.textMuted }}>
+            <p>
+              At IPHIPI Technologies, we believe intelligence should become a
+              natural part of everyday life — not something people have to
+              stop and access, but something that stays with them.
+            </p>
+            <p>
+              As work, life, travel, and wellbeing increasingly overlap, the
+              challenge is no longer access to information — it&apos;s
+              managing attention. Human bandwidth is finite, while the world
+              continues to grow more connected, dynamic, and demanding.
+            </p>
+            <p>
+              We believe the role of intelligence is not to replace people,
+              but to extend their capacity by quietly handling the moments
+              that compete for their attention.
+            </p>
+            <p>
+              We begin with audio because every interaction starts with
+              listening. Before intelligence can understand, it must hear
+              clearly. Before it can assist, it must recognize intent. Built
+              on that foundation, our intelligence evolves beyond
+              conversation into vision, wellness, living spaces, and
+              connected wearables — creating one continuous intelligence
+              that grows with people wherever life happens.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <ResearchHero />
 
       {/* <div className="mx-auto max-w-6xl px-4 lg:px-6">
-        <section id="work-intelligence" className="mt-28 scroll-mt-24">
+        <section id="work-intelligence" className="mt-16 scroll-mt-24">
           <Eyebrow>Work Intelligence</Eyebrow>
           <h2 className="mt-3 max-w-2xl text-subhead font-semibold tracking-tight">
             Your Always-On Executive Assistant
@@ -620,7 +667,7 @@ export default function ResearchPage() {
       </section> */}
 
       {/* <div className="mx-auto max-w-6xl px-4 lg:px-6">
-        <section id="personal-intelligence" className="mt-28 scroll-mt-24">
+        <section id="personal-intelligence" className="mt-16 scroll-mt-24">
           <Eyebrow>Personal Intelligence</Eyebrow>
           <h2 className="mt-3 max-w-2xl text-subhead font-semibold tracking-tight">
             Health, Wellness &amp; Accessibility — Reimagined
@@ -646,7 +693,7 @@ export default function ResearchPage() {
           </div>
         </section>
 
-        <section id="spatial-intelligence" className="relative mt-28 scroll-mt-24 overflow-hidden rounded-xl">
+        <section id="spatial-intelligence" className="relative mt-16 scroll-mt-24 overflow-hidden rounded-xl">
           <div
             className="relative min-h-[70vh] w-full"
             style={{ backgroundColor: ACTIVE_THEME.secondary }}
@@ -694,7 +741,7 @@ export default function ResearchPage() {
           </div>
         </section>
 
-        <section id="roadmap" className="mt-28 scroll-mt-24">
+        <section id="roadmap" className="mt-16 scroll-mt-24">
           <Eyebrow>Roadmap</Eyebrow>
           <h2 className="mt-3 max-w-2xl text-subhead font-semibold tracking-tight">
             From Audio Intelligence Today to Proactive AI Tomorrow

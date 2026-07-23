@@ -48,6 +48,7 @@ export default function MissionSection() {
   useEffect(() => {
     const v = cardVideoRef.current;
     if (!v) return;
+    v.playbackRate = 1.3;
     const io = new IntersectionObserver(([entry]) => {
       setCardVisible(entry.isIntersecting);
       if (entry.isIntersecting) v.play().catch(() => {});
@@ -58,7 +59,7 @@ export default function MissionSection() {
   }, []);
 
   return (
-    <section className="px-4 py-32 lg:px-6">
+    <section className="px-4 py-20 lg:px-6">
       {/* Scroll-revealed statement — sizes match sunday.ai's heading-2:
           1.75rem base, 2.625rem ≥64rem, 3rem ≥105rem */}
       <p
@@ -100,6 +101,11 @@ export default function MissionSection() {
             loop
             playsInline
             preload={cardVisible ? "auto" : "none"}
+            // Slightly faster than real time — a muted preview loop reads as
+            // more energetic than real-time playback.
+            onLoadedMetadata={(e) => {
+              e.currentTarget.playbackRate = 1.3;
+            }}
             className="absolute inset-0 h-full w-full object-cover opacity-90"
           />
           <span className="absolute z-10 inline-flex items-center gap-1.5 rounded-full border border-transparent bg-white/20 py-2.5 pl-2.5 pr-3.5 text-sm font-medium leading-none text-white backdrop-blur-xl transition-colors group-hover:bg-white group-hover:text-black">

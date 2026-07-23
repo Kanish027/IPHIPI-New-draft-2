@@ -671,8 +671,8 @@ export function IphipiFeatures() {
   return (
     <div className="mt-10">
       {/* Header — eyebrow with a short accent rule, then heading/tagline. */}
-      <div className="max-w-2xl">
-        <div className="flex items-center gap-3">
+      <div className="mx-auto max-w-2xl text-center">
+        <div className="flex items-center justify-center gap-3">
           <span
             className="h-px w-8"
             style={{ backgroundColor: ACTIVE_THEME.accent }}

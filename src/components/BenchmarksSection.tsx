@@ -59,47 +59,47 @@ const WAVE_BARS = [
 
 export default function BenchmarksSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [progress, setProgress] = useState(0);
+  const [active, setActive] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [inView, setInView] = useState(false);
 
+  // Only auto-shift while the section is actually on screen — the section
+  // sits far down the page, so a timer that runs from page load would burn
+  // through several stats before the visitor ever scrolls to it. Polled on
+  // an interval rather than scroll/IntersectionObserver events so it can't
+  // miss a resize or a scroll that happens without firing those events.
   useEffect(() => {
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const el = sectionRef.current;
-        if (!el) return;
-        const total = el.offsetHeight - window.innerHeight;
-        const scrolled = -el.getBoundingClientRect().top;
-        setProgress(Math.min(1, Math.max(0, scrolled / total)));
-      });
+    const check = () => {
+      const el = sectionRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const visible = rect.top < window.innerHeight * 0.75 && rect.bottom > window.innerHeight * 0.25;
+      setInView(visible);
     };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      cancelAnimationFrame(raf);
-    };
+    check();
+    const id = window.setInterval(check, 400);
+    return () => window.clearInterval(id);
   }, []);
 
-  const active = Math.min(STATS.length - 1, Math.floor(progress * STATS.length));
+  // Auto-shifting stat stage — fast cadence for a dynamic, high-energy feel
+  // instead of requiring the visitor to scroll through each stat manually.
+  useEffect(() => {
+    if (isPaused || !inView) return;
+    const id = window.setInterval(() => {
+      setActive((i) => (i + 1) % STATS.length);
+    }, 2200);
+    return () => window.clearInterval(id);
+  }, [isPaused, inView]);
 
-  const jumpTo = (i: number) => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const total = el.offsetHeight - window.innerHeight;
-    window.scrollTo({
-      top: el.offsetTop + ((i + 0.5) / STATS.length) * total,
-      behavior: "smooth",
-    });
-  };
+  const jumpTo = (i: number) => setActive(i);
 
   return (
-    <section 
-      ref={sectionRef} 
-      className="relative h-[420vh] transition-colors duration-500"
+    <section
+      ref={sectionRef}
+      className="relative py-16 transition-colors duration-500"
       style={{ backgroundColor: ACTIVE_THEME.pageBg }}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
     >
       <style>{`
         .rail-item-inactive:hover .rail-number {
@@ -111,11 +111,11 @@ export default function BenchmarksSection() {
         }
       `}</style>
       <div
-        className="sticky top-0 flex h-screen flex-col overflow-hidden transition-colors duration-500"
+        className="flex flex-col overflow-hidden transition-colors duration-500"
         style={{ color: ACTIVE_THEME.secondary }}
       >
         {/* Header */}
-        <div className="mx-auto w-full max-w-6xl px-4 pt-24 lg:px-6">
+        <div className="mx-auto w-full max-w-6xl px-4 text-center lg:px-6">
           <p
             className="text-xs font-semibold uppercase tracking-[0.2em] transition-colors duration-500"
             style={{ color: ACTIVE_THEME.accent }}
@@ -123,7 +123,7 @@ export default function BenchmarksSection() {
             Benchmark Analysis
           </p>
           <h2
-            className="mt-3 text-subhead font-semibold tracking-tight transition-colors duration-500"
+            className="mx-auto mt-3 max-w-2xl text-subhead font-semibold tracking-tight transition-colors duration-500"
             style={{ color: ACTIVE_THEME.secondary }}
           >
             Raising the Bar on Audio Performance
@@ -131,13 +131,13 @@ export default function BenchmarksSection() {
         </div>
 
         {/* Stat stage */}
-        <div className="relative mx-auto w-full max-w-6xl flex-1 px-4 lg:px-6">
+        <div className="relative mx-auto mt-16 h-[320px] w-full max-w-6xl px-4 sm:h-[280px] lg:px-6">
           {STATS.map((stat, i) => {
             const state = i === active ? "active" : i < active ? "past" : "next";
             return (
               <div
                 key={stat.label}
-                className="absolute inset-x-4 top-1/2 transition-all duration-500 ease-out lg:inset-x-6"
+                className="absolute inset-x-4 top-1/2 transition-all duration-300 ease-out lg:inset-x-6"
                 style={{
                   opacity: state === "active" ? 1 : 0,
                   transform: `translateY(calc(-50% + ${

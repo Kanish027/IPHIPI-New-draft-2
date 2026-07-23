@@ -365,7 +365,7 @@ const PAST: PastEvent[] = [
   {
     name: "Hongkong 2025",
     date: "January 2025",
-    location: "Las Vegas, NV",
+    location: "Hong Kong",
     image: "/samples/events-banner.jpg",
     body: "IPHIPI showcased adaptive audio intelligence live on the show floor — real-time single-mic noise suppression demos on glasses, running fully on-device with partner hardware.",
     // Placeholder clips — replace with the actual CES 2026 footage once it's edited.
@@ -403,15 +403,17 @@ export default function EventsPage() {
       <div className="mx-auto max-w-6xl px-4 lg:px-6">
         {/* Past */}
         <section id="past" className="mt-28">
-          <p
-            className="text-xs font-semibold uppercase tracking-[0.2em]"
-            style={{ color: ACTIVE_THEME.secondary }}
-          >
-            Past events
-          </p>
-          <h2 className="mt-3 text-subhead font-semibold tracking-tight">
-            Where we&apos;ve been
-          </h2>
+          <div className="text-center">
+            <p
+              className="text-xs font-semibold uppercase tracking-[0.2em]"
+              style={{ color: ACTIVE_THEME.secondary }}
+            >
+              Past events
+            </p>
+            <h2 className="mx-auto mt-3 max-w-2xl text-subhead font-semibold tracking-tight">
+              Where we&apos;ve been
+            </h2>
+          </div>
 
           {/* One outer box for all past events — each event is a row inside
               it (a "sub box" pair: text + video), divided by internal
@@ -542,15 +544,17 @@ export default function EventsPage() {
 
         {/* Upcoming */}
         <section id="upcoming" className="mt-28">
-          <p
-            className="text-xs font-semibold uppercase tracking-[0.2em]"
-            style={{ color: ACTIVE_THEME.secondary }}
-          >
-            Upcoming
-          </p>
-          <h2 className="mt-3 text-subhead font-semibold tracking-tight">
-            Where you can find us next
-          </h2>
+          <div className="text-center">
+            <p
+              className="text-xs font-semibold uppercase tracking-[0.2em]"
+              style={{ color: ACTIVE_THEME.secondary }}
+            >
+              Upcoming
+            </p>
+            <h2 className="mx-auto mt-3 max-w-2xl text-subhead font-semibold tracking-tight">
+              Where you can find us next
+            </h2>
+          </div>
 
           <div className="mt-10  space-y-5">
             {UPCOMING.map((event) => (

@@ -235,12 +235,6 @@ type TechStory = {
 
 const TECH_STORIES: TechStory[] = [
   {
-    label: "Our Vision",
-    body: "To make intelligence as natural as conversation, seamlessly extending across people, devices, spaces, and everyday experiences.",
-    video: "/our-story-preview.mp4",
-    poster: "/our-story-poster.jpg",
-  },
-  {
     label: "Environmental Noise Cancellation",
     body: "Two microphones, one clear voice — even in wind and traffic.",
     video: "/our-story-preview.mp4",
@@ -269,6 +263,7 @@ function TechStoryCard({ story, index }: { story: TechStory; index: number }) {
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
+    v.playbackRate = 1.3;
     const io = new IntersectionObserver(([entry]) => {
       setVisible(entry.isIntersecting);
       if (entry.isIntersecting) v.play().catch(() => {});
@@ -312,6 +307,9 @@ function TechStoryCard({ story, index }: { story: TechStory; index: number }) {
             loop
             playsInline
             preload={visible ? "auto" : "none"}
+            onLoadedMetadata={(e) => {
+              e.currentTarget.playbackRate = 1.3;
+            }}
             className="absolute inset-0 h-full w-full object-cover opacity-90 transition-transform duration-700 ease-out group-hover:scale-[1.03]"
           />
           <span className="absolute z-10 inline-flex items-center gap-1.5 rounded-full border border-transparent bg-white/20 py-2.5 pl-2.5 pr-3.5 text-sm font-medium leading-none text-white backdrop-blur-xl transition-colors group-hover:bg-white group-hover:text-black">
@@ -339,6 +337,7 @@ function GlimpseVideoBlock() {
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
+    v.playbackRate = 1.3;
     const io = new IntersectionObserver(([entry]) => {
       setVisible(entry.isIntersecting);
       if (entry.isIntersecting) v.play().catch(() => {});
@@ -380,6 +379,9 @@ function GlimpseVideoBlock() {
             loop
             playsInline
             preload={visible ? "auto" : "none"}
+            onLoadedMetadata={(e) => {
+              e.currentTarget.playbackRate = 1.3;
+            }}
             className="absolute inset-0 h-full w-full object-cover opacity-80 transition-transform duration-1000 ease-out group-hover:scale-[1.03]"
           />
           <span className="absolute z-10 inline-flex items-center gap-2 rounded-full border border-transparent bg-white/20 py-2.5 pl-3 pr-4 text-sm font-medium leading-none text-white backdrop-blur-xl transition-colors group-hover:bg-white group-hover:text-black">

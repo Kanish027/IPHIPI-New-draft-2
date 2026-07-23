@@ -23,25 +23,27 @@ type Tech = {
 const TECHS: Tech[] = [
   {
     label: "Single Mic Solution",
-    image: "/samples/Single Mic.png",
+    // One clean shot instead of a multi-panel collage — a single photo
+    // per technology keeps the section from feeling cluttered.
+    image: "/samples/single-mic-lifestyle.png",
     heading: "Clear Through Noise",
     body: "Experience uninterrupted conversations, even in noisy environments.",
   },
   {
     label: "Dual Mic Enhancement",
-    image: "/samples/Two Mic_Sol.png",
+    image: "/samples/dual-mic-lifestyle.png",
     heading: "Clear Through Conversations",
     body: "Clear conversations, even in noisy, conversation-heavy environments.",
   },
   {
     label: "Always-On Voice Control",
-    image: "/samples/Voice Control.png",
+    image: "/samples/voice-control-lifestyle.png",
     heading: "Hands-Free Control",
     body: "Control your device hands-free with IPHIPI's Keyword Spotting, so you stay focused while your phone stays untouched.",
   },
   {
     label: "Far-Field Speech Enhancement",
-    image: "/samples/Far Field.png",
+    image: "/samples/far-field-lifestyle.png",
     heading: "Hears You From Afar",
     body: "Whether you're speaking to a smart speaker at home or a self-service kiosk, you shouldn't have to move closer or repeat your commands. IPHIPI's Far-Field Speech Enhancement enables brands to capture clear speech from a distance.",
   },
@@ -147,7 +149,7 @@ export default function TechnologiesSection() {
       // ancestor" for position:sticky descendants (the small tiles below)
       // and break their stick/release behavior. Each tile already clips
       // its own hover-zoom internally, so nothing needs section-level clipping.
-      className="relative py-28 transition-colors duration-500 md:pt-36 lg:pt-48"
+      className="relative py-20 transition-colors duration-500 md:pt-24 lg:pt-28"
       style={{ backgroundColor: ACTIVE_THEME.pageBg }}
     >
       <div
