@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import ResearchHero from "@/components/ResearchHero";
 import TeamSection from "@/components/TeamSection";
 import React from "react";
 import { theme, withAlpha } from "@/lib/theme";
-import TechStoriesSection from "@/components/TechStoriesSection";
 import PatentedTechShowcase from "@/components/PatentedTechShowcase";
+import { GlimpseVideoBlock } from "@/components/TechStoriesSection";
 
 export const metadata: Metadata = {
   title: "R&D — IPHIPI",
@@ -447,7 +446,7 @@ export default function ResearchPage() {
           tint, so it reads as one continuous white page rather than a
           separate colored block. */}
       <section
-        className="px-4 pb-10 pt-28 lg:px-6"
+        className="px-4 pb-16 pt-28 sm:pb-20 lg:px-6 lg:pb-24"
         style={{ backgroundColor: theme.pageBg }}
       >
         <div className="mx-auto max-w-3xl text-center">
@@ -486,10 +485,6 @@ export default function ResearchPage() {
           </div>
         </div>
       </section>
-
-      <ResearchHero />
-
-      <PatentedTechShowcase />
 
       {/* <div className="mx-auto max-w-6xl px-4 lg:px-6">
         <section id="work-intelligence" className="mt-16 scroll-mt-24">
@@ -800,10 +795,15 @@ export default function ResearchPage() {
         </section>
       </div> */}
 
-      <TechStoriesSection />
-
-
       <TeamSection />
+
+      <section className="px-4 py-16 lg:px-6">
+        <div className="mx-auto max-w-5xl">
+          <GlimpseVideoBlock />
+        </div>
+      </section>
+
+      <PatentedTechShowcase />
     </main>
   );
 }

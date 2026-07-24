@@ -60,7 +60,6 @@ const WAVE_BARS = [
 export default function BenchmarksSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   const [inView, setInView] = useState(false);
 
   // Only auto-shift while the section is actually on screen — the section
@@ -83,31 +82,17 @@ export default function BenchmarksSection() {
 
   // Auto-shifting stat stage — fast cadence for a dynamic, high-energy feel
   // instead of requiring the visitor to scroll through each stat manually.
+  // Deliberately NOT paused on hover: this section spans the full page
+  // width, so any hover-to-pause behavior here made the auto-advance look
+  // like it randomly stopped working whenever the cursor rested anywhere
+  // over it (e.g. while reading, scrolling, or just moving the mouse).
   useEffect(() => {
-    if (isPaused || !inView) return;
+    if (!inView) return;
     const id = window.setInterval(() => {
       setActive((i) => (i + 1) % STATS.length);
     }, 2200);
     return () => window.clearInterval(id);
-  }, [isPaused, inView]);
-
-  // Safety net: if the tab loses focus (alt-tab, switching windows, etc.)
-  // while the cursor happens to still be resting over this section, the
-  // browser never fires mouseleave — leaving isPaused stuck true forever,
-  // with no way to resume short of moving the mouse in and back out again.
-  // Clear it whenever the tab regains focus/visibility.
-  useEffect(() => {
-    const resume = () => setIsPaused(false);
-    const onVisibilityChange = () => {
-      if (!document.hidden) resume();
-    };
-    window.addEventListener("blur", resume);
-    document.addEventListener("visibilitychange", onVisibilityChange);
-    return () => {
-      window.removeEventListener("blur", resume);
-      document.removeEventListener("visibilitychange", onVisibilityChange);
-    };
-  }, []);
+  }, [inView]);
 
   const jumpTo = (i: number) => setActive(i);
 
@@ -116,8 +101,6 @@ export default function BenchmarksSection() {
       ref={sectionRef}
       className="relative py-16 transition-colors duration-500"
       style={{ backgroundColor: ACTIVE_THEME.pageBg }}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
     >
       <style>{`
         .rail-item-inactive:hover .rail-number {

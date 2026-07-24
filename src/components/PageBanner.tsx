@@ -35,7 +35,7 @@ export default function PageBanner({
   return (
     <section
       className={`relative flex items-center overflow-hidden px-4 transition-all duration-500 lg:px-6 ${
-        compact ? "py-16" : "min-h-[100vh] pb-24 pt-32"
+        compact ? "py-16 sm:py-20 lg:py-24" : "min-h-[100vh] pb-24 pt-32"
       } ${gradient ? gradient : ""}`}
       style={!gradient ? { background: defaultBackground } : undefined}
     >

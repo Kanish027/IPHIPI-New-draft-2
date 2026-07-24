@@ -329,7 +329,7 @@ function TechStoryCard({ story, index }: { story: TechStory; index: number }) {
 }
 
 // Reduced size Glimpse block
-function GlimpseVideoBlock() {
+export function GlimpseVideoBlock() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [visible, setVisible] = useState(false);
   const [open, setOpen] = useState(false);
@@ -348,7 +348,7 @@ function GlimpseVideoBlock() {
   }, []);
 
   return (
-    <div className="mt-16 border-t pt-16" style={{ borderColor: theme.borderInactive }}>
+    <div>
       <div className="mb-10 flex flex-col items-center text-center">
         <p className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: theme.accent }}>
           A Glimpse Into Tomorrow
