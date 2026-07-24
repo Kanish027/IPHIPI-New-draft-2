@@ -38,7 +38,7 @@ export default function PatentedTechShowcase() {
       </div>
 
       <div
-        className="patented-tech-scroller mt-8 flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-6 pt-2 lg:px-6"
+        className="patented-tech-scroller mx-auto mt-8 flex max-w-6xl snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-6 pt-2 lg:px-6"
         style={{ scrollbarWidth: "none" }}
       >
         {PATENTED_TECH.map((tech) => (
