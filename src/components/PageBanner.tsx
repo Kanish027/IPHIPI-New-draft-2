@@ -28,16 +28,12 @@ export default function PageBanner({
   compact?: boolean;
 }) {
 
-  // Plain warm-white gradient — no gold tint, so every subpage hero reads
-  // as the same warm-white background instead of a muted-gold shade.
-  const defaultBackground = `linear-gradient(160deg, ${theme.cardWarm} 0%, ${theme.pageBg} 60%)`;
-
   return (
     <section
       className={`relative flex items-center overflow-hidden px-4 transition-all duration-500 lg:px-6 ${
         compact ? "py-16 sm:py-20 lg:py-24" : "min-h-[100vh] pb-24 pt-32"
       } ${gradient ? gradient : ""}`}
-      style={!gradient ? { background: defaultBackground } : undefined}
+      style={!gradient ? { backgroundColor: theme.pageBg } : undefined}
     >
       <div className="mx-auto flex w-full max-w-4xl flex-col items-center text-center">
         {/* Eyebrow pill */}
