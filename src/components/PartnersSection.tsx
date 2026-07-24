@@ -77,11 +77,13 @@ const PARTNERS: Partner[] = [
   {
     name: "iStar Tech",
     icon: (
+      // Self-hosted: the original logovtor.com URL blocks hotlinking, so the
+      // logo failed to load. Recolored from iStar's own white logo to navy.
       // eslint-disable-next-line @next/next/no-img-element
       <img
-        src="https://logovtor.com/wp-content/uploads/2020/06/istar-technology-co-ltd-logo-vector.png"
+        src="/partners/istar.png"
         alt="iStar Tech"
-        className="h-20 w-auto object-contain"
+        className="h-10 w-auto object-contain"
       />
     ),
   },

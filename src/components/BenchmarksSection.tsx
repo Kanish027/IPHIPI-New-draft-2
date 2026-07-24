@@ -91,6 +91,24 @@ export default function BenchmarksSection() {
     return () => window.clearInterval(id);
   }, [isPaused, inView]);
 
+  // Safety net: if the tab loses focus (alt-tab, switching windows, etc.)
+  // while the cursor happens to still be resting over this section, the
+  // browser never fires mouseleave — leaving isPaused stuck true forever,
+  // with no way to resume short of moving the mouse in and back out again.
+  // Clear it whenever the tab regains focus/visibility.
+  useEffect(() => {
+    const resume = () => setIsPaused(false);
+    const onVisibilityChange = () => {
+      if (!document.hidden) resume();
+    };
+    window.addEventListener("blur", resume);
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    return () => {
+      window.removeEventListener("blur", resume);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
+  }, []);
+
   const jumpTo = (i: number) => setActive(i);
 
   return (
