@@ -19,10 +19,7 @@ const PATENTED_TECH = [
 export default function PatentedTechShowcase() {
   return (
     <section className="mt-4 px-4 py-16 lg:px-6">
-      <style>{`
-        .patented-tech-scroller::-webkit-scrollbar { display: none; }
-      `}</style>
-      <div className="mx-auto max-w-6xl text-center">
+      <div className="mx-auto max-w-7xl text-center">
         <p
           className="text-xs font-semibold uppercase tracking-[0.2em]"
           style={{ color: theme.accent }}
@@ -37,14 +34,13 @@ export default function PatentedTechShowcase() {
         </h2>
       </div>
 
-      <div
-        className="patented-tech-scroller mx-auto mt-8 flex max-w-6xl snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-6 pt-2 lg:px-6"
-        style={{ scrollbarWidth: "none" }}
-      >
+      {/* Static grid — all technologies visible at once, no horizontal
+          scrolling/sliding. 2 columns on mobile, all 4 in one row from sm up. */}
+      <div className="mx-auto mt-8 grid max-w-7xl grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6">
         {PATENTED_TECH.map((tech) => (
           <div
             key={tech.label}
-            className="group relative aspect-[3/4] w-64 shrink-0 snap-start overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:w-72"
+            className="group relative aspect-[3/4] w-full overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
             style={{
               backgroundColor: theme.primary,
               border: `1px solid ${withAlpha(theme.accent, 0.25)}`,
