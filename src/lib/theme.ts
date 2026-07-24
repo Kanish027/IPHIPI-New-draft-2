@@ -65,7 +65,7 @@
  * across the site. Change a value here and it updates everywhere the
  * theme is imported; no component should ever define its own copy.
  *
- * To test a different palette, just edit the hex values below.
+ * To test a different palette, just edit the hex values below
  */
 
 export const theme = {
