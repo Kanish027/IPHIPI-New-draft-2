@@ -4,6 +4,7 @@ import TeamSection from "@/components/TeamSection";
 import React from "react";
 import { theme, withAlpha } from "@/lib/theme";
 import TechStoriesSection from "@/components/TechStoriesSection";
+import PatentedTechShowcase from "@/components/PatentedTechShowcase";
 
 export const metadata: Metadata = {
   title: "R&D — IPHIPI",
@@ -487,6 +488,8 @@ export default function ResearchPage() {
       </section>
 
       <ResearchHero />
+
+      <PatentedTechShowcase />
 
       {/* <div className="mx-auto max-w-6xl px-4 lg:px-6">
         <section id="work-intelligence" className="mt-16 scroll-mt-24">

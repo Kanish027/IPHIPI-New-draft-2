@@ -77,13 +77,13 @@ const PARTNERS: Partner[] = [
   {
     name: "iStar Tech",
     icon: (
-      // Self-hosted: the original logovtor.com URL blocks hotlinking, so the
-      // logo failed to load. Recolored from iStar's own white logo to navy.
+      // Self-hosted: the original external URL blocks hotlinking, so the
+      // logo failed to load. Saved locally from the user-supplied image.
       // eslint-disable-next-line @next/next/no-img-element
       <img
         src="/partners/istar.png"
         alt="iStar Tech"
-        className="h-10 w-auto object-contain"
+        className="h-14 w-auto object-contain"
       />
     ),
   },
