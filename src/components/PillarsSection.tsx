@@ -222,6 +222,19 @@ export default function PillarsSection() {
     return () => window.clearInterval(id);
   }, [isPaused, goNext]);
 
+  // Auto-cycle the photo fan too, faster than the pillar switch itself —
+  // so a visitor sees a couple of different photos within the ~6s a pillar
+  // is on screen, instead of the same single photo the whole time. Keyed
+  // off activeIndex so it restarts cleanly in sync whenever the pillar
+  // changes (photoIndex itself already resets to 0 via goTo).
+  useEffect(() => {
+    if (isPaused) return;
+    const id = window.setInterval(() => {
+      setPhotoIndex((i) => (i + 1) % 3);
+    }, 2500);
+    return () => window.clearInterval(id);
+  }, [isPaused, activeIndex]);
+
   return (
     <section
       className="relative overflow-hidden px-4 py-20 transition-colors duration-500 lg:px-6"

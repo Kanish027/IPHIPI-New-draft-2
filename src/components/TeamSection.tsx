@@ -48,7 +48,23 @@ const LEADERSHIP: Member[] = [
     featured: true,
     photo: `https://ui-avatars.com/api/?name=Dhruv+Gupta&background=${theme.surfaceDark.replace("#", "")}&color=${theme.accent.replace("#", "")}&size=256&bold=true`,
     visible:
-      "As COO of IPHIPI Technologies, Dhruv Gupta drives the company's operational strategy, ensuring the business scales in step with its engineering ambitions.",
+      "Dhruv Gupta is a deep-tech operator, systems strategist, and three-time entrepreneur working at the intersection of technology, innovation, and public impact. As Chief Operating Officer at IPHIPI, he leads global operations, driving execution strategy, organizational systems, and cross-functional collaboration to transform frontier technologies into scalable products and businesses. Previously, as COO of iTIC Incubator at IIT Hyderabad, he helped build one of India's leading deep-tech ecosystems through innovation programs, strategic partnerships, and commercialization initiatives. Recognized with the Gandhian Young Technology Innovator Award, Dhruv is passionate about AI, inclusive innovation, cross-border entrepreneurship, and building systems that create lasting societal impact.",
+    rest: [
+      "He currently leads Global Operations at IPHIPI as Chief Operating Officer, where he drives execution strategy, organizational systems, and cross-functional integration to translate frontier technology into scalable, real-world impact. His work centers on building operational frameworks that connect R&D, product development, partnerships, and commercialization across geographies — turning complex innovation into structured growth engines.",
+      "Previously, as Chief Operating Officer at iTIC Incubator, IIT Hyderabad, Dhruv helped build one of India's leading deep-tech incubation ecosystems. He designed flagship programs, shaped institutional innovation policy, mentored founders, and led strategic partnerships with government, industry, and academia. His leadership contributed to pioneering models such as IP commercialization through equity-linked instruments, cross-border innovation platforms like the India–Kenya Innovation Nexus, and endowment-backed incubation funding.",
+      "Across his journey as an entrepreneur and ecosystem leader, Dhruv has worked closely with startups, institutions, and technology-driven enterprises on innovation strategy, commercialization pathways, and building sustainable growth systems. His sector experience spans defense technologies, aquaculture, semiconductors, mobility, and healthtech.",
+      "Recognized with the Gandhian Young Technology Innovator Award, Dhruv brings systems thinking, product intuition, and execution discipline to building organizations that scale innovation responsibly. He is particularly driven by enabling AI for public good, inclusive innovation, and cross-border entrepreneurship.",
+      "When offline, he's usually folding intricate origami dragons, stargazing, or exploring how emerging technologies can address complex societal challenges.",
+    ],
+  },
+  {
+    name: "Wanpeng Zhang",
+    title: "Co-Founder",
+    initials: "WZ",
+    featured: true,
+    photo: `https://ui-avatars.com/api/?name=Wanpeng+Zhang&background=${theme.surfaceDark.replace("#", "")}&color=${theme.accent.replace("#", "")}&size=256&bold=true`,
+    visible:
+      "With over 20 years of leadership in the global semiconductor industry, Wanpeng Zhang combines deep technical expertise with strategic business vision across product development, marketing, sales, and corporate strategy. He has successfully transformed innovative concepts into market-ready products, aligning emerging technologies with evolving industry opportunities. Passionate about building ecosystems, leading industry standards, and driving cross-functional innovation, he thrives in entrepreneurial environments where execution matters as much as strategy. Fluent in English and Mandarin, Wanpeng brings extensive global market insight and a strong track record of delivering growth. His current focus spans AI, data centers, automotive technologies, and the next generation of intelligent computing platforms.",
   },
 ];
 
@@ -564,19 +580,21 @@ export default function TeamSection() {
 
         <div className="relative mx-auto mt-12 h-8 w-[1px]" style={{ background: theme.accent }} aria-hidden />
 
-        <div className="mt-2 grid grid-cols-1 items-start gap-6 sm:grid-cols-2 sm:gap-8">
-          {LEADERSHIP.map((member) =>
-            member.rest?.length ? (
-              <LeadershipCard
-                key={member.name}
-                member={member}
-                isOpen={openName === member.name}
-                onToggle={() => toggle(member.name)}
-              />
-            ) : (
-              <LeadershipSpotlight key={member.name} member={member} />
-            )
-          )}
+        <div className="mt-2 grid grid-cols-1 items-start gap-6 sm:grid-cols-3 sm:gap-8">
+          {LEADERSHIP.filter((m) => m.rest?.length).map((member) => (
+            <LeadershipCard
+              key={member.name}
+              member={member}
+              isOpen={openName === member.name}
+              onToggle={() => toggle(member.name)}
+            />
+          ))}
+        </div>
+
+        <div className="mx-auto mt-6 grid max-w-2xl grid-cols-1 gap-6">
+          {LEADERSHIP.filter((m) => !m.rest?.length).map((member) => (
+            <LeadershipSpotlight key={member.name} member={member} />
+          ))}
         </div>
 
         <div className="mt-24">
