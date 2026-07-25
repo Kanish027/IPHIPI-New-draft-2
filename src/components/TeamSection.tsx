@@ -64,7 +64,10 @@ const LEADERSHIP: Member[] = [
     featured: true,
     photo: `https://ui-avatars.com/api/?name=Wanpeng+Zhang&background=${theme.surfaceDark.replace("#", "")}&color=${theme.accent.replace("#", "")}&size=256&bold=true`,
     visible:
-      "With over 20 years of leadership in the global semiconductor industry, Wanpeng Zhang combines deep technical expertise with strategic business vision across product development, marketing, sales, and corporate strategy. He has successfully transformed innovative concepts into market-ready products, aligning emerging technologies with evolving industry opportunities. Passionate about building ecosystems, leading industry standards, and driving cross-functional innovation, he thrives in entrepreneurial environments where execution matters as much as strategy. Fluent in English and Mandarin, Wanpeng brings extensive global market insight and a strong track record of delivering growth. His current focus spans AI, data centers, automotive technologies, and the next generation of intelligent computing platforms.",
+      "With over 20 years of leadership in the global semiconductor industry, Wanpeng Zhang combines deep technical expertise with strategic business vision across product development, marketing, sales, and corporate strategy. He has successfully transformed innovative concepts into market-ready products, aligning emerging technologies with evolving industry opportunities.",
+    rest: [
+      "Passionate about building ecosystems, leading industry standards, and driving cross-functional innovation, he thrives in entrepreneurial environments where execution matters as much as strategy. Fluent in English and Mandarin, Wanpeng brings extensive global market insight and a strong track record of delivering growth. His current focus spans AI, data centers, automotive technologies, and the next generation of intelligent computing platforms.",
+    ],
   },
 ];
 
@@ -149,13 +152,10 @@ function LeadershipCard({
   isOpen: boolean;
   onToggle: () => void;
 }) {
-  // CEO/CTO get a longer, more substantial preview (up to 5 lines of their
-  // full bio) instead of just the first sentence — they're the two people
-  // visitors are most likely to want to read about before clicking through.
-  const showFullPreview = member.name === "Pankaj Joshi" || member.name === "Ashrith Deshpande";
-  const blurb = showFullPreview
-    ? member.visible
-    : member.visible.split(". ")[0].trim().replace(/\.$/, "") + ".";
+  // Every leadership card gets the same substantial preview (up to 5 lines
+  // of their bio) instead of just the first sentence, so the row reads as
+  // uniform rather than some members getting more visible text than others.
+  const blurb = member.visible;
 
   return (
     <div
@@ -205,7 +205,7 @@ function LeadershipCard({
           </span>
         </div>
         <p
-          className={`mt-5 text-sm leading-relaxed ${isOpen ? "" : showFullPreview ? "line-clamp-5" : "line-clamp-3"}`}
+          className={`mt-5 text-sm leading-relaxed ${isOpen ? "" : "line-clamp-5"}`}
           style={{ color: theme.textBody }}
         >
           {isOpen ? member.visible : blurb}
@@ -580,21 +580,19 @@ export default function TeamSection() {
 
         <div className="relative mx-auto mt-12 h-8 w-[1px]" style={{ background: theme.accent }} aria-hidden />
 
-        <div className="mt-2 grid grid-cols-1 items-start gap-6 sm:grid-cols-3 sm:gap-8">
-          {LEADERSHIP.filter((m) => m.rest?.length).map((member) => (
-            <LeadershipCard
-              key={member.name}
-              member={member}
-              isOpen={openName === member.name}
-              onToggle={() => toggle(member.name)}
-            />
-          ))}
-        </div>
-
-        <div className="mx-auto mt-6 grid max-w-2xl grid-cols-1 gap-6">
-          {LEADERSHIP.filter((m) => !m.rest?.length).map((member) => (
-            <LeadershipSpotlight key={member.name} member={member} />
-          ))}
+        <div className="mt-2 grid grid-cols-1 items-start gap-6 sm:grid-cols-2 sm:gap-8">
+          {LEADERSHIP.map((member) =>
+            member.rest?.length ? (
+              <LeadershipCard
+                key={member.name}
+                member={member}
+                isOpen={openName === member.name}
+                onToggle={() => toggle(member.name)}
+              />
+            ) : (
+              <LeadershipSpotlight key={member.name} member={member} />
+            )
+          )}
         </div>
 
         <div className="mt-24">
