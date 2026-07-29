@@ -146,56 +146,11 @@ const FORM_FACTORS: { label: string; icon: ReactNode }[] = [
   },
 ];
 
-/** The single scrolling lane of cells. */
-function MarqueeRow() {
-  return (
-    <div
-      className="flex overflow-hidden"
-      style={{
-        // Fades cells out into the band rather than clipping them hard.
-        maskImage:
-          "linear-gradient(to right, transparent, black 12%, black 88%, transparent)",
-        WebkitMaskImage:
-          "linear-gradient(to right, transparent, black 12%, black 88%, transparent)",
-      }}
-    >
-      <div
-        className="flex w-max"
-        style={{ animation: "iphipiMarqueeLeft 52s linear infinite" }}
-      >
-        {/* Rendered twice — the second pass is what makes -50% seamless */}
-        {[...FORM_FACTORS, ...FORM_FACTORS].map((f, i) => (
-          <div
-            key={`${f.label}-${i}`}
-            className="flex w-[168px] shrink-0 flex-col items-center gap-3.5 border-r px-4 py-9 sm:w-[208px]"
-            style={{ borderColor: withAlpha(theme.accent, 0.14) }}
-          >
-            <span style={{ color: theme.accent }}>
-              {/* The per-item `icon` is a bare set of <path>/<circle>
-                  elements — it only renders once wrapped in the <svg>
-                  that Icon provides. */}
-              <Icon>{f.icon}</Icon>
-            </span>
-            <span
-              className="whitespace-nowrap text-center text-[13px] font-medium tracking-wide"
-              style={{ color: theme.textHeading }}
-            >
-              {f.label}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 /**
  * FormFactorsSection — the device categories IPHIPI's audio stack ships on, as
- * a single scrolling lane. Keeps the editorial cell treatment (gold mark above
- * the label, hairline dividers, no card chrome) but sets it in an inset navy
- * band: on bare white the same row reads as an unfinished hairline strip.
- * Inset with visible white margin on purpose — the pillars section above is
- * also navy, and a full-bleed dark band here would visually merge into it.
+ * a single scrolling lane set in an inset navy band. The list renders twice so
+ * the -50% translate loops seamlessly; the band's edges are masked so cells
+ * fade out instead of clipping hard.
  */
 export default function FormFactorsSection() {
   return (
@@ -215,7 +170,7 @@ export default function FormFactorsSection() {
             boxShadow: `0 30px 60px -40px ${withAlpha(theme.primary, 0.9)}`,
           }}
         >
-          {/* Depth: a soft gold bloom top-right, deepening toward bottom-left */}
+          {/* Depth: gold bloom top-right, deepening toward bottom-left */}
           <div
             className="pointer-events-none absolute inset-0"
             style={{
@@ -223,8 +178,41 @@ export default function FormFactorsSection() {
             }}
           />
 
-          <div className="relative">
-            <MarqueeRow />
+          <div
+            className="relative flex overflow-hidden"
+            style={{
+              maskImage:
+                "linear-gradient(to right, transparent, black 12%, black 88%, transparent)",
+              WebkitMaskImage:
+                "linear-gradient(to right, transparent, black 12%, black 88%, transparent)",
+            }}
+          >
+            <div
+              className="flex w-max"
+              style={{ animation: "iphipiMarqueeLeft 52s linear infinite" }}
+            >
+              {/* Rendered twice — the second pass is what makes -50% seamless */}
+              {[...FORM_FACTORS, ...FORM_FACTORS].map((f, i) => (
+                <div
+                  key={`${f.label}-${i}`}
+                  className="flex w-[168px] shrink-0 flex-col items-center gap-3.5 border-r px-4 py-9 sm:w-[208px]"
+                  style={{ borderColor: withAlpha(theme.accent, 0.14) }}
+                >
+                  <span style={{ color: theme.accent }}>
+                    {/* The per-item `icon` is a bare set of <path>/<circle>
+                        elements — it only renders once wrapped in the <svg>
+                        that Icon provides. */}
+                    <Icon>{f.icon}</Icon>
+                  </span>
+                  <span
+                    className="whitespace-nowrap text-center text-[13px] font-medium tracking-wide"
+                    style={{ color: theme.textHeading }}
+                  >
+                    {f.label}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
