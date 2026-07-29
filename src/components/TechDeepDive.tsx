@@ -672,27 +672,18 @@ export function IphipiFeatures() {
     <div className="mt-10">
       {/* Header — eyebrow with a short accent rule, then heading/tagline. */}
       <div className="mx-auto max-w-2xl text-center">
-        <div className="flex items-center justify-center gap-3">
-          <span
-            className="h-px w-8"
-            style={{ backgroundColor: ACTIVE_THEME.accent }}
-          />
-          <p
-            className="text-xs font-semibold uppercase tracking-[0.2em]"
-            style={{ color: ACTIVE_THEME.accent }}
-          >
-            IPHIPI Technology
-          </p>
-        </div>
+        <p
+          className="text-xs font-semibold uppercase tracking-[0.2em]"
+          style={{ color: ACTIVE_THEME.accent }}
+        >
+          IPHIPI Technology
+        </p>
         <h3
           className="mt-4 text-subhead font-semibold tracking-tight"
           style={{ color: ACTIVE_THEME.secondary }}
         >
           Next-Generation Speech Enhancement
         </h3>
-        <p className="mt-3 leading-relaxed text-zinc-500">
-          Intelligent audio processing for real-world environments.
-        </p>
       </div>
 
       {/* Feature grid — numbered stat cards with a lift-on-hover interaction
@@ -701,7 +692,7 @@ export function IphipiFeatures() {
         {items.map((item, index) => (
           <div
             key={index}
-            className="group relative flex flex-col gap-4 rounded-2xl border p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+            className="group relative flex flex-col gap-4 rounded-2xl border p-5 shadow-sm"
             style={{
               backgroundColor: ACTIVE_THEME.cardBg,
               borderColor: theme.borderInactive,
@@ -798,6 +789,8 @@ export function OneMicSolution() {
 export function TwoMicSolution() {
   return (
     <div className="mt-16">
+      <IphipiFeatures />
+
       {/* <SectionHeading
         eyebrow="Dual Mic Speech Enhancement"
         title="Clear voice through dual-microphone intelligence"
@@ -997,6 +990,8 @@ export function TwoMicSolution() {
 export function FarFieldSolution() {
   return (
     <div className="mt-16">
+      <IphipiFeatures />
+
       {/* <SectionHeading
         eyebrow="Far-Field Speech Enhancement"
         title="Clear speech capture from a distance"
@@ -1125,6 +1120,8 @@ export function FarFieldSolution() {
 export function KeywordSpottingSolution() {
   return (
     <div className="mt-16">
+      <IphipiFeatures />
+
       {/* <SectionHeading
         eyebrow="The Intelligence Anchor"
         title="Always-on voice control with minimal power consumption"

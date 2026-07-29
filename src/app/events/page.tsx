@@ -368,12 +368,12 @@ const PAST: PastEvent[] = [
     location: "Hong Kong",
     image: "/samples/events-banner.jpg",
     body: "IPHIPI showcased adaptive audio intelligence live on the show floor — real-time single-mic noise suppression demos on glasses, running fully on-device with partner hardware.",
-    // Placeholder clips — replace with the actual CES 2026 footage once it's edited.
+    // Real Hong Kong show-floor footage — kept as a draft cut for now.
     videos: [
       {
-        label: "Show floor demo",
-        src: "/hero.mp4",
-        poster: "/our-story-poster.jpg",
+        label: "Show floor demo (draft)",
+        src: "/videos/hongkong-2025-draft.mp4",
+        poster: "/videos/hongkong-2025-draft-poster.jpg",
       },
     ],
   },

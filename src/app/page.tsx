@@ -1,4 +1,5 @@
 import BenchmarksSection from "@/components/BenchmarksSection";
+import FormFactorsSection from "@/components/FormFactorsSection";
 import Hero from "@/components/Hero";
 import MissionSection from "@/components/MissionSection";
 import PartnersSection from "@/components/PartnersSection";
@@ -12,6 +13,7 @@ export default function Home() {
       {/* <MissionSection /> */}
       <TechnologiesSection />
       <PillarsSection />
+      <FormFactorsSection />
       <PartnersSection />
       <BenchmarksSection />
     </div>

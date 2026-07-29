@@ -2,18 +2,15 @@
 
 import { theme, withAlpha } from "@/lib/theme";
 
-/* Patented Technologies Developed — horizontal-scroll video gallery.
-   Placeholder footage for now; swap `video` for real per-technology clips
-   once available (same placeholder convention used on the Events page).
+/* Patented Technologies Developed — static grid of per-technology clips.
    A client component (not the server-rendered research page) so the video's
    onLoadedMetadata handler is legal — passing an event handler to a
    Client Component prop from a Server Component crashes the page. */
 
 const PATENTED_TECH = [
-  { label: "Single-Mic ENC", tag: "Patent · Audio AI", video: "/hero.mp4" },
-  { label: "Dual-Mic ENC", tag: "Patent · Sensor Fusion", video: "/our-story-preview.mp4" },
-  { label: "Far-Field Speech Enhancement", tag: "Patent · Edge AI", video: "/our-story.mp4" },
-  { label: "Keyword Spotting", tag: "Patent · Low-Power AI", video: "/hero.mp4" },
+  { label: "Environmental Noise Cancellation (ENC)", tag: "Patent · Audio AI", video: "/patented-enc.mp4" },
+  { label: "Far-Field Speech Enhancement", tag: "Patent · Edge AI", video: "/patented-far-field.mp4" },
+  { label: "Keyword Spotting", tag: "Patent · Low-Power AI", video: "/patented-kws.mp4" },
 ];
 
 export default function PatentedTechShowcase() {
@@ -36,11 +33,11 @@ export default function PatentedTechShowcase() {
 
       {/* Static grid — all technologies visible at once, no horizontal
           scrolling/sliding. 2 columns on mobile, all 4 in one row from sm up. */}
-      <div className="mx-auto mt-8 grid max-w-7xl grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6">
+      <div className="mx-auto mt-8 grid max-w-7xl grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
         {PATENTED_TECH.map((tech) => (
           <div
             key={tech.label}
-            className="group relative aspect-[3/4] w-full overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+            className="group relative aspect-[3/4] w-full overflow-hidden rounded-2xl shadow-lg transition-shadow duration-300 hover:shadow-2xl"
             style={{
               backgroundColor: theme.primary,
               border: `1px solid ${withAlpha(theme.accent, 0.25)}`,

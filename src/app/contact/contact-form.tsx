@@ -774,7 +774,13 @@ const TECH_MAP: Record<string, string[]> = {
     "Keyword Spotting / Wake Word",
     "Far-Field Speech Enhancement",
   ],
-  "commercial-iot": ["Wake Word", "Far-Field", "Wake Word + Far-Field"],
+  "commercial-iot": [
+    "Wake Word",
+    "Far-Field",
+    "Wake Word + Far-Field",
+    "Single Mic Speech Enhancement",
+    "Dual Mic Speech Enhancement",
+  ],
   "chipset-odm": [], // Empty array will hide the technology section
 };
 
