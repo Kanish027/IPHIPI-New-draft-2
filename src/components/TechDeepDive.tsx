@@ -646,27 +646,151 @@ const WaveformPersonIcon = (
   </svg>
 );
 
+const DistanceIcon = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+    <path d="M3 12h18" />
+    <path d="m6 9-3 3 3 3" />
+    <path d="m18 9 3 3-3 3" />
+    <path d="M12 5v3" />
+    <path d="M12 16v3" />
+  </svg>
+);
+
+const MicChipIcon = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+    <rect x="7" y="3" width="10" height="12" rx="5" />
+    <path d="M12 15v3" />
+    <path d="M8 21h8" />
+    <path d="M4 8h3" />
+    <path d="M17 8h3" />
+  </svg>
+);
+
+const LatencyIcon = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+    <circle cx="12" cy="12" r="8.5" />
+    <path d="M12 7.5V12l3 2" />
+  </svg>
+);
+
+const PowerIcon = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+    <rect x="2.5" y="8" width="16" height="8" rx="2" />
+    <path d="M21 11v2" />
+    <path d="m10.5 10-2 3h3l-2 3" />
+  </svg>
+);
+
+const AccuracyIcon = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+    <circle cx="12" cy="12" r="8.5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="12" cy="12" r="0.5" />
+  </svg>
+);
+
+const BrandsIcon = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+    <rect x="3" y="3" width="7.5" height="7.5" rx="1.5" />
+    <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5" />
+    <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5" />
+    <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5" />
+  </svg>
+);
+
+const CommandIcon = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+    <path d="M5 7h14" />
+    <path d="M5 12h14" />
+    <path d="M5 17h14" />
+    <circle cx="9" cy="7" r="1.8" />
+    <circle cx="15" cy="12" r="1.8" />
+    <circle cx="10" cy="17" r="1.8" />
+  </svg>
+);
+
+const SplIcon = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+    <path d="M4 9.5h3L11 6v12L7 14.5H4z" />
+    <path d="M15 9a4.5 4.5 0 0 1 0 6" />
+    <path d="M18 6.5a8 8 0 0 1 0 11" />
+  </svg>
+);
+
+const WindIcon = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+    <path d="M3 8h11a3 3 0 1 0-3-3" />
+    <path d="M3 12.5h15a3 3 0 1 1-3 3" />
+    <path d="M3 17h8" />
+  </svg>
+);
+
+const TransitIcon = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+    <rect x="5" y="3" width="14" height="14" rx="3" />
+    <path d="M5 10h14" />
+    <path d="M9 21l1.5-4" />
+    <path d="M15 21l-1.5-4" />
+    <path d="M9.5 13.5h.01M14.5 13.5h.01" />
+  </svg>
+);
+
+const NonWearerIcon = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+    <circle cx="9" cy="7.5" r="3" />
+    <path d="M3.5 19a5.5 5.5 0 0 1 11 0" />
+    <path d="m17 7 4 4M21 7l-4 4" />
+  </svg>
+);
+
 // --- IPHIPI Features - Secondary background with white text ---
 
-export function IphipiFeatures() {
-  const items = [
-    {
-      icon: NetworkNodesIcon,
-      title: "Trained Across 100+ Real-World Noise Profiles",
-    },
-    {
-      icon: WaveformPersonIcon,
-      title: "Optimized for dynamic acoustic environments.",
-    },
-    {
-      icon: ShieldIcon,
-      title: "Real-Time Dereverberation",
-    },
-    {
-      icon: DspIcon,
-      title: "Environment-Adaptive Processing",
-    },
-  ];
+/** Per-technology spec sets. `default` is the generic fallback copy. */
+const FEATURE_SETS = {
+  default: {
+    heading: "Next-Generation Speech Enhancement",
+    items: [
+      { icon: NetworkNodesIcon, title: "Trained Across 100+ Real-World Noise Profiles" },
+      { icon: WaveformPersonIcon, title: "Optimized for dynamic acoustic environments." },
+      { icon: ShieldIcon, title: "Real-Time Dereverberation" },
+      { icon: DspIcon, title: "Environment-Adaptive Processing" },
+    ],
+  },
+  dualMic: {
+    heading: "Next-Generation Speech Enhancement",
+    items: [
+      { icon: NonWearerIcon, title: "Eliminates Non-Wearer Speech" },
+      { icon: SplIcon, title: "Noise Levels up to 85–90 dB SPL" },
+      { icon: WindIcon, title: "Wind Noise up to 80 kmph" },
+      { icon: TransitIcon, title: "Proven in Subway & Transit Noise" },
+    ],
+  },
+  farField: {
+    heading: "Next-Generation Speech Enhancement",
+    items: [
+      { icon: WaveformPersonIcon, title: "Speech Enhancement" },
+      { icon: DistanceIcon, title: "Up to 2m Speech Capture" },
+      { icon: MicChipIcon, title: "Support for Analog / MEMS Mics" },
+      { icon: LatencyIcon, title: "16ms Latency" },
+    ],
+  },
+  keywordSpotting: {
+    heading: "Always-On Keyword Spotting",
+    items: [
+      { icon: PowerIcon, title: "2mW Power Consumption" },
+      { icon: AccuracyIcon, title: "1 FA/day, 5% FR Rate" },
+      { icon: BrandsIcon, title: "Compatible Across Brands" },
+      { icon: CommandIcon, title: "Customisable Commands" },
+    ],
+  },
+} as const;
+
+export function IphipiFeatures({
+  variant = "default",
+}: {
+  variant?: keyof typeof FEATURE_SETS;
+}) {
+  const { heading, items } = FEATURE_SETS[variant];
 
   return (
     <div className="mt-10">
@@ -682,7 +806,7 @@ export function IphipiFeatures() {
           className="mt-4 text-subhead font-semibold tracking-tight"
           style={{ color: ACTIVE_THEME.secondary }}
         >
-          Next-Generation Speech Enhancement
+          {heading}
         </h3>
       </div>
 
@@ -789,7 +913,7 @@ export function OneMicSolution() {
 export function TwoMicSolution() {
   return (
     <div className="mt-16">
-      <IphipiFeatures />
+      <IphipiFeatures variant="dualMic" />
 
       {/* <SectionHeading
         eyebrow="Dual Mic Speech Enhancement"
@@ -990,7 +1114,7 @@ export function TwoMicSolution() {
 export function FarFieldSolution() {
   return (
     <div className="mt-16">
-      <IphipiFeatures />
+      <IphipiFeatures variant="farField" />
 
       {/* <SectionHeading
         eyebrow="Far-Field Speech Enhancement"
@@ -1120,7 +1244,7 @@ export function FarFieldSolution() {
 export function KeywordSpottingSolution() {
   return (
     <div className="mt-16">
-      <IphipiFeatures />
+      <IphipiFeatures variant="keywordSpotting" />
 
       {/* <SectionHeading
         eyebrow="The Intelligence Anchor"
